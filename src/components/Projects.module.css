@@ -1,0 +1,24 @@
+/* src/components/Projects.module.css */
+
+.projects {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #1a1a1a; /* A slightly different dark shade */
+  box-sizing: border-box;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.2em;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Adds space between cards */
+  max-width: 1200px;
+  margin: 0 auto; /* Centers the container */
+}

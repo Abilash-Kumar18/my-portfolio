@@ -1,0 +1,8 @@
+/* src/App.css */
+
+/* This makes your app take up the full screen height */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

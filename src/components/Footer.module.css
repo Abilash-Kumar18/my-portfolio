@@ -1,0 +1,11 @@
+/* src/components/Footer.module.css */
+
+.footer {
+  width: 100%;
+  padding: 20px;
+  margin-top: 40px; /* Give it some space from the content above */
+  text-align: center;
+  color: #a0a0a0;
+  border-top: 1px solid #3e3e3e;
+  box-sizing: border-box;
+}

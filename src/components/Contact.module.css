@@ -1,0 +1,74 @@
+/* src/components/Contact.module.css */
+
+.contact {
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.heading {
+  font-size: 2.2em;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.subtext {
+  font-size: 1.1em;
+  color: #a0a0a0;
+  margin-bottom: 30px;
+}
+
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.formGroup label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #c0c0c0;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #3e3e3e;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-size: 1em;
+  box-sizing: border-box; /* Important for padding */
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #61dafb;
+}
+
+.submitBtn {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitBtn:hover {
+  background-color: #00a8d8;
+}
