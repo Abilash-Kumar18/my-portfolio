@@ -1,0 +1,57 @@
+/* src/components/Header.module.css */
+
+.header {
+  width: 100%;
+  background-color: #1a1a1a; /* A dark background */
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #3e3e3e;
+  box-sizing: border-box; /* Makes padding behave nicely */
+}
+
+.title {
+  font-size: 2.5em; /* 'em' scales with browser font size */
+  color: #61dafb;   /* The React blue color */
+  margin: 0;
+  padding: 0;
+}
+
+.subtitle {
+  font-size: 1.1em;
+  color: #a0a0a0;
+  margin-top: 5px;
+}
+
+/* Add this to the bottom of src/components/Header.module.css */
+
+.header {
+  /* ... (your existing .header styles) ... */
+  /* We add flex to position the title and nav */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allows it to stack on small screens */
+}
+
+.headerContent {
+  text-align: left; /* Adjust alignment */
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px; /* Give it some spacing */
+}
+
+.nav a { /* This styles the <Link> component */
+  color: #c0c0c0;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: #61dafb;
+}
