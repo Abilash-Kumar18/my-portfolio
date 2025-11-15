@@ -7,7 +7,7 @@ import styles from './Projects.module.css';
 import AnimatedBackground from '../components/AnimatedBackground';
 import googleFormFiller from '../assets/projects/Agf.png';
 import n8nChatbot from '../assets/projects/n8n.png';
-import krishiSakhi from '../assets/projects/krishi.png';
+import krishiSakhi from '../assets/projects/Krishi.png';
 import portfolio from '../assets/projects/portfolio.png';
 
 const myProjects = [
