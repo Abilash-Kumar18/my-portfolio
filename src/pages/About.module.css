@@ -2,11 +2,9 @@
 
 .about {
   padding: 40px 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: left;
-  flex-grow: 1; /* This makes it fill the space */
-  line-height: 1.6;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .about h2 {

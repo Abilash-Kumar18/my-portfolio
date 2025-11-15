@@ -12,14 +12,16 @@ import About from './pages/About'
 function App() {
   return (
     <>
-      <Header title="Portfolio" subtitle="My React + Vite Project" />
+      <Header title="Portfolio" subtitle="My React + Vite Project" textAlign="center" />
 
-      {/* This is where your pages will be swapped in and out */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        {/* You can add more routes here later, like /projects */}
-      </Routes>
+      {/* Main content grows to fill the viewport (see src/App.css .main-content) */}
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          {/* You can add more routes here later, like /projects */}
+        </Routes>
+      </main>
 
       <Footer />
     </>

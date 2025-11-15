@@ -1,8 +1,26 @@
 /* src/App.css */
 
-/* This makes your app take up the full screen height */
+/* Ensure the page and root fill the full viewport */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+}
+
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+/* Main app area grows to fill remaining space */
+.main-content {
+  flex: 1 1 auto; /* grow and shrink as needed */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

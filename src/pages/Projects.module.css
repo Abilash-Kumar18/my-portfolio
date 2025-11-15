@@ -19,6 +19,6 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px; /* Adds space between cards */
-  max-width: 1200px;
-  margin: 0 auto; /* Centers the container */
+  width: 100%;
+  box-sizing: border-box;
 }
