@@ -23,6 +23,7 @@
   overflow: hidden;
   position: relative;
   background-color: #1a1a1a;
+  cursor: pointer;
 }
 
 .projectImage {
@@ -34,6 +35,39 @@
 
 .card:hover .projectImage {
   transform: scale(1.1);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.imageContainer:hover .imageOverlay {
+  opacity: 1;
+}
+
+.zoomIcon {
+  font-size: 2.5em;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .imagePlaceholder {

@@ -92,13 +92,13 @@ function About() {
         >
           <h2>About Me</h2>
           <p>
-            I am a 2nd year B.E CSE college student at KSR College of Engineering. 
-            I have a strong interest in Gen AI and automation tools like n8n. 
-            My goal is to pursue a career in an AI-based role, where I can leverage 
-            my skills in machine learning, automation, and software development to 
-            create innovative solutions. I am passionate about building projects that 
-            solve real-world problems and continuously learning new technologies in 
-            the field of artificial intelligence.
+            I am a dedicated second-year Computer Science and Engineering student at KSR College of Engineering, 
+            with a focused passion for Generative AI and workflow automation technologies, particularly n8n. 
+            My professional trajectory is oriented toward artificial intelligence, where I aim to synthesize 
+            expertise in machine learning, automation engineering, and full-stack development to architect 
+            transformative solutions. I am committed to developing projects that address tangible challenges 
+            and maintain a continuous learning mindset, staying current with emerging innovations in the 
+            artificial intelligence ecosystem.
           </p>
         </motion.section>
       </div>

@@ -62,7 +62,8 @@ function Contact() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Have a question or want to work together?
+          I welcome opportunities for collaboration, professional inquiries, and meaningful connections. 
+          Let's discuss how we can work together to create innovative solutions.
         </motion.p>
         
         <motion.form 

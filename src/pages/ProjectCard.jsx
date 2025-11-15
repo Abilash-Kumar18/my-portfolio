@@ -1,11 +1,18 @@
 // src/components/ProjectCard.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styles from './ProjectCard.module.css';
 
-function ProjectCard({ title, description, link, image }) {
+function ProjectCard({ title, description, link, image, onImageClick }) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imageRef = useRef(null);
+
+  const handleImageClick = () => {
+    if (onImageClick && image) {
+      onImageClick(image, title);
+    }
+  };
 
   return (
     <motion.div 
@@ -16,17 +23,24 @@ function ProjectCard({ title, description, link, image }) {
       transition={{ duration: 0.3 }}
     >
       {image && (
-        <div className={styles.imageContainer}>
+        <div 
+          className={styles.imageContainer}
+          onClick={handleImageClick}
+        >
           {!imageLoaded && (
             <div className={styles.imagePlaceholder}>Loading...</div>
           )}
           <img 
+            ref={imageRef}
             src={image} 
             alt={title}
             className={styles.projectImage}
             onLoad={() => setImageLoaded(true)}
             style={{ display: imageLoaded ? 'block' : 'none' }}
           />
+          <div className={styles.imageOverlay}>
+            <span className={styles.zoomIcon}>🔍</span>
+          </div>
         </div>
       )}
       {!image && (

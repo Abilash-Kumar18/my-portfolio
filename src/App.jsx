@@ -5,6 +5,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './pages/Header'
 import Footer from './pages/Footer'
+import Chatbot from './components/Chatbot'
 
 // Import your new pages
 import Home from './pages/Home'
@@ -32,6 +33,7 @@ function App() {
       </main>
 
       <Footer />
+      <Chatbot />
     </>
   )
 }

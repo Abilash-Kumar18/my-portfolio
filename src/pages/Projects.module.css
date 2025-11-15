@@ -16,13 +16,45 @@
   font-weight: 600;
 }
 
+.carouselWrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
 .container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
   gap: 20px;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: max-content;
+  animation: slideRightToLeft 40s linear infinite;
   box-sizing: border-box;
+  will-change: transform;
+}
+
+.container:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 10px));
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    animation-duration: 40s;
+  }
+}
+
+/* Duplicate cards for seamless loop */
+.container::after {
+  content: '';
+  display: none;
 }
