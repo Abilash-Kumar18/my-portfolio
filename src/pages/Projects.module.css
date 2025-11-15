@@ -3,22 +3,26 @@
 .projects {
   width: 100%;
   padding: 40px 20px;
-  background-color: #1a1a1a; /* A slightly different dark shade */
+  min-height: 100vh;
   box-sizing: border-box;
+  position: relative;
 }
 
 .heading {
   text-align: center;
   font-size: 2.2em;
-  color: #ffffff;
-  margin-bottom: 30px;
+  color: #61dafb;
+  margin-bottom: 40px;
+  font-weight: 600;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px; /* Adds space between cards */
+  gap: 20px;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   box-sizing: border-box;
 }

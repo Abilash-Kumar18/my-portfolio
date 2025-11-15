@@ -2,19 +2,71 @@
 
 .about {
   padding: 40px 20px;
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
 }
 
-.about h2 {
+.section {
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.section h2 {
   font-size: 2.2em;
   color: #61dafb;
   border-bottom: 2px solid #3e3e3e;
   padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.about p {
+.section h3 {
+  font-size: 1.8em;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.section p {
   font-size: 1.1em;
   color: #c0c0c0;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.infoItem {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 8px;
+  color: #c0c0c0;
+  font-size: 1.1em;
+}
+
+.infoItem strong {
+  color: #61dafb;
+  margin-right: 10px;
+}
+
+.education {
+  background-color: #2a2a2a;
+  padding: 30px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.education h3 {
+  color: #61dafb;
+  margin-bottom: 20px;
+}
+
+.education p {
+  margin-bottom: 10px;
 }

@@ -52,10 +52,28 @@
   text-decoration: none;
   font-size: 1.1em;
   font-weight: 500;
-  padding: 5px;
-  transition: color 0.2s;
+  padding: 5px 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #61dafb;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
 .nav a:hover {
   color: #61dafb;
+  transform: translateY(-2px);
+}
+
+.nav a:hover::after {
+  width: 100%;
+  left: 0;
 }

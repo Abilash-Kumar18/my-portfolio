@@ -1,7 +1,9 @@
+// src/pages/Contact.jsx
 
-
-import React, { useState } from 'react'; // <-- 1. Import useState
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import styles from './Contact.module.css';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 function Contact() {
   // 2. Set up state for each input field
@@ -26,59 +28,98 @@ function Contact() {
     setMessage('');
   };
 
+  const formVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <section className={styles.contact}>
-      <h2 className={styles.heading}>Contact Me</h2>
-      <p className={styles.subtext}>
-        Have a question or want to work together?
-      </p>
-      
-      {/* 5. Connect the handler to the form's onSubmit event */}
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label htmlFor="name">Name</label>
-          {/* 6. Connect the input to state with 'value' and 'onChange' */}
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-          />
-        </div>
+    <>
+      <AnimatedBackground />
+      <section className={styles.contact}>
+        <motion.h2 
+          className={styles.heading}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Contact Me
+        </motion.h2>
+        <motion.p 
+          className={styles.subtext}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          Have a question or want to work together?
+        </motion.p>
+        
+        <motion.form 
+          className={styles.form} 
+          onSubmit={handleSubmit}
+          variants={formVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div className={styles.formGroup} variants={itemVariants}>
+            <label htmlFor="name">Name</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+            />
+          </motion.div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="email">Email</label>
-          {/* 6. Connect the input to state with 'value' and 'onChange' */}
-          <input 
-            type="email" 
-            id="email" 
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required 
-          />
-        </div>
+          <motion.div className={styles.formGroup} variants={itemVariants}>
+            <label htmlFor="email">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
+          </motion.div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="message">Message</label>
-          {/* 6. Connect the input to state with 'value' and 'onChange' */}
-          <textarea 
-            id="message" 
-            name="message" 
-            rows="5" 
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-          ></textarea>
-        </div>
+          <motion.div className={styles.formGroup} variants={itemVariants}>
+            <label htmlFor="message">Message</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="5" 
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            ></textarea>
+          </motion.div>
 
-        <button type="submit" className={styles.submitBtn}>
-          Send Message
-        </button>
-      </form>
-    </section>
+          <motion.button 
+            type="submit" 
+            className={styles.submitBtn}
+            variants={itemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Send Message
+          </motion.button>
+        </motion.form>
+      </section>
+    </>
   );
 }
 

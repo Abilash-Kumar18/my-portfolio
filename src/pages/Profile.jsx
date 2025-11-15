@@ -1,30 +1,70 @@
 // src/components/Profile.jsx
 
 import React from 'react';
-import styles from './Profile.module.css'; // We'll create this next
-// You can import an image of yourself here later
+import { motion } from 'framer-motion';
+import styles from './Profile.module.css';
+
+// TODO: Add your profile photo here
 // import profilePic from '../assets/profile-pic.png'; 
 
 function Profile() {
-  return (
-    <main className={styles.profile}>
-      {/* <img src={profilePic} alt="My Profile Picture" className={styles.pic} /> */}
-      
-      <h2 className={styles.name}>Abilash Kumar R</h2>
-      <p className={styles.bio}>
-        Welcome to my portfolio! I'm a student and developer passionate about 
-        building cool things with React and AI.
-      </p>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
 
-      <h3>My Skills</h3>
-      <ul className={styles.skills}>
-        <li>JavaScript</li>
-        <li>React</li>
-        <li>Python</li>
-        <li>LangChain</li>
-        <li>n8n</li>
-      </ul>
-    </main>
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const skills = ['Python', 'Front end', 'Java', 'C'];
+
+  return (
+    <motion.main 
+      className={styles.profile}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* TODO: Uncomment and add your profile photo path */}
+      {/* <motion.img 
+        src={profilePic} 
+        alt="Abilash Kumar R" 
+        className={styles.pic}
+        variants={itemVariants}
+      /> */}
+      
+      <motion.h2 className={styles.name} variants={itemVariants}>
+        Abilash Kumar R
+      </motion.h2>
+      
+      <motion.p className={styles.bio} variants={itemVariants}>
+        I am a 2nd year B.E CSE student at KSR College of Engineering, interested in Gen AI and automation tools like n8n. I want to be in an AI-based role.
+      </motion.p>
+
+      <motion.h3 variants={itemVariants}>My Skills</motion.h3>
+      <motion.ul className={styles.skills} variants={containerVariants}>
+        {skills.map((skill, index) => (
+          <motion.li 
+            key={index}
+            variants={itemVariants}
+            whileHover={{ scale: 1.1 }}
+          >
+            {skill}
+          </motion.li>
+        ))}
+      </motion.ul>
+    </motion.main>
   );
 }
 

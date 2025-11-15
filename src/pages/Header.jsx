@@ -10,13 +10,15 @@ function Header({ title, subtitle }) {
       
       <div className={styles.headerContent}>
         <h1 className={styles.title}>{title}</h1>
-        <p className={styles.subtitle}>{subtitle}</p>
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
 
       {/* 2. Add your navigation links */}
       <nav className={styles.nav}>
         <Link to="/">Home</Link>
-        <Link to="/about">About Me</Link>
+        <Link to="/about">About</Link>
+        <Link to="/projects">Projects</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
 
     </header>
