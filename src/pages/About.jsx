@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './About.module.css';
 import AnimatedBackground from '../components/AnimatedBackground';
+import collegeImage from '../assets/college.jpg';
 
 function About() {
   const [isVisible, setIsVisible] = useState({});
@@ -68,14 +69,47 @@ function About() {
         </motion.section>
 
         <motion.section
+          ref={(el) => (sectionRefs.current['school'] = el)}
+          variants={sectionVariants}
+          initial="hidden"
+          animate={isVisible['school'] ? 'visible' : 'hidden'}
+          className={styles.section}
+        >
+          <h2>School Education</h2>
+          <div className={styles.education}>
+            <h3>Higher Secondary School</h3>
+            <p><strong>School:</strong> [Your School Name]</p>
+            <p><strong>Board:</strong> [Board Name - e.g., State Board/CBSE]</p>
+            <p><strong>Year of Completion:</strong> [Year]</p>
+            <p><strong>Percentage/Grade:</strong> [Percentage or Grade]</p>
+          </div>
+          <div className={styles.education}>
+            <h3>Secondary School</h3>
+            <p><strong>School:</strong> [Your School Name]</p>
+            <p><strong>Board:</strong> [Board Name - e.g., State Board/CBSE]</p>
+            <p><strong>Year of Completion:</strong> [Year]</p>
+            <p><strong>Percentage/Grade:</strong> [Percentage or Grade]</p>
+          </div>
+        </motion.section>
+
+        <motion.section
           ref={(el) => (sectionRefs.current['education'] = el)}
           variants={sectionVariants}
           initial="hidden"
           animate={isVisible['education'] ? 'visible' : 'hidden'}
           className={styles.section}
         >
-          <h2>Education</h2>
+          <h2>Higher Education</h2>
           <div className={styles.education}>
+            <div className={styles.collegeImageContainer}>
+              <motion.img
+                src={collegeImage}
+                alt="KSR College of Engineering"
+                className={styles.collegeImage}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
             <h3>KSR College of Engineering, Thiruchengode</h3>
             <p><strong>Department:</strong> B.E Computer Science and Engineering</p>
             <p><strong>Year:</strong> 2nd Year</p>

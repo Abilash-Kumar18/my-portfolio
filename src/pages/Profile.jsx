@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import TypingAnimation from '../components/TypingAnimation';
 import styles from './Profile.module.css';
 
 // TODO: Add your profile photo here
@@ -77,8 +78,13 @@ function Profile() {
       />
       
       <motion.h2 className={styles.name} variants={itemVariants}>
-        Abilash Kumar R
+        Hey! This is <span className={styles.nameHighlight}>Abilash Kumar R</span>
       </motion.h2>
+      
+      <motion.div className={styles.typingWrapper} variants={itemVariants}>
+        <span className={styles.typingPrefix}>I'm a </span>
+        <TypingAnimation />
+      </motion.div>
       
       <motion.p className={styles.bio} variants={itemVariants}>
         A dedicated Computer Science and Engineering student specializing in Generative AI and workflow automation. 

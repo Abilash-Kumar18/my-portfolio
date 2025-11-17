@@ -1,0 +1,31 @@
+/* src/components/TypingAnimation.module.css */
+
+.typingContainer {
+  display: inline-block;
+  color: #61dafb;
+  font-weight: 600;
+}
+
+.typingText {
+  display: inline-block;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #61dafb;
+  font-weight: 300;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+

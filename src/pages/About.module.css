@@ -70,3 +70,27 @@
 .education p {
   margin-bottom: 10px;
 }
+
+.collegeImageContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(97, 218, 251, 0.3);
+  transition: all 0.3s ease;
+}
+
+.collegeImageContainer:hover {
+  border-color: rgba(97, 218, 251, 0.6);
+  box-shadow: 0 12px 32px rgba(97, 218, 251, 0.3);
+}
+
+.collegeImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  cursor: pointer;
+}
