@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import '@n8n/chat/style.css';
 import { createChat } from '@n8n/chat';
-import './Chatbot.module.css';
 
 function Chatbot() {
   useEffect(() => {
@@ -25,192 +24,114 @@ function Chatbot() {
       showWelcomeScreen: true,
       defaultLanguage: 'en',
       initialMessages: [
-        'Hello! 👋 Welcome to my portfolio!',
-        'I\'m your AI assistant here to help you learn more about this website and Abilash Kumar R.',
-        'You can ask me about:',
-        '• Projects and work experience',
-        '• Skills and technologies',
-        '• Education and background',
-        '• How to get in touch',
-        'What would you like to know?'
+        'Hello! 👋 I am Abilash\'s AI Assistant.',
+        'Ask me about his projects, skills, or resume!'
       ],
       i18n: {
         en: {
-          title: 'Portfolio AI Assistant 🤖',
-          subtitle: 'Ask me anything about this portfolio, projects, skills, or experience!',
-          footer: 'Powered by n8n & AI',
-          getStarted: 'Start Conversation',
-          inputPlaceholder: 'Ask about projects, skills, or experience...',
+          title: 'Portfolio Assistant',
+          subtitle: '', 
+          footer: '',
+          getStarted: 'Start Chat',
+          inputPlaceholder: 'Type your question...',
         },
       },
-      enableStreaming: false,
-      theme: {
-        primaryColor: '#61dafb',
-        secondaryColor: '#00a8d8',
-        backgroundColor: '#1a1a1a',
-        textColor: '#ffffff',
-        fontFamily: 'Inter, sans-serif'
-      }
     });
 
-    // Apply custom styles after chat is created
     const applyCustomStyles = () => {
-      // Remove any existing custom style
       const existingStyle = document.getElementById('n8n-chat-custom-styles');
-      if (existingStyle) {
-        existingStyle.remove();
-      }
+      if (existingStyle) existingStyle.remove();
 
       const style = document.createElement('style');
       style.id = 'n8n-chat-custom-styles';
+      
+      // Here we override the CSS variables to match your Dark + Cyan Theme
       style.textContent = `
-        /* Chatbot container */
-        #n8n-chat {
-          font-family: 'Inter', sans-serif !important;
+        :root {
+            /* PRIMARY ACCENT (Cyan - #61dafb) - Used for Toggle Button */
+            --chat--color--primary: #61dafb;
+            --chat--color--primary-shade-50: #50c5e6;
+            --chat--color--primary--shade-100: #40b0d1;
+
+            /* SECONDARY ACCENT (User Bubbles) */
+            --chat--color--secondary: #61dafb;
+            --chat--color-secondary-shade-50: #50c5e6;
+
+            /* BACKGROUNDS (Dark Mode) */
+            --chat--color-light:rgb(255, 255, 255); /* Bot Bubble Background */
+            --chat--color-light-shade-50: #333333;
+            --chat--color-light-shade-100: #444444;
+            --chat--color-medium: #888888;
+            --chat--color-dark: #1a1a1a; /* Header & Window Background */
+            --chat--color-white:rgb(255, 255, 255); /* Text Color */
+            --chat--color-disabled: #555555;
+            --chat--color-typing:rgb(0, 0, 0);
+
+            /* DIMENSIONS & SPACING */
+            --chat--spacing: 1rem;
+            --chat--border-radius: 12px;
+            --chat--window--width: 380px;
+            --chat--window--height: 600px;
+            --chat--header-height: auto;
+            --chat--header--padding: 15px;
+        }
+
+        /* Force Dark Theme Overrides */
+        .n8n-chat-window {
+            background-color: var(--chat--color-dark) !important;
+            border: 1px solid #333 !important;
+        }
+
+        /* Header Styling */
+        .n8n-chat-header {
+            background-color: var(--chat--color-dark) !important;
+            border-bottom: 1px solid #333 !important;
         }
         
-        /* Chat window */
-        #n8n-chat [class*="window"],
-        #n8n-chat [class*="chat-window"],
-        #n8n-chat [class*="container"] {
-          background: rgba(26, 26, 26, 0.95) !important;
-          backdrop-filter: blur(10px) !important;
-          border: 1px solid rgba(97, 218, 251, 0.2) !important;
-          border-radius: 16px !important;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+        .n8n-chat-header-title {
+            color: var(--chat--color--primary) !important;
+            font-weight: 700 !important;
+        }
+
+        /* Bot Message (Dark Grey Bubble, White Text) */
+        .n8n-chat-message-bot {
+            background-color: #2a2a2a !important;
+            color: #e0e0e0 !important;
+            border: 1px solid #3e3e3e !important;
+        }
+
+        /* User Message (Cyan Bubble, Dark Text for contrast) */
+        .n8n-chat-message-user {
+            background-color: var(--chat--color--primary) !important;
+            color: #000000 !important; /* Black text on Cyan is easier to read */
+            font-weight: 500 !important;
+        }
+
+        /* Input Area */
+        .n8n-chat-input {
+            background-color: #2a2a2a !important;
+            color: white !important;
+            border: 1px solid #3e3e3e !important;
         }
         
-        /* Header */
-        #n8n-chat [class*="header"],
-        #n8n-chat [class*="title"] {
-          background: linear-gradient(135deg, rgba(97, 218, 251, 0.1) 0%, rgba(0, 168, 216, 0.1) 100%) !important;
-          color: #61dafb !important;
-          font-family: 'Inter', sans-serif !important;
-          font-weight: 600 !important;
-          border-bottom: 1px solid rgba(97, 218, 251, 0.2) !important;
+        .n8n-chat-input::placeholder {
+            color: #888 !important;
         }
-        
-        /* Input fields */
-        #n8n-chat input[type="text"],
-        #n8n-chat textarea,
-        #n8n-chat [class*="input"],
-        #n8n-chat [class*="text-input"] {
-          background: rgba(42, 42, 42, 0.8) !important;
-          color: #ffffff !important;
-          border: 2px solid #3e3e3e !important;
-          border-radius: 8px !important;
-          font-family: 'Inter', sans-serif !important;
-          padding: 12px 16px !important;
-          transition: all 0.3s ease !important;
-        }
-        
-        #n8n-chat input[type="text"]:focus,
-        #n8n-chat textarea:focus,
-        #n8n-chat [class*="input"]:focus {
-          outline: none !important;
-          border-color: #61dafb !important;
-          box-shadow: 0 0 0 4px rgba(97, 218, 251, 0.15) !important;
-          background: rgba(42, 42, 42, 1) !important;
-        }
-        
-        /* Buttons */
-        #n8n-chat button[type="submit"],
-        #n8n-chat [class*="send-button"],
-        #n8n-chat [class*="submit"],
-        #n8n-chat [class*="send"] {
-          background: linear-gradient(135deg, #61dafb 0%, #00a8d8 100%) !important;
-          color: #ffffff !important;
-          border: none !important;
-          border-radius: 8px !important;
-          font-family: 'Inter', sans-serif !important;
-          font-weight: 600 !important;
-          transition: all 0.3s ease !important;
-          cursor: pointer !important;
-        }
-        
-        #n8n-chat button[type="submit"]:hover,
-        #n8n-chat [class*="send-button"]:hover {
-          background: linear-gradient(135deg, #00a8d8 0%, #61dafb 100%) !important;
-          box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3) !important;
-          transform: translateY(-2px) !important;
-        }
-        
-        /* Toggle button */
-        #n8n-chat [class*="toggle"],
-        #n8n-chat [class*="chat-button"] {
-          background: linear-gradient(135deg, #61dafb 0%, #00a8d8 100%) !important;
-          color: #ffffff !important;
-          border: none !important;
-          border-radius: 50% !important;
-          box-shadow: 0 4px 12px rgba(97, 218, 251, 0.4) !important;
-          transition: all 0.3s ease !important;
-        }
-        
-        #n8n-chat [class*="toggle"]:hover {
-          box-shadow: 0 6px 20px rgba(97, 218, 251, 0.5) !important;
-          transform: scale(1.1) !important;
-        }
-        
-        /* Messages */
-        #n8n-chat [class*="message"] {
-          font-family: 'Inter', sans-serif !important;
-        }
-        
-        /* User messages */
-        #n8n-chat [class*="user-message"],
-        #n8n-chat [class*="user"] {
-          background: rgba(97, 218, 251, 0.2) !important;
-          color: #ffffff !important;
-          border: 1px solid rgba(97, 218, 251, 0.3) !important;
-        }
-        
-        /* Bot messages */
-        #n8n-chat [class*="bot-message"],
-        #n8n-chat [class*="assistant"] {
-          background: rgba(42, 42, 42, 0.8) !important;
-          color: #c0c0c0 !important;
-          border: 1px solid rgba(62, 62, 62, 0.5) !important;
-        }
-        
-        /* Scrollbar */
-        #n8n-chat ::-webkit-scrollbar {
-          width: 8px !important;
-        }
-        
-        #n8n-chat ::-webkit-scrollbar-track {
-          background: rgba(26, 26, 26, 0.5) !important;
-          border-radius: 4px !important;
-        }
-        
-        #n8n-chat ::-webkit-scrollbar-thumb {
-          background: rgba(97, 218, 251, 0.3) !important;
-          border-radius: 4px !important;
-        }
-        
-        #n8n-chat ::-webkit-scrollbar-thumb:hover {
-          background: rgba(97, 218, 251, 0.5) !important;
-        }
-        
-        /* Links */
-        #n8n-chat a {
-          color: #61dafb !important;
-        }
-        
-        #n8n-chat a:hover {
-          color: #00a8d8 !important;
+
+        /* Footer/Branding Removal (Optional) */
+        .n8n-chat-footer {
+            display: none !important;
         }
       `;
       document.head.appendChild(style);
     };
 
-    // Apply styles after delays to ensure chat is fully rendered
-    setTimeout(applyCustomStyles, 500);
+    setTimeout(applyCustomStyles, 100);
     setTimeout(applyCustomStyles, 1000);
-    setTimeout(applyCustomStyles, 2000);
+
   }, []);
 
   return <div id="n8n-chat"></div>;
 }
 
 export default Chatbot;
-
