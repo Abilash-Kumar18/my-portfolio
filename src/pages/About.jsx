@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import styles from './About.module.css';
 import AnimatedBackground from '../components/AnimatedBackground';
 import collegeImage from '../assets/college.jpg';
-
+import vincentPallotti from '../assets/vincent.jpg';
+import jayMatriculation from '../assets/jay.jpg';
 function About() {
   const [isVisible, setIsVisible] = useState({});
   const sectionRefs = useRef({});
@@ -63,7 +64,7 @@ function About() {
               <strong>Date of Birth:</strong> 6.11.2006
             </div>
             <div className={styles.infoItem}>
-              <strong>Address:</strong> Salem
+              <strong>Address:</strong> Salem, Tamilnadu
             </div>
           </div>
         </motion.section>
@@ -77,18 +78,36 @@ function About() {
         >
           <h2>School Education</h2>
           <div className={styles.education}>
+          <div className={styles.collegeImageContainer}>
+              <motion.img
+                src={vincentPallotti}
+                alt="Vincent Pallotti Hr Sec School"
+                className={styles.collegeImage}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
             <h3>Higher Secondary School</h3>
-            <p><strong>School:</strong> [Your School Name]</p>
-            <p><strong>Board:</strong> [Board Name - e.g., State Board/CBSE]</p>
-            <p><strong>Year of Completion:</strong> [Year]</p>
-            <p><strong>Percentage/Grade:</strong> [Percentage or Grade]</p>
+            <p><strong>School:</strong>St Vincent Pallotti Hr Sec School</p>
+            <p><strong>Board:</strong> State Board</p>
+            <p><strong>Year of Completion:</strong> 2024</p>
+            <p><strong>Percentage/Grade:</strong> 94%</p>
           </div>
           <div className={styles.education}>
+          <div className={styles.collegeImageContainer}>
+              <motion.img
+                src={jayMatriculation}
+                alt="Jay Matriculation Hr Sec School"
+                className={styles.collegeImage}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
             <h3>Secondary School</h3>
-            <p><strong>School:</strong> [Your School Name]</p>
-            <p><strong>Board:</strong> [Board Name - e.g., State Board/CBSE]</p>
-            <p><strong>Year of Completion:</strong> [Year]</p>
-            <p><strong>Percentage/Grade:</strong> [Percentage or Grade]</p>
+            <p><strong>School:</strong> Jay Matriculation Hr Sec School</p>
+            <p><strong>Board:</strong> State Board</p>
+            <p><strong>Year of Completion:</strong> 2022</p>
+            <p><strong>Percentage/Grade:</strong> 88%</p>
           </div>
         </motion.section>
 
