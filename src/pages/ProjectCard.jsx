@@ -20,7 +20,7 @@ function ProjectCard({ title, description, link, image, onImageClick }) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05, y: -10 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
     >
       {image && (
         <div 

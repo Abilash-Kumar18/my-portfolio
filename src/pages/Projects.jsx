@@ -8,7 +8,7 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import googleFormFiller from '../assets/projects/Agf.png';
 import n8nChatbot from '../assets/projects/n8n.png';
 import krishiSakhi from '../assets/projects/Krishi.png';
-import portfolio from '../assets/projects/portfolio.png';
+
 
 const myProjects = [
   {
@@ -28,13 +28,8 @@ const myProjects = [
     description: "A comprehensive agricultural technology platform designed to empower farming communities with data-driven insights. Delivers real-time weather analytics, crop management recommendations, and agricultural best practices through an intuitive web interface. Built with Python and Streamlit framework, deployed on cloud infrastructure for scalable accessibility.",
     link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
     image: krishiSakhi 
-  },
-  {
-    title: "Portfolio Website",
-    description: "A contemporary, fully responsive portfolio application architected with React and Vite build system. Implements advanced animation libraries, seamless page transitions, and a meticulously crafted user interface that effectively showcases technical projects, professional competencies, and creative achievements.",
-    link: "https://69175e0b3d12ab3bde4a89d9--thunderous-pony-c152c0.netlify.app/",
-    image: portfolio 
   }
+  
 ];
 
 function Projects() {
@@ -88,7 +83,7 @@ function Projects() {
             {/* First set of cards */}
             {myProjects.map((project, index) => (
               <ProjectCard
-                key={`first-${index}`}
+                key={`firstSet-${index}`}
                 title={project.title}
                 description={project.description}
                 link={project.link}
@@ -99,7 +94,7 @@ function Projects() {
             {/* Duplicate set for seamless loop */}
             {myProjects.map((project, index) => (
               <ProjectCard
-                key={`second-${index}`}
+                key={`secoundSet-${index}`}
                 title={project.title}
                 description={project.description}
                 link={project.link}
