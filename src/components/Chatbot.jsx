@@ -8,7 +8,7 @@ import './Chatbot.module.css';
 function Chatbot() {
   useEffect(() => {
     createChat({
-      webhookUrl: 'http://localhost:5678/webhook/2a421af6-ac4c-45e5-8193-9193e31838e0/chat',
+      webhookUrl: 'http://localhost:5678/webhook/823e83c0-17d3-44eb-bbff-55eb1e3d1be6/chat',
       webhookConfig: {
         method: 'POST',
         headers: {}
