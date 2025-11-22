@@ -77,3 +77,14 @@
   width: 100%;
   left: 0;
 }
+
+.active {
+  color: #61dafb !important; /* Force the text to be Cyan */
+}
+
+/* This keeps the underline visible permanently for the active link */
+.active::after {
+  width: 100% !important;
+  left: 0 !important;
+  background-color: #61dafb;
+}

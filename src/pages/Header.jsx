@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 
 import React from 'react';
-import { Link } from 'react-router-dom'; // <-- 1. Import Link
+import { NavLink } from 'react-router-dom'; // <-- Change Import to NavLink
 import styles from './Header.module.css';
 
 function Header({ title, subtitle }) {
@@ -13,19 +13,46 @@ function Header({ title, subtitle }) {
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
 
-      {/* 2. Add your navigation links */}
       <nav className={styles.nav}>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/projects">Projects</Link>
-        <Link to="/resume">Resume</Link>
-        <Link to="/contact">Contact</Link>
+        {/* Use NavLink with a function to apply the active class */}
+        <NavLink 
+          to="/" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Home
+        </NavLink>
+
+        <NavLink 
+          to="/about" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          About
+        </NavLink>
+
+        <NavLink 
+          to="/projects" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Projects
+        </NavLink>
+
+        <NavLink 
+          to="/resume" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Resume
+        </NavLink>
+
+        <NavLink 
+          to="/contact" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Contact
+        </NavLink>
       </nav>
 
     </header>
   );
 }
-
-// ... (your defaultProps are fine)
 
 export default Header;
