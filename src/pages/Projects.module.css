@@ -6,6 +6,7 @@
   min-height: 100vh;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden; /* Ensures no horizontal scrollbar */
 }
 
 .heading {
@@ -21,6 +22,9 @@
   overflow: hidden;
   position: relative;
   padding: 20px 0;
+  /* Add a mask to fade edges (optional but looks cool) */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .container {
@@ -28,7 +32,8 @@
   flex-wrap: nowrap;
   gap: 20px;
   width: max-content;
-  animation: slideRightToLeft 40s linear infinite;
+  /* Animation speed adjusted for smoother flow */
+  animation: slideRightToLeft 50s linear infinite; 
   box-sizing: border-box;
   will-change: transform;
 }
@@ -42,7 +47,8 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-50% - 10px));
+    /* Move exactly 25% (one set of projects) to loop seamlessly */
+    transform: translateX(-25%);
   }
 }
 
@@ -51,10 +57,4 @@
   .container {
     animation-duration: 40s;
   }
-}
-
-/* Duplicate cards for seamless loop */
-.container::after {
-  content: '';
-  display: none;
 }
