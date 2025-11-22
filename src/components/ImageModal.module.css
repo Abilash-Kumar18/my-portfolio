@@ -1,133 +1,80 @@
 /* src/components/ImageModal.module.css */
 
-.backdrop {
+/* The full-screen background overlay */
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75); /* Dark semi-transparent background */
+  backdrop-filter: blur(8px); /* THIS IS THE BLUR EFFECT */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1001;
-  max-width: 90vw;
-  max-height: 90vh;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(97, 218, 251, 0.1);
+/* The actual box containing the image */
+.modalContent {
+  position: relative;
+  background-color: rgba(30, 30, 30, 0.9); /* Slight dark container */
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); /* Deep shadow for "pop" effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* Size constraints */
+  max-width: 900px;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(97, 218, 251, 0.2);
 }
 
+/* The Image Itself */
+.fullImage {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh; /* Ensures it doesn't fill the WHOLE screen vertically */
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* The Caption/Title below */
+.caption {
+  width: 100%;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.caption h3 {
+  color: #61dafb;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* The Close "X" Button */
 .closeButton {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+  top: -45px;
+  right: -10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 32px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 1002;
-  line-height: 1;
+  transition: transform 0.2s, color 0.2s;
+  z-index: 10001;
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: #61dafb;
-  box-shadow: 0 0 20px rgba(97, 218, 251, 0.4);
-}
-
-.closeButton svg {
-  stroke: #ffffff;
-}
-
-.imageContainer {
-  width: 100%;
-  max-height: 75vh;
-  overflow: hidden;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  position: relative;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(97, 218, 251, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modalImage {
-  max-width: 100%;
-  max-height: 75vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  border-radius: 12px;
-  margin: 0 auto;
-}
-
-.modalTitle {
   color: #61dafb;
-  font-size: 1.8em;
-  margin: 0;
-  text-align: center;
-  font-weight: 600;
-  text-shadow: 0 2px 10px rgba(97, 218, 251, 0.3);
+  transform: scale(1.2) rotate(90deg);
 }
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .modal {
-    max-width: 95vw;
-    padding: 20px;
-    border-radius: 15px;
-  }
-  
-  .closeButton {
-    width: 40px;
-    height: 40px;
-    top: 10px;
-    right: 10px;
-  }
-
-  .modalTitle {
-    font-size: 1.4em;
-  }
-
-  .imageContainer {
-    max-height: 70vh;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .modal,
-  .backdrop,
-  .closeButton {
-    transition: none;
-  }
-}
-
