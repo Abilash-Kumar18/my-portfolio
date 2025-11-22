@@ -102,7 +102,7 @@ function Resume() {
 
   return (
     <>
-      <AnimatedBackground />
+      
       <section className={styles.resume}>
         <motion.div
           className={styles.container}

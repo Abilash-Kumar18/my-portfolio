@@ -8,7 +8,7 @@ import AnimatedBackground from '../components/AnimatedBackground';
 function Home() {
   return (
     <>
-      <AnimatedBackground />
+      
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

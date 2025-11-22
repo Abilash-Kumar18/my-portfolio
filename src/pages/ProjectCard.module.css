@@ -112,21 +112,28 @@
 
 /* BUTTON AREA */
 /* This ensures the button is always at the bottom */
+/* src/components/ProjectCard.module.css */
+
 .link {
-  color: #ffffff;
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: #000000; /* Black text looks better on bright gold */
+  /* Fire Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
   padding: 10px 0;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 700; /* Bolder text */
   transition: all 0.3s ease;
   display: block;
   text-align: center;
   width: 100%;
-  margin-top: auto; /* Magic CSS: Pushes it to the bottom */
+  margin-top: auto;
+  /* Add a glow */
+  box-shadow: 0 4px 15px rgba(224, 122, 48, 0.3);
 }
 
 .link:hover {
-  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  /* Reverse gradient on hover */
+  background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  transform: translateY(-2px);
 }

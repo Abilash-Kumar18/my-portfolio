@@ -15,7 +15,7 @@
 
 .heading {
   font-size: 2.8em;
-  color: #61dafb;
+  color: #f5c542;
   margin-bottom: 15px;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
@@ -55,7 +55,7 @@
 
 .formGroup label {
   font-weight: 600;
-  color: #61dafb;
+  color: #f5c542;
   font-size: 0.95em;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.5px;
@@ -93,10 +93,8 @@
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: #61dafb;
-  background-color: rgba(42, 42, 42, 1);
-  box-shadow: 0 0 0 4px rgba(97, 218, 251, 0.15), 0 4px 12px rgba(97, 218, 251, 0.2);
-  transform: translateY(-1px);
+  border-color: #f5c542; /* Gold Border */
+  box-shadow: 0 0 10px rgba(245, 197, 66, 0.2);
 }
 
 .formGroup textarea {
@@ -105,29 +103,30 @@
   line-height: 1.5;
 }
 
+/* src/pages/Contact.module.css */
+
+/* Fix the Input Focus color */
+
+
+/* Fix the Send Button */
 .submitBtn {
-  padding: 16px 32px;
+  padding: 12px 20px;
   font-size: 1.1em;
-  font-weight: 600;
-  color: #ffffff;
-  background: linear-gradient(135deg, #61dafb 0%, #00a8d8 100%);
+  font-weight: 700;
+  color: #000000; /* Black text */
+  /* Fire Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
-  font-family: 'Inter', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(224, 122, 48, 0.3);
 }
 
 .submitBtn:hover {
-  background: linear-gradient(135deg, #00a8d8 0%, #61dafb 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(97, 218, 251, 0.4);
+  background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
 }
-
 .submitBtn:active {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);

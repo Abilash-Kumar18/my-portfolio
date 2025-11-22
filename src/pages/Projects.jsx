@@ -55,7 +55,7 @@ function Projects() {
 
   return (
     <>
-      <AnimatedBackground />
+      
       <section className={styles.projects}>
         <motion.h2 
           className={styles.heading}

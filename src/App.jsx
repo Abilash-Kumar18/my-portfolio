@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion'
 import Header from './pages/Header'
 import Footer from './pages/Footer'
 import Chatbot from './components/Chatbot'
+import VideoBackground from './components/VideoBackground'; // <-- Imported here
 
 // Import your new pages
 import Home from './pages/Home'
@@ -19,9 +20,12 @@ function App() {
 
   return (
     <>
+      {/* 1. Add the Video Background here */}
+      <VideoBackground />
+
       <Header title="Portfolio" subtitle="" textAlign="center" />
 
-      {/* Main content grows to fill the viewport (see src/App.css .main-content) */}
+      {/* Main content grows to fill the viewport */}
       <main className="main-content">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>

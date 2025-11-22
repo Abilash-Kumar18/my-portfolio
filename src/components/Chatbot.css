@@ -1,0 +1,28 @@
+/* src/components/Chatbot.css */
+
+/* Force the toggle button to Gold */
+.n8n-chat-toggle-button {
+    background-color: #f5c542 !important;
+    color: black !important;
+}
+
+/* Fix Window Size */
+.n8n-chat-window {
+    width: 380px !important;
+    height: 600px !important;
+    max-height: 80vh !important; /* Prevents it from hitting the header */
+    bottom: 80px !important; /* Moves it up slightly */
+    background-color: #1a1a1a !important;
+}
+
+/* Hide Footer branding */
+.n8n-chat-footer {
+    display: none !important;
+}
+
+/* Force Gold on the Start Button */
+button.n8n-chat-button {
+    background-color: #f5c542 !important;
+    color: black !important;
+    border: none !important;
+}

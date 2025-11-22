@@ -2,7 +2,7 @@
 
 .typingContainer {
   display: inline-block;
-  color: #61dafb;
+  color: #f5c542;
   font-weight: 600;
 }
 
@@ -15,7 +15,7 @@
 .cursor {
   display: inline-block;
   margin-left: 2px;
-  color: #61dafb;
+  color: #f5c542;
   font-weight: 300;
   animation: blink 1s infinite;
 }

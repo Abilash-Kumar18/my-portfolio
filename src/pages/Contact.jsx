@@ -46,7 +46,7 @@ function Contact() {
 
   return (
     <>
-      <AnimatedBackground />
+      
       <section className={styles.contact}>
         <motion.h2 
           className={styles.heading}

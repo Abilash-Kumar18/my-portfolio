@@ -1,28 +1,38 @@
 /* src/components/Profile.module.css */
 
 .profile {
-  /* This centers your content vertically and horizontally */
   flex-grow: 1; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
   padding: 40px 20px;
+  
+  /* ADD THIS LINE: Gives space between the orbit and the footer */
+  padding-bottom: 80px; 
+  
   text-align: center;
+  min-height: 80vh;
+}
+
+.picContainer {
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .pic {
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  border: 4px solid #61dafb;
-  margin-bottom: 20px;
   object-fit: cover;
   cursor: pointer;
+  
+  /* Glowing Amber Border */
+  border: 4px solid #f5c542; 
+  box-shadow: 0 0 25px rgba(224, 122, 48, 0.4); /* Deep Orange Glow */
+  
   transition: all 0.3s ease;
 }
-
 .name {
   font-size: 2.5em;
   margin: 10px 0;
@@ -30,22 +40,30 @@
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   line-height: 1.2;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 1); /* Better readability over video */
 }
 
 .nameHighlight {
-  color: #61dafb;
+  /* The "Event Horizon" Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #f5c542 50%, #E07A30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 700;
+  
+  /* Subtle glow to make it look hot */
+  filter: drop-shadow(0 0 5px rgba(224, 122, 48, 0.3));
 }
 
 .typingWrapper {
   font-size: 1.8em;
-  margin: 15px 0;
-  min-height: 2em;
+  margin: 10px 0 20px;
+  min-height: 1.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 8px;
   font-family: 'Inter', sans-serif;
 }
 
@@ -54,61 +72,38 @@
   font-weight: 400;
 }
 
+.typingText {
+  /* Matching Gradient for the typing animation */
+  background: linear-gradient(135deg, #f5c542 0%, #E07A30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
 .bio {
   font-size: 1.1em;
-  color: #a0a0a0;
-  max-width: 600px;
+  color: #e0e0e0; /* Slightly brighter for video bg */
+  max-width: 700px;
   margin-bottom: 30px;
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); /* Essential for readability */
 }
 
-.skills {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-.skillItem {
-  background-color: #3e3e3e;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  cursor: default;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  position: relative;
-  min-width: 60px;
-  min-height: 60px;
-}
-
-.skillItem:hover {
-  background-color: #4a4a4a;
-  border-color: #61dafb;
-  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
-}
-
-.techLogo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  filter: brightness(0.9);
-  transition: filter 0.3s ease, transform 0.2s ease;
-}
-
-.skillItem:hover .techLogo {
-  filter: brightness(1.2);
-  transform: scale(1.1);
-}
-
-.techName {
-  font-size: 0.9em;
-  color: #c0c0c0;
-  margin-left: 8px;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .name {
+    font-size: 2em;
+    
+  }
+  
+  .typingWrapper {
+    font-size: 1.4em;
+  }
+  
+  .pic {
+    width: 140px;
+    height: 140px;
+  }
 }

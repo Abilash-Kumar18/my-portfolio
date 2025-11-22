@@ -2,22 +2,11 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import TypingAnimation from '../components/TypingAnimation';
+import { ReactTyped } from "react-typed";
 import styles from './Profile.module.css';
-
-// TODO: Add your profile photo here
-import profilePic from '../assets/profile.jpg'; 
-
-// Technology logos - using CDN URLs for open source logos
-const technologyLogos = {
-  Python: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-  Java: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-  C: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg',
-  'Front end': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-  n8n: 'https://raw.githubusercontent.com/n8n-io/n8n/master/packages/design-system/src/assets/images/n8n-icon.svg'
-};
-
-const skills = ['Python', 'Java', 'C', 'Front end', 'n8n'];
+import profilePic from '../assets/profile.jpg'; // Ensure this path is correct
+import TechOrbit from '../components/TechOrbit';
+import ScrollArrow from '../components/ScrollArrow';
 
 function Profile() {
   const containerVariants = {
@@ -67,15 +56,17 @@ function Profile() {
       initial="hidden"
       animate="visible"
     >
-      <motion.img 
-        src={profilePic} 
-        alt="Abilash Kumar R" 
-        className={styles.pic}
-        variants={profileImageVariants}
-        initial="hidden"
-        animate="visible"
-        whileHover="hover"
-      />
+      <div className={styles.picContainer}>
+        <motion.img 
+          src={profilePic} 
+          alt="Abilash Kumar R" 
+          className={styles.pic}
+          variants={profileImageVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
+        />
+      </div>
       
       <motion.h2 className={styles.name} variants={itemVariants}>
         Hey! This is <span className={styles.nameHighlight}>Abilash Kumar R</span>
@@ -83,38 +74,37 @@ function Profile() {
       
       <motion.div className={styles.typingWrapper} variants={itemVariants}>
         <span className={styles.typingPrefix}>I'm a </span>
-        <TypingAnimation />
+        <ReactTyped
+          strings={[
+            "Problem Solver",
+            "Full Stack Developer",
+            "Generative AI Enthusiast",
+            "Workflow Automator"
+          ]}
+          typeSpeed={50}
+          backSpeed={30}
+          loop
+          className={styles.typingText}
+        />
       </motion.div>
       
       <motion.p className={styles.bio} variants={itemVariants}>
-        A dedicated Computer Science and Engineering student specializing in Generative AI and workflow automation. 
-        Passionate about leveraging cutting-edge technologies to build intelligent solutions that drive innovation 
-        and solve complex challenges in the artificial intelligence domain.
+        A dedicated Computer Science and Engineering student specializing in 
+        Generative AI and workflow automation. Passionate about leveraging 
+        cutting-edge technologies to build intelligent solutions that drive 
+        innovation and solve complex challenges in the artificial intelligence 
+        domain.
       </motion.p>
 
-      <motion.h3 variants={itemVariants}>My Skills</motion.h3>
-      <motion.ul className={styles.skills} variants={containerVariants}>
-        {skills.map((skill, index) => (
-          <motion.li 
-            key={index}
-            variants={itemVariants}
-            whileHover={{ scale: 1.15, rotate: 5 }}
-            className={styles.skillItem}
-          >
-            <img 
-              src={technologyLogos[skill]} 
-              alt={skill}
-              className={styles.techLogo}
-              onError={(e) => {
-                // Fallback to text if image fails to load
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'inline';
-              }}
-            />
-            <span className={styles.techName} style={{ display: 'none' }}>{skill}</span>
-          </motion.li>
-        ))}
-      </motion.ul>
+      {/* Replaced old static skills list with the new Orbit & Arrow */}
+      <motion.div variants={itemVariants}>
+        <ScrollArrow />
+      </motion.div>
+
+      <motion.div variants={itemVariants}>
+        <TechOrbit />
+      </motion.div>
+
     </motion.main>
   );
 }

@@ -19,7 +19,7 @@ function Footer() {
       name: 'GitHub',
       icon: FaGithub,
       url: 'https://github.com/Abilash-Kumar18',
-      color: '#333'
+      color: '#ffffff'
     },
     {
       name: 'Instagram',

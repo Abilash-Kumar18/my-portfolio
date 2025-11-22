@@ -36,6 +36,14 @@ function Chatbot() {
           inputPlaceholder: 'Type your question...',
         },
       },
+      // Base theme initialization
+      theme: {
+        primaryColor: '#f5c542', 
+        secondaryColor: '#E07A30',
+        backgroundColor: '#1a1a1a',
+        textColor: '#ffffff',
+        fontFamily: 'Inter, sans-serif'
+      }
     });
 
     const applyCustomStyles = () => {
@@ -45,27 +53,27 @@ function Chatbot() {
       const style = document.createElement('style');
       style.id = 'n8n-chat-custom-styles';
       
-      // Here we override the CSS variables to match your Dark + Cyan Theme
+      // "Event Horizon" Theme Overrides
       style.textContent = `
         :root {
-            /* PRIMARY ACCENT (Cyan - #61dafb) - Used for Toggle Button */
-            --chat--color--primary: #61dafb;
-            --chat--color--primary-shade-50: #50c5e6;
-            --chat--color--primary--shade-100: #40b0d1;
+            /* PRIMARY ACCENT (Main Gold) - For Toggle Button & Headers */
+            --chat--color--primary: #f5c542; 
+            --chat--color--primary-shade-50: #e0b436;
+            --chat--color--primary--shade-100: #c9a230;
 
-            /* SECONDARY ACCENT (User Bubbles) */
-            --chat--color--secondary: #61dafb;
-            --chat--color-secondary-shade-50: #50c5e6;
+            /* SECONDARY ACCENT (Deep Orange) - For User Bubbles (The Heat!) */
+            --chat--color--secondary: #E07A30; 
+            --chat--color-secondary-shade-50: #c46624;
 
-            /* BACKGROUNDS (Dark Mode) */
-            --chat--color-light:rgb(255, 255, 255); /* Bot Bubble Background */
+            /* BACKGROUNDS (Dark Mode Fixed) */
+            --chat--color-light: #2a2a2a; /* Bot Bubble Background (Dark Grey) */
             --chat--color-light-shade-50: #333333;
             --chat--color-light-shade-100: #444444;
             --chat--color-medium: #888888;
             --chat--color-dark: #1a1a1a; /* Header & Window Background */
-            --chat--color-white:rgb(255, 255, 255); /* Text Color */
+            --chat--color-white: #ffffff; /* Text Color */
             --chat--color-disabled: #555555;
-            --chat--color-typing:rgb(0, 0, 0);
+            --chat--color-typing: #f5c542; /* Gold typing dots */
 
             /* DIMENSIONS & SPACING */
             --chat--spacing: 1rem;
@@ -79,7 +87,7 @@ function Chatbot() {
         /* Force Dark Theme Overrides */
         .n8n-chat-window {
             background-color: var(--chat--color-dark) !important;
-            border: 1px solid #333 !important;
+            border: 1px solid #d7a100ff !important;
         }
 
         /* Header Styling */
@@ -95,15 +103,15 @@ function Chatbot() {
 
         /* Bot Message (Dark Grey Bubble, White Text) */
         .n8n-chat-message-bot {
-            background-color: #2a2a2a !important;
+            background-color: #b5b5b5ff !important;
             color: #e0e0e0 !important;
             border: 1px solid #3e3e3e !important;
         }
 
-        /* User Message (Cyan Bubble, Dark Text for contrast) */
+        /* User Message (Deep Orange Bubble, White Text) */
         .n8n-chat-message-user {
-            background-color: var(--chat--color--primary) !important;
-            color: #000000 !important; /* Black text on Cyan is easier to read */
+            background-color: var(--chat--color--secondary) !important;
+            color: #000000ff !important; 
             font-weight: 500 !important;
         }
 
@@ -118,7 +126,7 @@ function Chatbot() {
             color: #888 !important;
         }
 
-        /* Footer/Branding Removal (Optional) */
+        /* Footer/Branding Removal */
         .n8n-chat-footer {
             display: none !important;
         }
@@ -126,6 +134,7 @@ function Chatbot() {
       document.head.appendChild(style);
     };
 
+    // Apply styles after delays to ensure chat renders first
     setTimeout(applyCustomStyles, 100);
     setTimeout(applyCustomStyles, 1000);
 
