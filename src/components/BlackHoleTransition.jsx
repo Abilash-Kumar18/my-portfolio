@@ -41,14 +41,16 @@ function BlackHoleTransition({ children, isSuckedIn = false }) {
       // If game is active (isSuckedIn), use 'suckedIn' variant, otherwise 'visible'
       animate={isSuckedIn ? "suckedIn" : "visible"} 
       exit="exit"
-      style={{ 
-        width: '100%', 
-        transformOrigin: 'center center',
-        overflow: 'hidden',
-        willChange: 'transform, opacity',
-        backfaceVisibility: 'hidden',
-        transform: 'translateZ(0)',
-      }}
+style={{ 
+  width: '100%', 
+  transformOrigin: 'center center',
+  overflow: 'hidden',
+  
+  // ADD THESE LINES FOR GPU ACCELERATION:
+  willChange: 'transform, opacity',
+  backfaceVisibility: 'hidden',
+  transform: 'translateZ(0)' 
+}}
     >
       {children}
     </motion.div>

@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import ProjectCard from './ProjectCard.jsx';
 import ImageModal from '../components/ImageModal';
 import styles from './Projects.module.css';
-import AnimatedBackground from '../components/AnimatedBackground';
-import googleFormFiller from '../assets/projects/Agf.png';
-import n8nChatbot from '../assets/projects/n8n.png';
-import krishiSakhi from '../assets/projects/Krishi.png';
+
+import googleFormFiller from '../assets/projects/Agf.webp';
+import n8nChatbot from '../assets/projects/n8n.webp';
+import krishiSakhi from '../assets/projects/Krishi.webp';
 
 const myProjects = [
   {

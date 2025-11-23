@@ -55,7 +55,7 @@
 .downloadBtn:hover {
   background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-  transform: translateY(-2px);
+  transform: translateY(0);
 }
 
 .viewerContainer {

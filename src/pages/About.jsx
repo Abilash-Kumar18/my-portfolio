@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './About.module.css';
 // Removed AnimatedBackground import
-import collegeImage from '../assets/college.jpg';
-import vincentPallotti from '../assets/vincent.jpg';
-import jayMatriculation from '../assets/Jay.jpg';
+import collegeImage from '../assets/college.webp';
+import vincentPallotti from '../assets/vincent.webp';
+import jayMatriculation from '../assets/Jay.webp';
 
 function About() {
   const [isVisible, setIsVisible] = useState({});

@@ -1,6 +1,6 @@
 // src/App.jsx
 
-import { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -10,80 +10,94 @@ import Footer from './pages/Footer.jsx';
 import Chatbot from './components/Chatbot.jsx';
 import VideoBackground from './components/VideoBackground.jsx';
 import BlackHoleTransition from './components/BlackHoleTransition.jsx';
-import WarpControl from './components/WarpControl.jsx'; // Import the Game Button
+import WarpControl from './components/WarpControl.jsx';
 
-// Import your pages
-import Home from './pages/Home.jsx';
-import About from './pages/About.jsx';
-import Projects from './pages/Projects.jsx';
-import Contact from './pages/Contact.jsx';
-import Resume from './pages/Resume.jsx';
+// Lazy Import Pages
+const Home = lazy(() => import('./pages/Home.jsx'));
+const About = lazy(() => import('./pages/About.jsx'));
+const Projects = lazy(() => import('./pages/Projects.jsx'));
+const Contact = lazy(() => import('./pages/Contact.jsx'));
+const Resume = lazy(() => import('./pages/Resume.jsx'));
+
+// Simple Loading Spinner
+const Loading = () => (
+  <div style={{ 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    color: '#f5c542',
+    fontSize: '1.5em',
+    fontFamily: 'Inter, sans-serif'
+  }}>
+    Loading...
+  </div>
+);
 
 function App() {
   const location = useLocation();
-  // 1. Global State for the Singularity Effect
   const [isSuckedIn, setIsSuckedIn] = useState(false);
 
-  // 2. Animation Variants for the Whole App
-  const globalVariants = {
-    normal: { 
+  // RENAMED VARIANTS to avoid conflict with page transitions
+  const gameVariants = {
+    gameNormal: { 
       scale: 1, 
       opacity: 1, 
       rotate: 0,
       filter: "blur(0px)",
-      transition: { duration: 1.2, ease: [0.34, 1.3, 0.64, 1] } // Elastic Pop Out
+      transition: { duration: 1.2, ease: [0.34, 1.3, 0.64, 1] } 
     },
-    sucked: { 
+    gameSucked: { 
       scale: 0, 
       opacity: 0, 
-      rotate: 720, // Spin fast (2 full rotations)
-      filter: "blur(10px)", // Motion blur look
-      transition: { duration: 0.8, ease: "anticipate" } // Suck In
+      rotate: 720, 
+      filter: "blur(10px)", 
+      transition: { duration: 0.8, ease: "anticipate" } 
     }
   };
 
-  return (
+return (
     <>
-      {/* FIXED BACKGROUND (Never Moves) */}
       <VideoBackground />
+      <WarpControl isSuckedIn={isSuckedIn} toggleWarp={() => setIsSuckedIn(!isSuckedIn)} />
 
-      {/* FIXED GAME BUTTON (Always Visible) */}
-      <WarpControl 
-        isSuckedIn={isSuckedIn} 
-        toggleWarp={() => setIsSuckedIn(!isSuckedIn)} 
-      />
-
-      {/* 3. THE WRAPPER: Everything inside this gets sucked in */}
+      {/* THE ANIMATION WRAPPER */}
       <motion.div
-        variants={globalVariants}
-        initial="normal"
-        animate={isSuckedIn ? "sucked" : "normal"}
+        variants={gameVariants}
+        initial="gameNormal"
+        animate={isSuckedIn ? "gameSucked" : "gameNormal"}
         style={{ 
           width: '100%', 
           minHeight: '100vh',
-          transformOrigin: 'center 40%', // Center of the black hole roughly
-          willChange: 'transform, opacity, filter'
+          transformOrigin: 'center 40%',
+          willChange: 'transform, opacity'
         }}
       >
         <Header title="Portfolio" subtitle="" textAlign="center" />
 
         <main className="main-content">
           <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              {/* We keep BlackHoleTransition here for PAGE-TO-PAGE navigation effects */}
-              <Route path="/" element={<BlackHoleTransition><Home /></BlackHoleTransition>} />
-              <Route path="/about" element={<BlackHoleTransition><About /></BlackHoleTransition>} />
-              <Route path="/projects" element={<BlackHoleTransition><Projects /></BlackHoleTransition>} />
-              <Route path="/contact" element={<BlackHoleTransition><Contact /></BlackHoleTransition>} />
-              <Route path="/resume" element={<BlackHoleTransition><Resume /></BlackHoleTransition>} />
-            </Routes>
+            <Suspense fallback={<Loading />}>
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<BlackHoleTransition> <Home /> </BlackHoleTransition>} />
+                <Route path="/about" element={<BlackHoleTransition> <About /> </BlackHoleTransition>} />
+                <Route path="/projects" element={<BlackHoleTransition> <Projects /> </BlackHoleTransition>} />
+                <Route path="/contact" element={<BlackHoleTransition> <Contact /> </BlackHoleTransition>} />
+                <Route path="/resume" element={<BlackHoleTransition> <Resume /> </BlackHoleTransition>} />
+              </Routes>
+            </Suspense>
           </AnimatePresence>
         </main>
 
         <Footer />
-        
-      </motion.div>
-      <Chatbot />
+      </motion.div> 
+      {/* ^^^ CLOSED THE ANIMATION WRAPPER HERE */}
+
+      {/* CHATBOT IS NOW OUTSIDE (Stays fixed to screen) */}
+      {/* Pass 'isSuckedIn' if you want to hide it during the game */}
+      <div style={{ opacity: isSuckedIn ? 0 : 1, transition: 'opacity 0.5s' }}>
+        <Chatbot />
+      </div>
     </>
   );
 }

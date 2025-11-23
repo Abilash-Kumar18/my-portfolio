@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ReactTyped } from "react-typed";
 import styles from './Profile.module.css';
-import profilePic from '../assets/profile.jpg'; // Ensure this path is correct
+import profilePic from '../assets/profile.webp'; // Ensure this path is correct
 import TechOrbit from '../components/TechOrbit';
 import ScrollArrow from '../components/ScrollArrow';
 
