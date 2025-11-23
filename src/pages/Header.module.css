@@ -46,6 +46,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+  cursor: default;
 }
 
 .subtitle {
