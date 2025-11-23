@@ -81,8 +81,9 @@ function App() {
         </main>
 
         <Footer />
-        <Chatbot />
+        
       </motion.div>
+      <Chatbot />
     </>
   );
 }

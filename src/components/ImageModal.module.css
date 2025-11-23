@@ -1,14 +1,13 @@
 /* src/components/ImageModal.module.css */
 
-/* The full-screen background overlay */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75); /* Dark semi-transparent background */
-  backdrop-filter: blur(8px); /* THIS IS THE BLUR EFFECT */
+  background-color: rgba(0, 0, 0, 0.85); 
+  backdrop-filter: blur(8px); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,16 +16,15 @@
   box-sizing: border-box;
 }
 
-/* The actual box containing the image */
 .modalContent {
   position: relative;
-  background-color: rgba(30, 30, 30, 0.9); /* Slight dark container */
+  background-color: rgba(30, 30, 30, 0.9); 
   border-radius: 16px;
   padding: 10px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); /* Deep shadow for "pop" effect */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); 
   border: 1px solid rgba(255, 255, 255, 0.1);
   
-  /* Size constraints */
+  /* Constraints */
   max-width: 900px;
   width: auto;
   display: flex;
@@ -34,18 +32,16 @@
   align-items: center;
 }
 
-/* The Image Itself */
 .fullImage {
   display: block;
   max-width: 100%;
-  max-height: 75vh; /* Ensures it doesn't fill the WHOLE screen vertically */
+  max-height: 75vh; 
   width: auto;
   height: auto;
   border-radius: 8px;
   object-fit: contain;
 }
 
-/* The Caption/Title below */
 .caption {
   width: 100%;
   padding-top: 15px;
@@ -53,28 +49,56 @@
 }
 
 .caption h3 {
-  color: #f5c542;
+  color: #f5c542; /* Gold Theme */
   margin: 0;
   font-size: 1.2em;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
-/* The Close "X" Button */
+/* --- FIXED CLOSE BUTTON --- */
 .closeButton {
   position: absolute;
-  top: -45px;
+  /* Position it perfectly on the corner */
+  top: -10px; 
   right: -10px;
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 32px;
+  
+  /* Make it a small, neat circle */
+  width: 24px;
+  height: 24px;
+  
+  background-color: #f5c542; /* Gold */
+  color: #000; /* Black X */
+  border-radius: 30%;
+  
+  /* Thin white border to separate it from the image */
+  border: 2px solid #fff;
+  
+  font-size: 14px; /* Smaller X icon */
+  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
   z-index: 10001;
+  transition: transform 0.2s ease;
+  
+  /* Remove default ugly click borders */
+  outline: none; 
 }
 
 .closeButton:hover {
+  transform: scale(1.2); /* Subtle pop on hover */
+  background-color: #fff;
   color: #f5c542;
-  transform: scale(1.2) rotate(90deg);
+  border-color: #f5c542;
 }
+
+/* Remove blue outline on focus for accessibility */
+.closeButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.5);
+}
+
+/* Remove blue outline on focus for accessibility */

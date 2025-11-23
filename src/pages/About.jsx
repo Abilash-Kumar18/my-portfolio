@@ -6,7 +6,7 @@ import styles from './About.module.css';
 // Removed AnimatedBackground import
 import collegeImage from '../assets/college.jpg';
 import vincentPallotti from '../assets/vincent.jpg';
-import jayMatriculation from '../assets/jay.jpg';
+import jayMatriculation from '../assets/Jay.jpg';
 
 function About() {
   const [isVisible, setIsVisible] = useState({});

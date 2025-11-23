@@ -1,11 +1,26 @@
 // src/components/ImageModal.jsx
 
-import React from 'react';
+import React, { useEffect } from 'react'; // Import useEffect
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ImageModal.module.css';
 
 function ImageModal({ image, title, isOpen, onClose }) {
+  
+  // LOCK BODY SCROLL when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // Disable scrolling
+    } else {
+      document.body.style.overflow = 'unset'; // Re-enable scrolling
+    }
+    
+    // Cleanup function to ensure scroll returns if component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   // Use React Portal to break out of the carousel
   return ReactDOM.createPortal(
     <AnimatePresence>
@@ -13,7 +28,6 @@ function ImageModal({ image, title, isOpen, onClose }) {
         <motion.div 
           className={styles.overlay} 
           onClick={onClose}
-          // Fade in the dark blurred background
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -21,13 +35,13 @@ function ImageModal({ image, title, isOpen, onClose }) {
         >
           <motion.div 
             className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()} // Prevent closing if clicking the image box
-            // The "Pop" Animation (Scale Up)
+            onClick={(e) => e.stopPropagation()} 
             initial={{ scale: 0.5, opacity: 0, y: 50 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.5, opacity: 0, y: 50 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
+            {/* Close Button */}
             <button className={styles.closeButton} onClick={onClose}>&times;</button>
             
             {image && (
