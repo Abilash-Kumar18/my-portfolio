@@ -2,89 +2,137 @@
 
 .header {
   width: 100%;
-  background-color: #1a1a1a; /* A dark background */
-  padding: 20px;
-  border-bottom: 2px solid #3e3e3e;
-  box-sizing: border-box; /* Makes padding behave nicely */
-  /* We add flex to position the title and nav */
+  
+  /* 1. MAKE IT TRANSPARENT & GLASSY */
+  background: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
+  backdrop-filter: blur(10px); /* Blurs the stars behind it */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  
+  /* 2. FIX IT TO THE TOP */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensures it sits on top of everything */
+  
+  /* 3. SIZING & SPACING */
+  padding: 15px 20px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  
+  /* 4. SUBTLE BORDER (Instead of harsh grey) */
+  border-bottom: 1px solid rgba(245, 197, 66, 0.1); /* Very faint Gold border */
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; /* Allows it to stack on small screens */
-  position: relative;
 }
 
 .headerContent {
-  text-align: center; /* Center the title and subtitle */
-  flex: 1;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Ensure title doesn't overlap nav on small screens */
+  margin-right: auto; 
+  margin-left: auto;
 }
 
 .title {
-  font-size: 2.5em; /* 'em' scales with browser font size */
-  color: #f5c542;   /* The React blue color */
+  font-size: 2em; /* Slightly smaller for a fixed header */
+  color: #f5c542; /* Gold */
   margin: 0;
   padding: 0;
-  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
 }
 
 .subtitle {
-  font-size: 1.1em;
-  color: #a0a0a0;
-  margin-top: 5px;
-  text-align: center;
+  font-size: 0.9em;
+  color: #e0e0e0;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
 }
 
 .nav {
   display: flex;
-  gap: 20px;
-  padding: 0 20px; /* Give it some spacing */
+  gap: 30px; /* More space between links */
+  padding-right: 40px;
+  
+  /* Keep it on the right */
   position: absolute;
-  right: 20px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.nav a { /* This styles the <Link> component */
-  color: #c0c0c0;
+.nav a { 
+  color: #e0e0e0;
   text-decoration: none;
-  font-size: 1.1em;
-  font-weight: 500;
-  padding: 5px 10px;
-  transition: color 0.3s ease, transform 0.2s ease;
+  font-size: 1em;
+  font-weight: 600;
+  padding: 5px 0;
+  transition: all 0.3s ease;
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* Hover Effect - Gold Glow */
+.nav a:hover {
+  color: #f5c542;
+  text-shadow: 0 0 8px rgba(245, 197, 66, 0.6);
+}
+
+/* The Bottom Line Animation */
 .nav a::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
+  bottom: -2px;
+  left: 0;
   width: 0;
   height: 2px;
   background-color: #f5c542;
-  transition: width 0.3s ease, left 0.3s ease;
-}
-
-.nav a:hover {
-  color: #f5c542;
-  transform: translateY(-2px);
+  transition: width 0.3s ease;
 }
 
 .nav a:hover::after {
   width: 100%;
-  left: 0;
 }
 
+/* Active State */
 .active {
-  color: #f5c542 !important; /* Force the text to be Cyan */
+  color: #f5c542 !important;
 }
 
-/* This keeps the underline visible permanently for the active link */
 .active::after {
   width: 100% !important;
-  left: 0 !important;
   background-color: #f5c542;
+}
+
+/* RESPONSIVE: Hide Nav on Mobile or stack it */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8); /* Darker on mobile for readability */
+  }
+
+  .nav {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin-top: 10px;
+    gap: 15px;
+    padding-right: 0;
+    font-size: 0.9em;
+  }
+  
+  .title {
+    font-size: 1.5em;
+  }
 }

@@ -3,6 +3,7 @@
 .projects {
   width: 100%;
   padding: 40px 20px;
+ padding-top: 80px;
   min-height: 100vh;
   box-sizing: border-box;
   position: relative;

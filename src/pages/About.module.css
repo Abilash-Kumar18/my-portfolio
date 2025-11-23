@@ -2,6 +2,7 @@
 
 .about {
   padding: 100px 20px 60px; /* Extra top padding for fixed header */
+  padding-top: 120px;
   max-width: 1000px;
   margin: 0 auto;
   display: flex;

@@ -4,7 +4,9 @@
   width: 100%;
   min-height: 100vh;
   padding: 40px 20px;
+  padding-top: 120px;
   box-sizing: border-box;
+
   position: relative;
   display: flex;
   justify-content: center;
