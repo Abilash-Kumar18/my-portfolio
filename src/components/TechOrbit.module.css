@@ -2,13 +2,12 @@
 
 .orbitContainer {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 350px; /* Adjusted size */
+  height: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 40px;
-  /* Add a cool perspective for 3D effect */
   perspective: 1000px; 
 }
 
@@ -37,9 +36,13 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 1px dashed rgba(97, 218, 251, 0.2); /* Subtle guide ring */
-  animation: spin 30s linear infinite;
+  border: 1px dashed rgba(245, 197, 66, 0.2);
   transform-style: preserve-3d;
+  
+  /* ANIMATION SETTINGS */
+  animation: spin 30s linear infinite;
+  /* Important: Hints browser to optimize */
+  will-change: transform; 
 }
 
 /* The specific items on the ring */
@@ -75,6 +78,8 @@
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
   cursor: pointer;
+  animation: counterSpin 30s linear infinite;
+  will-change: transform;
 }
 .iconWrapper:hover {
   transform: scale(1.2);
@@ -110,4 +115,18 @@
 @keyframes counterSpin {
   0% { transform: rotate(360deg); }
   100% { transform: rotate(0deg); }
+}
+
+.paused {
+  animation-play-state: paused !important;
+}
+
+/* Hide the orbit completely if desired until scroll, or just pause */
+.hidden {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.visible {
+  opacity: 1;
 }

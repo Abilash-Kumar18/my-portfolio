@@ -1,22 +1,12 @@
 // src/pages/Home.jsx
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import Profile from './Profile';
-import AnimatedBackground from '../components/AnimatedBackground';
+import Profile from '../pages/Profile';
 
 function Home() {
   return (
     <>
-      
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Profile />
-      </motion.div>
+      <Profile />
     </>
   );
 }

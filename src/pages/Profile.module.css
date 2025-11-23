@@ -58,13 +58,14 @@
 .typingWrapper {
   font-size: 1.8em;
   margin: 10px 0 20px;
-  min-height: 1.5em;
+  /* Remove fixed height constraints that might clip text */
+  min-height: 1.5em; 
+  width: 100%; /* Ensure it has room */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
-  font-family: 'Inter', sans-serif;
 }
 
 .typingPrefix {

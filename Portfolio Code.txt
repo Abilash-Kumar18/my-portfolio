@@ -1,0 +1,1900 @@
+About.module.css:
+/* src/pages/About.module.css */
+
+.about {
+  padding: 100px 20px 60px; /* Extra top padding for fixed header */
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* THE GLASS CARD LOOK */
+.section {
+  background: rgba(20, 20, 20, 0.7); /* See-through dark background */
+  backdrop-filter: blur(10px); /* Blurs the video behind it */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  
+  /* Gold accent line on the left */
+  border-left: 4px solid #f5c542; 
+}
+
+.section:hover {
+  transform: translateY(-5px);
+  border-color: rgba(245, 197, 66, 0.4);
+  box-shadow: 0 15px 40px rgba(245, 197, 66, 0.1); /* Subtle gold glow */
+}
+
+.section h2 {
+  color: #f5c542; /* Gold Title */
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+/* INFO GRID (Personal Info) */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.infoItem {
+  font-size: 1.1em;
+  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.infoItem strong {
+  color: #f5c542;
+  margin-right: 8px;
+}
+
+/* EDUCATION LAYOUT (Side-by-Side) */
+.education {
+  display: flex;
+  align-items: center; /* Center vertically */
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.collegeImageContainer {
+  flex-shrink: 0; /* Prevents image from shrinking */
+  width: 200px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.collegeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.eduDetails {
+  flex-grow: 1;
+}
+
+.eduDetails h3 {
+  color: #ffffff;
+  font-size: 1.5em;
+  margin: 0 0 10px 0;
+}
+
+.eduDetails p {
+  color: #cccccc;
+  margin: 5px 0;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.eduDetails strong {
+  color: #f5c542; /* Gold labels */
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .education {
+    flex-direction: column; /* Stack vertically on phones */
+    text-align: center;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .collegeImageContainer {
+    width: 100%; /* Full width image on phone */
+    height: 200px;
+  }
+}
+
+About.jsx:
+// src/pages/About.jsx
+
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import styles from './About.module.css';
+// Removed AnimatedBackground import
+import collegeImage from '../assets/college.jpg';
+import vincentPallotti from '../assets/vincent.jpg';
+import jayMatriculation from '../assets/jay.jpg';
+
+function About() {
+  const [isVisible, setIsVisible] = useState({});
+  const sectionRefs = useRef({});
+
+  useEffect(() => {
+    const observers = [];
+    Object.keys(sectionRefs.current).forEach((key) => {
+      if (sectionRefs.current[key]) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setIsVisible((prev) => ({ ...prev, [key]: true }));
+            }
+          },
+          { threshold: 0.1 }
+        );
+        observer.observe(sectionRefs.current[key]);
+        observers.push(observer);
+      }
+    });
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, []);
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
+
+  return (
+    <div className={styles.about}>
+      {/* PERSONAL INFO */}
+      <motion.section
+        ref={(el) => (sectionRefs.current['personal'] = el)}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={isVisible['personal'] ? 'visible' : 'hidden'}
+        className={styles.section}
+      >
+        <h2>Personal Information</h2>
+        <div className={styles.infoGrid}>
+          <div className={styles.infoItem}>
+            <strong>Name:</strong> Abilash Kumar R
+          </div>
+          <div className={styles.infoItem}>
+            <strong>Date of Birth:</strong> 6.11.2006
+          </div>
+          <div className={styles.infoItem}>
+            <strong>Address:</strong> Salem, Tamilnadu
+          </div>
+        </div>
+      </motion.section>
+
+      {/* EDUCATION */}
+      <motion.section
+        ref={(el) => (sectionRefs.current['education'] = el)}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={isVisible['education'] ? 'visible' : 'hidden'}
+        className={styles.section}
+      >
+        <h2>Higher Education</h2>
+        <div className={styles.education}>
+          <div className={styles.collegeImageContainer}>
+            <motion.img
+              src={collegeImage}
+              alt="KSR College"
+              className={styles.collegeImage}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
+          <div className={styles.eduDetails}>
+            <h3>KSR College of Engineering</h3>
+            <p><strong>Department:</strong> B.E Computer Science and Engineering</p>
+            <p><strong>Year:</strong> 2nd Year</p>
+            <p><strong>Current CGPA:</strong> 9.27</p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* SCHOOLS */}
+      <motion.section
+        ref={(el) => (sectionRefs.current['school'] = el)}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={isVisible['school'] ? 'visible' : 'hidden'}
+        className={styles.section}
+      >
+        <h2>School Education</h2>
+        
+        {/* School 1 */}
+        <div className={styles.education}>
+          <div className={styles.collegeImageContainer}>
+            <motion.img
+              src={vincentPallotti}
+              alt="Vincent Pallotti School"
+              className={styles.collegeImage}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
+          <div className={styles.eduDetails}>
+            <h3>St. Vincent Pallotti Hr Sec School</h3>
+            <p><strong>Board:</strong> State Board</p>
+            <p><strong>Completion:</strong> 2024 (HSC)</p>
+            <p><strong>Grade:</strong> 94%</p>
+          </div>
+        </div>
+
+        <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '20px 0' }} />
+
+        {/* School 2 */}
+        <div className={styles.education}>
+          <div className={styles.collegeImageContainer}>
+            <motion.img
+              src={jayMatriculation}
+              alt="Jay Matriculation School"
+              className={styles.collegeImage}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
+          <div className={styles.eduDetails}>
+            <h3>Jay Matriculation Hr Sec School</h3>
+            <p><strong>Board:</strong> State Board</p>
+            <p><strong>Completion:</strong> 2022 (SSLC)</p>
+            <p><strong>Grade:</strong> 88%</p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ABOUT ME */}
+      <motion.section
+        ref={(el) => (sectionRefs.current['about'] = el)}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={isVisible['about'] ? 'visible' : 'hidden'}
+        className={styles.section}
+      >
+        <h2>About Me</h2>
+        <p style={{ lineHeight: '1.8', color: '#ccc', fontSize: '1.1em' }}>
+          I am a dedicated second-year Computer Science and Engineering student at KSR College of Engineering, 
+          with a focused passion for <strong style={{color: '#f5c542'}}>Generative AI</strong> and <strong style={{color: '#f5c542'}}>workflow automation</strong> (n8n). 
+          My professional trajectory is oriented toward artificial intelligence, where I aim to synthesize 
+          expertise in machine learning, automation engineering, and full-stack development to architect 
+          transformative solutions.
+        </p>
+      </motion.section>
+    </div>
+  );
+}
+
+export default About;
+
+Contact.jsx:
+// src/pages/Contact.jsx
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import styles from './Contact.module.css';
+import AnimatedBackground from '../components/AnimatedBackground';
+
+function Contact() {
+  // 2. Set up state for each input field
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  // 3. Create the submit handler
+  const handleSubmit = (event) => {
+    // 4. Stop the page from reloading!
+    event.preventDefault();
+
+    // Now you have the data!
+    console.log("Form submitted with:");
+    console.log({ name, email, message });
+
+    // You can add logic here to send this data to a backend
+    // For now, let's just alert the user and clear the form
+    alert('Message sent! (Check the console)');
+    setName('');
+    setEmail('');
+    setMessage('');
+  };
+
+  const formVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  return (
+    <>
+      
+      <section className={styles.contact}>
+        <motion.h2 
+          className={styles.heading}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Contact Me
+        </motion.h2>
+        <motion.p 
+          className={styles.subtext}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          I welcome opportunities for collaboration, professional inquiries, and meaningful connections. 
+          Let's discuss how we can work together to create innovative solutions.
+        </motion.p>
+        
+        <motion.form 
+          className={styles.form} 
+          onSubmit={handleSubmit}
+          variants={formVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div className={styles.formGroup} variants={itemVariants}>
+            <label htmlFor="name">Name</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+            />
+          </motion.div>
+
+          <motion.div className={styles.formGroup} variants={itemVariants}>
+            <label htmlFor="email">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
+          </motion.div>
+
+          <motion.div className={styles.formGroup} variants={itemVariants}>
+            <label htmlFor="message">Message</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="5" 
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            ></textarea>
+          </motion.div>
+
+          <motion.button 
+            type="submit" 
+            className={styles.submitBtn}
+            variants={itemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Send Message
+          </motion.button>
+        </motion.form>
+      </section>
+    </>
+  );
+}
+
+export default Contact;
+
+contact.module.css:
+/* src/components/Contact.module.css */
+
+.contact {
+  width: 100%;
+  padding: 60px 20px;
+  text-align: center;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.heading {
+  font-size: 2.8em;
+  color: #f5c542;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 0 2px 10px rgba(97, 218, 251, 0.3);
+}
+
+.subtext {
+  font-size: 1.2em;
+  color: #c0c0c0;
+  margin-bottom: 50px;
+  max-width: 700px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.form {
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background: rgba(26, 26, 26, 0.7);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #f5c542;
+  font-size: 0.95em;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 2px solid #3e3e3e;
+  background-color: rgba(42, 42, 42, 0.8);
+  color: #ffffff;
+  font-size: 1em;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #666;
+  opacity: 0.7;
+}
+
+.formGroup input:hover,
+.formGroup textarea:hover {
+  border-color: #4a4a4a;
+  background-color: rgba(42, 42, 42, 0.9);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #f5c542; /* Gold Border */
+  box-shadow: 0 0 10px rgba(245, 197, 66, 0.2);
+}
+
+.formGroup textarea {
+  min-height: 120px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+/* src/pages/Contact.module.css */
+
+/* Fix the Input Focus color */
+
+
+/* Fix the Send Button */
+.submitBtn {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #000000; /* Black text */
+  /* Fire Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(224, 122, 48, 0.3);
+}
+
+.submitBtn:hover {
+  background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+.submitBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contact {
+    padding: 40px 15px;
+  }
+
+  .heading {
+    font-size: 2.2em;
+  }
+
+  .subtext {
+    font-size: 1em;
+    margin-bottom: 30px;
+  }
+
+  .form {
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  .formGroup input,
+  .formGroup textarea {
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.8em;
+  }
+
+  .form {
+    padding: 25px 15px;
+  }
+
+  .submitBtn {
+    padding: 14px 24px;
+    font-size: 1em;
+  }
+}
+
+Footer.jsx:
+// src/components/Footer.jsx
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+import styles from './Footer.module.css';
+
+function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      name: 'LinkedIn',
+      icon: FaLinkedin,
+      url: 'https://www.linkedin.com/in/abilashkumar-',
+      color: '#0077b5'
+    },
+    {
+      name: 'GitHub',
+      icon: FaGithub,
+      url: 'https://github.com/Abilash-Kumar18',
+      color: '#ffffff'
+    },
+    {
+      name: 'Instagram',
+      icon: FaInstagram,
+      url: 'https://www.instagram.com/abilash___ak/',
+      color: '#E4405F'
+    }
+  ];
+
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.footerContent}>
+        <div className={styles.socialLinks}>
+          {socialLinks.map((social, index) => {
+            const Icon = social.icon;
+            return (
+              <motion.a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                whileHover={{ scale: 1.2, y: -5 }}
+                whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                aria-label={social.name}
+              >
+                <Icon className={styles.socialIcon} style={{ color: social.color }} />
+              </motion.a>
+            );
+          })}
+        </div>
+        <p className={styles.copyright}>
+          &copy; {currentYear} My Portfolio. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;
+
+Footer.module.css:
+/* src/components/Footer.module.css */
+
+.footer {
+  width: 100%;
+  padding: 30px 20px;
+  margin-top: 40px;
+  text-align: center;
+  color: #a0a0a0;
+  border-top: 1px solid #3e3e3e;
+  box-sizing: border-box;
+  background: rgba(26, 26, 26, 0.5);
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(62, 62, 62, 0.8);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+.socialLink:hover {
+  background: rgba(97, 218, 251, 0.2);
+  border-color: #f5c542;
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
+}
+
+.socialIcon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.socialLink:hover .socialIcon {
+  transform: rotate(360deg);
+}
+
+.copyright {
+  margin: 0;
+  font-size: 0.9em;
+  color: #a0a0a0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 20px 15px;
+  }
+
+  .socialLinks {
+    gap: 15px;
+  }
+
+  .socialLink {
+    width: 45px;
+    height: 45px;
+  }
+
+  .socialIcon {
+    font-size: 20px;
+  }
+}
+
+Header.jsx:
+// src/components/Header.jsx
+
+import React from 'react';
+import { NavLink } from 'react-router-dom'; // <-- Change Import to NavLink
+import styles from './Header.module.css';
+
+function Header({ title, subtitle }) {
+  return (
+    <header className={styles.header}>
+      
+      <div className={styles.headerContent}>
+        <h1 className={styles.title}>{title}</h1>
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+      </div>
+
+      <nav className={styles.nav}>
+        {/* Use NavLink with a function to apply the active class */}
+        <NavLink 
+          to="/" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Home
+        </NavLink>
+
+        <NavLink 
+          to="/about" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          About
+        </NavLink>
+
+        <NavLink 
+          to="/projects" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Projects
+        </NavLink>
+
+        <NavLink 
+          to="/resume" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Resume
+        </NavLink>
+
+        <NavLink 
+          to="/contact" 
+          className={({ isActive }) => isActive ? styles.active : undefined}
+        >
+          Contact
+        </NavLink>
+      </nav>
+
+    </header>
+  );
+}
+
+export default Header;
+
+Header.module.css:
+/* src/components/Header.module.css */
+
+.header {
+  width: 100%;
+  background-color: #1a1a1a; /* A dark background */
+  padding: 20px;
+  border-bottom: 2px solid #3e3e3e;
+  box-sizing: border-box; /* Makes padding behave nicely */
+  /* We add flex to position the title and nav */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allows it to stack on small screens */
+  position: relative;
+}
+
+.headerContent {
+  text-align: center; /* Center the title and subtitle */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 2.5em; /* 'em' scales with browser font size */
+  color: #f5c542;   /* The React blue color */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.1em;
+  color: #a0a0a0;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px; /* Give it some spacing */
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav a { /* This styles the <Link> component */
+  color: #c0c0c0;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 5px 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #f5c542;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav a:hover {
+  color: #f5c542;
+  transform: translateY(-2px);
+}
+
+.nav a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.active {
+  color: #f5c542 !important; /* Force the text to be Cyan */
+}
+
+/* This keeps the underline visible permanently for the active link */
+.active::after {
+  width: 100% !important;
+  left: 0 !important;
+  background-color: #f5c542;
+}
+
+Profile.jsx:
+// src/components/Profile.jsx
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ReactTyped } from "react-typed";
+import styles from './Profile.module.css';
+import profilePic from '../assets/profile.jpg'; // Ensure this path is correct
+import TechOrbit from '../components/TechOrbit';
+import ScrollArrow from '../components/ScrollArrow';
+
+function Profile() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const profileImageVariants = {
+    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      rotate: 0,
+      transition: { 
+        duration: 0.6,
+        type: 'spring',
+        stiffness: 200,
+        damping: 15
+      }
+    },
+    hover: {
+      scale: 1.1,
+      rotate: 5,
+      boxShadow: '0 0 30px rgba(97, 218, 251, 0.5)',
+      transition: { duration: 0.3 }
+    }
+  };
+
+  return (
+    <motion.main 
+      className={styles.profile}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <div className={styles.picContainer}>
+        <motion.img 
+          src={profilePic} 
+          alt="Abilash Kumar R" 
+          className={styles.pic}
+          variants={profileImageVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
+        />
+      </div>
+      
+      <motion.h2 className={styles.name} variants={itemVariants}>
+        Hey! This is <span className={styles.nameHighlight}>Abilash Kumar R</span>
+      </motion.h2>
+      
+      <motion.div className={styles.typingWrapper} variants={itemVariants}>
+        <span className={styles.typingPrefix}>I'm a </span>
+        <ReactTyped
+          strings={[
+            "Problem Solver",
+            "Full Stack Developer",
+            "Generative AI Enthusiast",
+            "Workflow Automator"
+          ]}
+          typeSpeed={50}
+          backSpeed={30}
+          loop
+          className={styles.typingText}
+        />
+      </motion.div>
+      
+      <motion.p className={styles.bio} variants={itemVariants}>
+        A dedicated Computer Science and Engineering student specializing in 
+        Generative AI and workflow automation. Passionate about leveraging 
+        cutting-edge technologies to build intelligent solutions that drive 
+        innovation and solve complex challenges in the artificial intelligence 
+        domain.
+      </motion.p>
+
+      {/* Replaced old static skills list with the new Orbit & Arrow */}
+      <motion.div variants={itemVariants}>
+        <ScrollArrow />
+      </motion.div>
+
+      <motion.div variants={itemVariants}>
+        <TechOrbit />
+      </motion.div>
+
+    </motion.main>
+  );
+}
+
+export default Profile;
+
+Profile.module.css:
+/* src/components/Profile.module.css */
+
+.profile {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  
+  /* ADD THIS LINE: Gives space between the orbit and the footer */
+  padding-bottom: 80px; 
+  
+  text-align: center;
+  min-height: 80vh;
+}
+
+.picContainer {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  
+  /* Glowing Amber Border */
+  border: 4px solid #f5c542; 
+  box-shadow: 0 0 25px rgba(224, 122, 48, 0.4); /* Deep Orange Glow */
+  
+  transition: all 0.3s ease;
+}
+.name {
+  font-size: 2.5em;
+  margin: 10px 0;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 1); /* Better readability over video */
+}
+
+.nameHighlight {
+  /* The "Event Horizon" Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #f5c542 50%, #E07A30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  
+  /* Subtle glow to make it look hot */
+  filter: drop-shadow(0 0 5px rgba(224, 122, 48, 0.3));
+}
+
+.typingWrapper {
+  font-size: 1.8em;
+  margin: 10px 0 20px;
+  min-height: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.typingPrefix {
+  color: #c0c0c0;
+  font-weight: 400;
+}
+
+.typingText {
+  /* Matching Gradient for the typing animation */
+  background: linear-gradient(135deg, #f5c542 0%, #E07A30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.bio {
+  font-size: 1.1em;
+  color: #e0e0e0; /* Slightly brighter for video bg */
+  max-width: 700px;
+  margin-bottom: 30px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); /* Essential for readability */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .name {
+    font-size: 2em;
+    
+  }
+  
+  .typingWrapper {
+    font-size: 1.4em;
+  }
+  
+  .pic {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+ProjectCard.jss:
+
+// src/components/ProjectCard.jsx
+
+import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import styles from './ProjectCard.module.css';
+
+function ProjectCard({ title, description, link, image, onImageClick }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const imageRef = useRef(null);
+
+  const handleImageClick = () => {
+    if (onImageClick && image) {
+      onImageClick(image, title);
+    }
+  };
+
+  return (
+    <motion.div 
+      className={styles.card}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05, y: -10 }}
+      transition={{ duration: 0.2 }}
+    >
+      {image && (
+        <div 
+          className={styles.imageContainer}
+          onClick={handleImageClick}
+        >
+          {!imageLoaded && (
+            <div className={styles.imagePlaceholder}>Loading...</div>
+          )}
+          <img 
+            ref={imageRef}
+            src={image} 
+            alt={title}
+            className={styles.projectImage}
+            onLoad={() => setImageLoaded(true)}
+            style={{ display: imageLoaded ? 'block' : 'none' }}
+          />
+          <div className={styles.imageOverlay}>
+            <span className={styles.zoomIcon}>🔍</span>
+          </div>
+        </div>
+      )}
+      {!image && (
+        <div className={styles.imagePlaceholder}>
+          <span>Project Image</span>
+        </div>
+      )}
+      <div className={styles.cardContent}>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.description}>{description}</p>
+        {link && (
+          <a 
+            href={link} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.link}
+          >
+            View Project
+          </a>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+export default ProjectCard;
+
+
+Project.module.css:
+/* src/components/ProjectCard.module.css */
+
+.card {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 0;
+  width: 320px; /* Slightly wider for better readability */
+  height: 450px; /* FIXED HEIGHT: This forces all cards to be the same size */
+  margin: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(97, 218, 251, 0.2);
+  transform: translateY(-5px);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 180px; /* Fixed height for image */
+  flex-shrink: 0; /* Prevents image from squishing */
+  overflow: hidden;
+  position: relative;
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .projectImage {
+  transform: scale(1.1);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.imageContainer:hover .imageOverlay {
+  opacity: 1;
+}
+
+.zoomIcon {
+  font-size: 2.5em;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3e3e3e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #61dafb;
+}
+
+/* CONTENT AREA */
+.cardContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Takes up all remaining space */
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.3em;
+  color: #61dafb;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+  /* Truncate title if too long (1 line max) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description {
+  font-size: 0.95em;
+  color: #c0c0c0;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  
+  /* TRUNCATE TEXT LOGIC (Max 4 lines) */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Shows exactly 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." at the end */
+  
+  flex-grow: 1; /* Pushes the button down */
+}
+
+/* BUTTON AREA */
+/* This ensures the button is always at the bottom */
+/* src/components/ProjectCard.module.css */
+
+.link {
+  color: #000000; /* Black text looks better on bright gold */
+  /* Fire Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
+  padding: 10px 0;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700; /* Bolder text */
+  transition: all 0.3s ease;
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
+  /* Add a glow */
+  box-shadow: 0 4px 15px rgba(224, 122, 48, 0.3);
+}
+
+.link:hover {
+  /* Reverse gradient on hover */
+  background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+Projects.jsx:
+// src/components/Projects.jsx
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import ProjectCard from './ProjectCard.jsx';
+import ImageModal from '../components/ImageModal';
+import styles from './Projects.module.css';
+import AnimatedBackground from '../components/AnimatedBackground';
+import googleFormFiller from '../assets/projects/Agf.png';
+import n8nChatbot from '../assets/projects/n8n.png';
+import krishiSakhi from '../assets/projects/Krishi.png';
+
+const myProjects = [
+  {
+    title: "Google Form Auto Filler By Extension",
+    description: "A sophisticated Chrome extension engineered to streamline form-filling workflows through intelligent automation. Leverages persistent storage mechanisms to maintain user profile data, enabling rapid completion of repetitive form submissions.",
+    link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
+    image: googleFormFiller 
+  },
+  {
+    title: "RAG Chatbot For Semester Material Helper Using N8N",
+    description: "An advanced conversational AI system powered by Retrieval-Augmented Generation (RAG) architecture, integrated with n8n workflow automation platform. Delivers intelligent document retrieval and contextual question-answering capabilities.",
+    link: "https://abilash-kumar18.github.io/n8n_chatbot/",
+    image: n8nChatbot 
+  },
+  {
+    title: "Krishi Sakhi Website For Farmers Deployed On Streamlit Cloud",
+    description: "A comprehensive agricultural technology platform designed to empower farming communities with data-driven insights. Delivers real-time weather analytics, crop management recommendations, and agricultural best practices.",
+    link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
+    image: krishiSakhi 
+  }
+];
+
+function Projects() {
+  const [modalImage, setModalImage] = useState(null);
+  const [modalTitle, setModalTitle] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleImageClick = (image, title) => {
+    setModalImage(image);
+    setModalTitle(title);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setModalImage(null);
+      setModalTitle('');
+    }, 300);
+  };
+
+  // Create 4 sets of projects for a smooth infinite loop
+  const allProjects = [...myProjects, ...myProjects, ...myProjects, ...myProjects];
+
+  return (
+    <>
+      
+      <section className={styles.projects}>
+        <motion.h2 
+          className={styles.heading}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          My Projects
+        </motion.h2>
+        
+        <div className={styles.carouselWrapper}>
+          {/* Removed the variants/stagger animation so cards appear instantly */}
+          <div className={styles.container}>
+            {allProjects.map((project, index) => (
+              <ProjectCard
+                key={`project-${index}`}
+                title={project.title}
+                description={project.description}
+                link={project.link}
+                image={project.image}
+                onImageClick={handleImageClick}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      <ImageModal
+        image={modalImage}
+        title={modalTitle}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
+    </>
+  );
+}
+
+export default Projects;
+
+
+
+
+
+Projects.module.css:
+/* src/components/Projects.module.css */
+
+.projects {
+  width: 100%;
+  padding: 40px 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden; /* Ensures no horizontal scrollbar */
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.2em;
+  color: #f5c542;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.carouselWrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+  /* Add a mask to fade edges (optional but looks cool) */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  width: max-content;
+  /* Animation speed adjusted for smoother flow */
+  animation: slideRightToLeft 50s linear infinite; 
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+.container:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Move exactly 25% (one set of projects) to loop seamlessly */
+    transform: translateX(-25%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    animation-duration: 40s;
+  }
+}
+
+
+
+Resume.jsx:
+// src/pages/Resume.jsx
+
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { FaDownload, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Document, Page, pdfjs } from 'react-pdf';
+import styles from './Resume.module.css';
+import AnimatedBackground from '../components/AnimatedBackground';
+
+// Configure the PDF worker
+// This is required for react-pdf to work without extra build configuration
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
+function Resume() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [pdfExists, setPdfExists] = useState(false);
+  
+  // PDF State
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageWidth, setPageWidth] = useState(null);
+
+  // Use public folder for PDF
+  const pdfUrl = '/resume/resume.pdf';
+
+  useEffect(() => {
+    // Check if PDF exists
+    const checkPdfExists = async () => {
+      try {
+        const response = await fetch(pdfUrl, { method: 'HEAD' });
+        if (response.ok) {
+          setPdfExists(true);
+        } else {
+          setPdfExists(false);
+          setIsLoading(false);
+          setHasError(true);
+        }
+      } catch (error) {
+        console.error('Error checking PDF:', error);
+        setPdfExists(false);
+        setIsLoading(false);
+        setHasError(true);
+      }
+    };
+    checkPdfExists();
+  }, [pdfUrl]);
+
+  // Responsive PDF width
+  useEffect(() => {
+    const updateWidth = () => {
+      const container = document.querySelector(`.${styles.viewerContainer}`);
+      if (container) {
+        // Subtract padding (40px) to fit perfectly
+        const width = container.clientWidth - 40; 
+        // Limit max width to avoid it looking too huge on large screens
+        setPageWidth(Math.min(width, 800)); 
+      }
+    };
+
+    window.addEventListener('resize', updateWidth);
+    // Initial check
+    setTimeout(updateWidth, 100); 
+
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+    setIsLoading(false);
+  };
+
+  const onDocumentLoadError = (error) => {
+    console.error("Error loading PDF:", error);
+    setIsLoading(false);
+    setHasError(true);
+  };
+
+  const handleDownload = async () => {
+    if (!pdfExists) {
+      alert('Resume PDF not found. Please ensure resume.pdf is placed in the public folder.');
+      return;
+    }
+
+    try {
+      const response = await fetch(pdfUrl);
+      if (!response.ok) throw new Error('PDF not found');
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Abilash_Kumar_R_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      alert('Unable to download resume.');
+    }
+  };
+
+  return (
+    <>
+      
+      <section className={styles.resume}>
+        <motion.div
+          className={styles.container}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            className={styles.header}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h1 className={styles.title}>My Resume</h1>
+            <motion.button
+              className={styles.downloadBtn}
+              onClick={handleDownload}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaDownload className={styles.downloadIcon} />
+              Download PDF
+            </motion.button>
+          </motion.div>
+
+          <motion.div
+            className={styles.viewerContainer}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            {/* Loading State */}
+            {isLoading && (
+              <div className={styles.loading}>
+                <div className={styles.spinner}></div>
+                <p>Loading resume preview...</p>
+              </div>
+            )}
+
+            {/* Error State */}
+            {!isLoading && (hasError || !pdfExists) && (
+              <div className={styles.error}>
+                <div className={styles.errorIcon}>📄</div>
+                <h3>Resume Not Found</h3>
+                <p>The resume PDF is currently unavailable.</p>
+              </div>
+            )}
+
+            {/* PDF Document */}
+            {pdfExists && (
+              <div className={styles.pdfWrapper}>
+                <Document
+                  file={pdfUrl}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  onLoadError={onDocumentLoadError}
+                  loading={null} // We handle our own loading spinner
+                  error={null} // We handle our own error message
+                >
+                  <Page 
+                    pageNumber={pageNumber} 
+                    width={pageWidth || 600} 
+                    renderTextLayer={false} // Disable text selection layer for cleaner look
+                    renderAnnotationLayer={false} // Disable links overlay for cleaner look
+                  />
+                </Document>
+
+                {/* Page Controls (Only show if > 1 page) */}
+                {!isLoading && numPages > 1 && (
+                  <div className={styles.pageControls}>
+                    <button 
+                      disabled={pageNumber <= 1} 
+                      onClick={() => setPageNumber(prev => prev - 1)}
+                    >
+                      <FaChevronLeft />
+                    </button>
+                    <span>
+                      Page {pageNumber} of {numPages}
+                    </span>
+                    <button 
+                      disabled={pageNumber >= numPages} 
+                      onClick={() => setPageNumber(prev => prev + 1)}
+                    >
+                      <FaChevronRight />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </motion.div>
+        </motion.div>
+      </section>
+    </>
+  );
+}
+
+export default Resume;
+
+Resume.module.css:
+/* src/pages/Resume.module.css */
+
+.resume {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px; /* Adjusted for PDF standard width */
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.title {
+  font-size: 2.5em;
+  color: #f5c542;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* src/pages/Resume.module.css */
+
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Fire Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
+  color: #000000; /* Black text */
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(224, 122, 48, 0.3);
+}
+
+.downloadBtn:hover {
+  background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.viewerContainer {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  min-height: 400px; /* Reduced min-height */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Wrapper for the react-pdf component */
+.pdfWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* This targets the canvas generated by react-pdf */
+.pdfWrapper canvas {
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* Pagination Controls */
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  color: #c0c0c0;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.pageControls button {
+  background: none;
+  border: none;
+  color: #f5c542;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.pageControls button:hover:not(:disabled) {
+  transform: scale(1.2);
+  color: #fff;
+}
+
+.pageControls button:disabled {
+  color: #555;
+  cursor: not-allowed;
+}
+
+/* Loading & Error States */
+.loading, .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 400px; /* Match container min-height */
+  color: #f5c542;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(97, 218, 251, 0.2);
+  border-top: 4px solid #f5c542;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p, .error p {
+  color: #c0c0c0;
+  margin-top: 10px;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.errorIcon {
+  font-size: 3em;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .resume {
+    padding: 20px 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+  
+  .viewerContainer {
+    padding: 10px;
+  }
+}

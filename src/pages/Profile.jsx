@@ -50,12 +50,16 @@ function Profile() {
   };
 
   return (
-    <motion.main 
+<motion.main 
       className={styles.profile}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
+      {/* 2. ADD THE EVENT HORIZON HERE */}
+      {/* It sits behind the pic because of CSS z-index */}
+      
+
       <div className={styles.picContainer}>
         <motion.img 
           src={profilePic} 
@@ -101,7 +105,10 @@ function Profile() {
         <ScrollArrow />
       </motion.div>
 
-      <motion.div variants={itemVariants}>
+      <motion.div 
+        variants={itemVariants}
+        viewport={{ once: true }} // Only animates in once
+      >
         <TechOrbit />
       </motion.div>
 

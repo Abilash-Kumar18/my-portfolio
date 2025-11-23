@@ -1,0 +1,64 @@
+/* src/components/EventHorizon.module.css */
+
+.horizonWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* Fine-tune this translate if the ring feels too low/high relative to the video */
+  transform: translate(-50%, -50%); 
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0; 
+  overflow: hidden;
+}
+
+.scene {
+  /* MAKE IT MASSIVE to match the video's accretion disk */
+  width: 130vh; 
+  height: 130vh;
+  min-width: 1000px; /* Ensure it stays big on wide screens */
+  min-height: 1000px;
+  
+  perspective: 1500px; /* Deep perspective */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textRing {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.textPath {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900; /* Thick font matches the energy beam */
+  font-size: 28px; /* Larger text */
+  letter-spacing: 12px; /* Wide spacing looks cinematic */
+  
+  fill: #f5c542; 
+  
+  /* THIS IS THE MAGIC: Makes the text look like light */
+  mix-blend-mode: screen; 
+  
+  /* Strong Glow */
+  text-shadow: 0 0 20px rgba(245, 197, 66, 0.8), 
+               0 0 40px rgba(224, 122, 48, 0.6);
+  
+  text-transform: uppercase;
+  opacity: 0.9;
+}
