@@ -1,23 +1,44 @@
 // src/components/SpaceScene.jsx
 
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
+import { useLocation } from 'react-router-dom'; 
+import * as THREE from 'three'; 
 import BlackHole3D from './BlackHole3D';
 
-// 1. NEW COMPONENT: Moves camera based on website scroll
-function ScrollCameraRig() {
-  useFrame((state) => {
-    // Get how far the user has scrolled (in pixels)
-    const scrollY = window.scrollY;
+// --- CINEMATIC ANGLES (Unchanged) ---
+const CAMERA_ANGLES = [
+  { label: 'Standard Front', pos: [0, 1, 6] },
+  { label: 'Top Down', pos: [0, 6, 2] },
+  { label: 'Side Profile', pos: [7, 0, 0] },
+  { label: 'Low Angle', pos: [0, -2, 5] },
+  { label: 'Zoomed In', pos: [0, 0.5, 3.5] },
+  { label: 'Far Out', pos: [0, 2, 10] },
+  { label: 'Isometric', pos: [4, 4, 4] }
+];
+
+function CinematicCameraRig() {
+  const location = useLocation();
+  const targetPosition = useRef(new THREE.Vector3(0, 1, 6));
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * CAMERA_ANGLES.length);
+    const selectedAngle = CAMERA_ANGLES[randomIndex];
     
-    // Formula: Start at Z=6, move closer by 0.002 units for every pixel scrolled
-    // The Math.max ensures we don't clip inside the model (stops at Z=2)
-    const targetZ = Math.max(2, 6 - (scrollY * 0.003));
-    
-    // Smoothly interpolate current position to target position (Lerp)
-    state.camera.position.z += (targetZ - state.camera.position.z) * 0.1;
+    targetPosition.current.set(
+      selectedAngle.pos[0], 
+      selectedAngle.pos[1], 
+      selectedAngle.pos[2]
+    );
+  }, [location.pathname]); 
+
+  useFrame((state, delta) => {
+    // SMOOTH LERP: Reduced speed slightly (1.5) for smoother, less jerky movement
+    state.camera.position.lerp(targetPosition.current, delta * 1.5);
+    state.camera.lookAt(0, 0, 0);
   });
+
   return null;
 }
 
@@ -30,35 +51,36 @@ function SpaceScene() {
       width: '100vw', 
       height: '100vh', 
       zIndex: 0, 
-      background: '#050505'
+      background: '#050505',
+      pointerEvents: 'auto' 
     }}>
-      <Canvas camera={{ position: [0, 1, 6], fov: 45 }}>
+      {/* PERFORMANCE FIX 1: dpr caps resolution to save GPU */}
+      {/* PERFORMANCE FIX 2: powerPreference requests the strong GPU */}
+      <Canvas 
+        dpr={[1, 2]} 
+        gl={{ powerPreference: "high-performance", antialias: false }}
+        camera={{ position: [0, 1, 6], fov: 45 }}
+      >
         
         {/* Lighting */}
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={2} color="#f5c542" />
         <pointLight position={[-10, 5, -10]} intensity={2} color="#4272f5" />
 
-        <Stars radius={300} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        {/* PERFORMANCE FIX 3: Reduced stars from 5000 -> 1500 */}
+        <Stars radius={300} depth={50} count={1500} factor={4} saturation={0} fade speed={1} />
 
         <Suspense fallback={null}>
           <BlackHole3D scale={1.5} position={[0, 0, 0]} />
         </Suspense>
 
-        {/* 2. ADD THE SCROLL RIG */}
-        <ScrollCameraRig />
+        <CinematicCameraRig />
 
-        {/* 3. CONFIGURE CONTROLS */}
         <OrbitControls 
-          enableZoom={false}   /* DISABLE Mouse Wheel Zoom (Fixes Page Scroll) */
-          enablePan={false}    /* Keep model centered */
-          enableRotate={true}  /* Allow manual rotation */
-          autoRotate={true}    /* Keep it spinning */
-          autoRotateSpeed={0.5} /* Speed of spin */
-          
-          /* Optional: Limit manual rotation vertical angle */
-          maxPolarAngle={Math.PI / 1.5} 
-          minPolarAngle={Math.PI / 3}
+          enableZoom={false} 
+          enablePan={false} 
+          enableRotate={true} 
+          autoRotate={false}
         />
       </Canvas>
     </div>
