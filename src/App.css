@@ -24,3 +24,27 @@ html, body {
   flex-direction: column;
   width: 100%;
 }
+
+/* src/App.css */
+
+/* 1. Allow clicks to pass through the main layout wrapper */
+.main-content, 
+.app-container, 
+main {
+  pointer-events: none; /* Lets clicks fall through to the 3D background */
+  position: relative;
+  z-index: 10; /* Keeps text visually on top */
+}
+
+/* 2. Re-enable clicks for interactive elements */
+a, 
+button, 
+input, 
+textarea, 
+.card, 
+.orbitContainer, 
+.n8n-chat-widget,
+.nav,
+.section {
+  pointer-events: auto; /* Makes buttons/cards clickable again */
+}

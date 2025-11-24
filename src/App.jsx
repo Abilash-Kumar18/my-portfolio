@@ -10,6 +10,8 @@ import Footer from './pages/Footer.jsx';
 import Chatbot from './components/Chatbot.jsx';
 import VideoBackground from './components/VideoBackground.jsx';
 import BlackHoleTransition from './components/BlackHoleTransition.jsx';
+import WrapControl from './components/WarpControl.jsx';
+import SpaceScene from './components/SpaceScene.jsx';
 
 
 // Lazy Import Pages
@@ -57,7 +59,7 @@ function App() {
 
 return (
     <>
-      <VideoBackground />
+      <SpaceScene />
       \
 
       {/* THE ANIMATION WRAPPER */}
@@ -90,10 +92,13 @@ return (
         <Footer />
       </motion.div> 
       {/* ^^^ CLOSED THE ANIMATION WRAPPER HERE */}
+      
 
       {/* CHATBOT IS NOW OUTSIDE (Stays fixed to screen) */}
       {/* Pass 'isSuckedIn' if you want to hide it during the game */}
       <div style={{ opacity: isSuckedIn ? 0 : 1, transition: 'opacity 0.5s' }}>
+        <WrapControl isSuckedIn={isSuckedIn} setIsSuckedIn={setIsSuckedIn} />
+        
         <Chatbot />
       </div>
     </>
