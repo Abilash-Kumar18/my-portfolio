@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Header from './pages/Header.jsx';
 import Footer from './pages/Footer.jsx';
 import Chatbot from './components/Chatbot.jsx';
-import VideoBackground from './components/VideoBackground.jsx';
+
 import BlackHoleTransition from './components/BlackHoleTransition.jsx';
 import WrapControl from './components/WarpControl.jsx';
 import SpaceScene from './components/SpaceScene.jsx';

@@ -6,6 +6,7 @@ import { OrbitControls, Stars } from '@react-three/drei';
 import { useLocation } from 'react-router-dom'; 
 import * as THREE from 'three'; 
 import BlackHole3D from './BlackHole3D';
+import Spaceship from './Spaceship';
 
 // --- 1. DEFINE FIXED ANGLES FOR EACH PAGE ---
 const PAGE_ANGLES = {
@@ -74,7 +75,10 @@ function SpaceScene() {
         <Stars radius={300} depth={50} count={1500} factor={4} saturation={0} fade speed={1} />
 
         <Suspense fallback={null}>
-          <BlackHole3D scale={1.5} position={[0, 0, 0]} />
+          <BlackHole3D scale={1.5} position={[0, 0, -2]} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Spaceship />
         </Suspense>
 
         <CinematicCameraRig />
@@ -89,5 +93,6 @@ function SpaceScene() {
     </div>
   );
 }
+
 
 export default SpaceScene;
