@@ -5,8 +5,10 @@ import { motion } from 'framer-motion';
 import { ReactTyped } from "react-typed";
 import styles from './Profile.module.css';
 import profilePic from '../assets/profile.webp'; // Ensure this path is correct
-import TechOrbit from '../components/TechOrbit';
+import TechCloud from '../components/TechCloud';
 import ScrollArrow from '../components/ScrollArrow';
+
+
 
 
 function Profile() {
@@ -56,11 +58,12 @@ function Profile() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-    >
+    > 
+    
       {/* 2. ADD THE EVENT HORIZON HERE */}
       {/* It sits behind the pic because of CSS z-index */}
       
-
+      
       <div className={styles.picContainer}>
         <motion.img 
           src={profilePic} 
@@ -72,7 +75,7 @@ function Profile() {
           whileHover="hover"
         />
       </div>
-      
+      {/* 3. TEXT CONTENT BELOW */}
       <motion.h2 className={styles.name} variants={itemVariants}>
         Hey! This is <span className={styles.nameHighlight}>Abilash Kumar R</span>
       </motion.h2>
@@ -110,7 +113,8 @@ function Profile() {
         variants={itemVariants}
         viewport={{ once: true }} // Only animates in once
       >
-        <TechOrbit />
+        
+        <TechCloud />
       </motion.div>
 
     </motion.main>

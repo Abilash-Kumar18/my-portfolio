@@ -106,7 +106,7 @@ function Header({ title, subtitle }) {
       </div>
 
       <nav className={styles.nav}>
-        {['/', '/about', '/projects', '/resume', '/contact'].map((path) => {
+        {['/','/about','/projects','/contact'].map((path) => {
           const name = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
           return (
             <NavLink 

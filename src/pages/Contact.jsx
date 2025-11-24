@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Contact.module.css';
-import AnimatedBackground from '../components/AnimatedBackground';
 
 function Contact() {
   // 2. Set up state for each input field

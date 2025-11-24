@@ -7,6 +7,7 @@ import styles from './About.module.css';
 import collegeImage from '../assets/college.webp';
 import vincentPallotti from '../assets/vincent.webp';
 import jayMatriculation from '../assets/Jay.webp';
+import ResumeActions from '../components/ResumeActions.jsx';
 
 function About() {
   const [isVisible, setIsVisible] = useState({});
@@ -159,6 +160,7 @@ function About() {
           expertise in machine learning, automation engineering, and full-stack development to architect 
           transformative solutions.
         </p>
+        <ResumeActions/>
       </motion.section>
     </div>
   );

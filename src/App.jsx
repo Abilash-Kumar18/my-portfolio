@@ -10,14 +10,13 @@ import Footer from './pages/Footer.jsx';
 import Chatbot from './components/Chatbot.jsx';
 import VideoBackground from './components/VideoBackground.jsx';
 import BlackHoleTransition from './components/BlackHoleTransition.jsx';
-import WarpControl from './components/WarpControl.jsx';
+
 
 // Lazy Import Pages
 const Home = lazy(() => import('./pages/Home.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
 const Projects = lazy(() => import('./pages/Projects.jsx'));
 const Contact = lazy(() => import('./pages/Contact.jsx'));
-const Resume = lazy(() => import('./pages/Resume.jsx'));
 
 // Simple Loading Spinner
 const Loading = () => (
@@ -45,7 +44,7 @@ function App() {
       opacity: 1, 
       rotate: 0,
       filter: "blur(0px)",
-      transition: { duration: 1.2, ease: [0.34, 1.3, 0.64, 1] } 
+      transition: { duration: 1.5, ease: [0.34, 1.3, 0.64, 1] } 
     },
     gameSucked: { 
       scale: 0, 
@@ -59,7 +58,7 @@ function App() {
 return (
     <>
       <VideoBackground />
-      <WarpControl isSuckedIn={isSuckedIn} toggleWarp={() => setIsSuckedIn(!isSuckedIn)} />
+      \
 
       {/* THE ANIMATION WRAPPER */}
       <motion.div
@@ -79,11 +78,10 @@ return (
           <AnimatePresence mode="wait">
             <Suspense fallback={<Loading />}>
               <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<BlackHoleTransition> <Home /> </BlackHoleTransition>} />
+                <Route path="/" element={<Home />} />
                 <Route path="/about" element={<BlackHoleTransition> <About /> </BlackHoleTransition>} />
                 <Route path="/projects" element={<BlackHoleTransition> <Projects /> </BlackHoleTransition>} />
                 <Route path="/contact" element={<BlackHoleTransition> <Contact /> </BlackHoleTransition>} />
-                <Route path="/resume" element={<BlackHoleTransition> <Resume /> </BlackHoleTransition>} />
               </Routes>
             </Suspense>
           </AnimatePresence>
