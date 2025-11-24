@@ -8,6 +8,7 @@ import profilePic from '../assets/profile.webp'; // Ensure this path is correct
 import TechOrbit from '../components/TechOrbit';
 import ScrollArrow from '../components/ScrollArrow';
 
+
 function Profile() {
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -1,29 +1,29 @@
 /* src/components/EventHorizon.module.css */
 
 .horizonWrapper {
-  position: fixed;
+  position: fixed; /* Locks it to the screen/video */
   top: 50%;
   left: 50%;
-  /* Fine-tune this translate if the ring feels too low/high relative to the video */
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  pointer-events: none; /* Lets clicks pass through to buttons */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 0; 
+  z-index: 0; /* Behind the profile picture */
   overflow: hidden;
 }
 
 .scene {
-  /* MAKE IT MASSIVE to match the video's accretion disk */
-  width: 130vh; 
-  height: 130vh;
-  min-width: 1000px; /* Ensure it stays big on wide screens */
-  min-height: 1000px;
+  /* Make the ring HUGE so it goes around the black hole, not inside it */
+  width: 120vh; 
+  height: 120vh;
+  min-width: 800px;
+  min-height: 800px;
   
-  perspective: 1500px; /* Deep perspective */
+  /* This creates the 3D depth */
+  perspective: 1000px; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,10 +32,16 @@
 .ring {
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  /* TILT THE RING to match the video perspective */
+  transform: rotateX(75deg); 
+  transform-style: preserve-3d;
+  
+  /* Optimization */
+  will-change: transform;
 }
 
 .textRing {
@@ -46,19 +52,16 @@
 
 .textPath {
   font-family: 'Inter', sans-serif;
-  font-weight: 900; /* Thick font matches the energy beam */
-  font-size: 28px; /* Larger text */
-  letter-spacing: 12px; /* Wide spacing looks cinematic */
+  font-weight: 800; /* Extra Bold */
+  font-size: 26px;
+  letter-spacing: 8px; /* Wide cinematic spacing */
   
-  fill: #f5c542; 
+  fill: #f5c542; /* Your Theme Gold */
   
-  /* THIS IS THE MAGIC: Makes the text look like light */
-  mix-blend-mode: screen; 
-  
-  /* Strong Glow */
+  /* Make it look like Glowing Light */
   text-shadow: 0 0 20px rgba(245, 197, 66, 0.8), 
-               0 0 40px rgba(224, 122, 48, 0.6);
-  
+               0 0 40px rgba(224, 122, 48, 0.5);
+               
   text-transform: uppercase;
   opacity: 0.9;
 }

@@ -36,12 +36,12 @@ function Chatbot() {
           inputPlaceholder: 'Type your question...',
         },
       },
-      // Base theme initialization
+      // Fallback theme config
       theme: {
         primaryColor: '#f5c542', 
         secondaryColor: '#E07A30',
         backgroundColor: '#1a1a1a',
-        textColor: '#ffffff',
+        textColor: '#ff0000ff',
         fontFamily: 'Inter, sans-serif'
       }
     });
@@ -53,90 +53,75 @@ function Chatbot() {
       const style = document.createElement('style');
       style.id = 'n8n-chat-custom-styles';
       
-      // "Event Horizon" Theme Overrides
+      // WE USE 'body' AND '#n8n-chat' TO INCREASE SPECIFICITY (make our rules stronger)
       style.textContent = `
-        :root {
-            /* PRIMARY ACCENT (Main Gold) - For Toggle Button & Headers */
-            --chat--color--primary: #f5c542; 
-            --chat--color--primary-shade-50: #e0b436;
-            --chat--color--primary--shade-100: #c9a230;
+        /* 1. VARIABLES - Override Defaults */
+:root {
+	--chat--color--primary: #ffde22ff;
+	--chat--color--primary-shade-50: #ffd118ff;
+	--chat--color--primary--shade-100: #ffb811ff;
+	--chat--color--secondary: #20b69e;
+  --chat--color--third: #ff7b00ff;
+	--chat--color-secondary-shade-50: #1ca08a;
+	--chat--color-white: #ffffff;
+	--chat--color-light: #f2f4f8;
+  --chat--color-black: #000000ff;
+	--chat--color-light-shade-50: #e6e9f1;
+	--chat--color-light-shade-100: #c2c5cc;
+	--chat--color-medium: #d2d4d9;
+	--chat--color-dark: #ff7b00ff;
+	
+	--chat--color-typing: #ffffffff;
 
-            /* SECONDARY ACCENT (Deep Orange) - For User Bubbles (The Heat!) */
-            --chat--color--secondary: #E07A30; 
-            --chat--color-secondary-shade-50: #c46624;
+	--chat--spacing: 1rem;
+	--chat--border-radius: 0.25rem;
+	--chat--transition-duration: 0s;
 
-            /* BACKGROUNDS (Dark Mode Fixed) */
-            --chat--color-light: #2a2a2a; /* Bot Bubble Background (Dark Grey) */
-            --chat--color-light-shade-50: #333333;
-            --chat--color-light-shade-100: #444444;
-            --chat--color-medium: #888888;
-            --chat--color-dark: #1a1a1a; /* Header & Window Background */
-            --chat--color-white: #ffffff; /* Text Color */
-            --chat--color-disabled: #555555;
-            --chat--color-typing: #f5c542; /* Gold typing dots */
+	--chat--window--width: 400px;
+	--chat--window--height: 500px;
 
-            /* DIMENSIONS & SPACING */
-            --chat--spacing: 1rem;
-            --chat--border-radius: 12px;
-            --chat--window--width: 380px;
-            --chat--window--height: 600px;
-            --chat--header-height: auto;
-            --chat--header--padding: 15px;
-        }
+	--chat--header-height: 10px;
+	--chat--header--padding: var(--chat--spacing);
+	--chat--header--background: var(--chat--color-dark);
+	--chat--header--color: var(--chat--color-light);
+	--chat--header--border-top: none;
+	--chat--header--border-bottom: none;
+	--chat--header--border-bottom: none;
+	--chat--header--border-bottom: none;
+	--chat--heading--font-size: 2em;
+	--chat--header--color: var(--chat--color-light);
+	--chat--subtitle--font-size: inherit;
+	--chat--subtitle--line-height: 1.8;
 
-        /* Force Dark Theme Overrides */
-        .n8n-chat-window {
-            background-color: var(--chat--color-dark) !important;
-            border: 1px solid #d7a100ff !important;
-        }
+	--chat--textarea--height: 50px;
 
-        /* Header Styling */
-        .n8n-chat-header {
-            background-color: var(--chat--color-dark) !important;
-            border-bottom: 1px solid #333 !important;
-        }
-        
-        .n8n-chat-header-title {
-            color: var(--chat--color--primary) !important;
-            font-weight: 700 !important;
-        }
+	--chat--message--font-size: 1rem;
+	--chat--message--padding: var(--chat--spacing);
+	--chat--message--border-radius: var(--chat--border-radius);
+	--chat--message-line-height: 1.8;
+	--chat--message--bot--background: var(--chat--color-white);
+	--chat--message--bot--color: black;
+	--chat--message--bot--border: none;
+	--chat--message--user--background: var(--chat--color--third);
+	--chat--message--user--color: var(--chat--color-white);
+  --chat--message--user--typing--color: var(--chat--color-black);
+	--chat--message--user--border: none;
+	--chat--message--pre--background: rgba(0, 0, 0, 0.05);
 
-        /* Bot Message (Dark Grey Bubble, White Text) */
-        .n8n-chat-message-bot {
-            background-color: #b5b5b5ff !important;
-            color: #e0e0e0 !important;
-            border: 1px solid #3e3e3e !important;
-        }
-
-        /* User Message (Deep Orange Bubble, White Text) */
-        .n8n-chat-message-user {
-            background-color: var(--chat--color--secondary) !important;
-            color: #000000ff !important; 
-            font-weight: 500 !important;
-        }
-
-        /* Input Area */
-        .n8n-chat-input {
-            background-color: #2a2a2a !important;
-            color: white !important;
-            border: 1px solid #3e3e3e !important;
-        }
-        
-        .n8n-chat-input::placeholder {
-            color: #888 !important;
-        }
-
-        /* Footer/Branding Removal */
-        .n8n-chat-footer {
-            display: none !important;
-        }
+	--chat--toggle--background: var(--chat--color--primary);
+	--chat--toggle--hover--background: var(--chat--color--primary-shade-50);
+	--chat--toggle--active--background: var(--chat--color--primary--shade-100);
+	--chat--toggle--color: var(--chat--color-white);
+	--chat--toggle--size: 60px;
+}
       `;
       document.head.appendChild(style);
     };
 
-    // Apply styles after delays to ensure chat renders first
+    // Apply styles multiple times to ensure they catch the render
     setTimeout(applyCustomStyles, 100);
-    setTimeout(applyCustomStyles, 1000);
+    setTimeout(applyCustomStyles, 500);
+    setTimeout(applyCustomStyles, 1500);
 
   }, []);
 
