@@ -1,106 +1,103 @@
 // src/App.jsx
 
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, Suspense } from 'react';
 import './App.css';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import Header from './pages/Header.jsx';
-import Footer from './pages/Footer.jsx';
+import SpaceScene from './components/SpaceScene.jsx';
 import Chatbot from './components/Chatbot.jsx';
 
-import BlackHoleTransition from './components/BlackHoleTransition.jsx';
-import WrapControl from './components/WarpControl.jsx';
-import SpaceScene from './components/SpaceScene.jsx';
-
-
-// Lazy Import Pages
-const Home = lazy(() => import('./pages/Home.jsx'));
-const About = lazy(() => import('./pages/About.jsx'));
-const Projects = lazy(() => import('./pages/Projects.jsx'));
-const Contact = lazy(() => import('./pages/Contact.jsx'));
-
-// Simple Loading Spinner
-const Loading = () => (
-  <div style={{ 
-    height: '100vh', 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    color: '#f5c542',
-    fontSize: '1.5em',
-    fontFamily: 'Inter, sans-serif'
-  }}>
-    Loading...
-  </div>
-);
+// Content Pages
+import About from './pages/About.jsx';
+import Projects from './pages/Projects.jsx';
+import Contact from './pages/Contact.jsx';
+// Note: Profile is no longer imported here!
 
 function App() {
-  const location = useLocation();
-  const [isSuckedIn, setIsSuckedIn] = useState(false);
+  const [currentView, setCurrentView] = useState('home');
 
-  // RENAMED VARIANTS to avoid conflict with page transitions
-  const gameVariants = {
-    gameNormal: { 
-      scale: 1, 
+  const overlayVariants = {
+    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    visible: { 
       opacity: 1, 
-      rotate: 0,
-      filter: "blur(0px)",
-      transition: { duration: 1.5, ease: [0.34, 1.3, 0.64, 1] } 
+      scale: 1, 
+      y: 0,
+      transition: { duration: 0.8, delay: 0.5 } 
     },
-    gameSucked: { 
-      scale: 0, 
-      opacity: 0, 
-      rotate: 720, 
-      filter: "blur(10px)", 
-      transition: { duration: 0.8, ease: "anticipate" } 
-    }
+    exit: { opacity: 0, scale: 1.1, duration: 0.3 }
   };
 
-return (
+  return (
     <>
-      <SpaceScene />
-      \
+      <SpaceScene currentView={currentView} setView={setCurrentView} />
 
-      {/* THE ANIMATION WRAPPER */}
-      <motion.div
-        variants={gameVariants}
-        initial="gameNormal"
-        animate={isSuckedIn ? "gameSucked" : "gameNormal"}
-        style={{ 
-          width: '100%', 
-          minHeight: '100vh',
-          transformOrigin: 'center 40%',
-          willChange: 'transform, opacity'
-        }}
-      >
-        <Header title="Portfolio" subtitle="" textAlign="center" />
+      <div style={{ 
+        position: 'absolute', 
+        top: 0, left: 0, width: '100%', minHeight: '100vh',
+        zIndex: 10,
+        pointerEvents: 'none', 
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <AnimatePresence mode="wait">
+          
+          {/* HOME VIEW: EMPTY HERE (Handled by SpaceScene Scroll) */}
 
-        <main className="main-content">
-          <AnimatePresence mode="wait">
-            <Suspense fallback={<Loading />}>
-              <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<BlackHoleTransition> <About /> </BlackHoleTransition>} />
-                <Route path="/projects" element={<BlackHoleTransition> <Projects /> </BlackHoleTransition>} />
-                <Route path="/contact" element={<BlackHoleTransition> <Contact /> </BlackHoleTransition>} />
-              </Routes>
-            </Suspense>
-          </AnimatePresence>
-        </main>
+          {/* ABOUT VIEW */}
+          {currentView === 'about' && (
+            <motion.div 
+              key="about"
+              variants={overlayVariants}
+              initial="hidden" animate="visible" exit="exit"
+              style={{ pointerEvents: 'auto', width: '90%', maxWidth: '1000px' }}
+            >
+              <button onClick={() => setCurrentView('home')} className="back-btn">← RETURN TO ORBIT</button>
+              <About />
+            </motion.div>
+          )}
 
-        <Footer />
-      </motion.div> 
-      {/* ^^^ CLOSED THE ANIMATION WRAPPER HERE */}
-      
+          {/* PROJECTS VIEW */}
+          {currentView === 'projects' && (
+            <motion.div 
+              key="projects"
+              variants={overlayVariants}
+              initial="hidden" animate="visible" exit="exit"
+              style={{ pointerEvents: 'auto', width: '90%' }}
+            >
+              <button onClick={() => setCurrentView('home')} className="back-btn">← RETURN TO ORBIT</button>
+              <Projects />
+            </motion.div>
+          )}
 
-      {/* CHATBOT IS NOW OUTSIDE (Stays fixed to screen) */}
-      {/* Pass 'isSuckedIn' if you want to hide it during the game */}
-      <div style={{ opacity: isSuckedIn ? 0 : 1, transition: 'opacity 0.5s' }}>
-        <WrapControl isSuckedIn={isSuckedIn} setIsSuckedIn={setIsSuckedIn} />
-        
-        <Chatbot />
+          {/* CONTACT VIEW */}
+          {currentView === 'contact' && (
+            <motion.div 
+              key="contact"
+              variants={overlayVariants}
+              initial="hidden" animate="visible" exit="exit"
+              style={{ pointerEvents: 'auto', width: '90%', maxWidth: '800px' }}
+            >
+              <button onClick={() => setCurrentView('home')} className="back-btn">← RETURN TO ORBIT</button>
+              <Contact />
+            </motion.div>
+          )}
+
+        </AnimatePresence>
       </div>
+
+      <Chatbot />
+      
+      <style>{`
+        .back-btn {
+          position: fixed; top: 20px; left: 20px;
+          background: rgba(0,0,0,0.7); border: 1px solid #f5c542;
+          color: #f5c542; padding: 10px 20px; border-radius: 30px;
+          cursor: pointer; font-weight: bold; z-index: 100;
+          backdrop-filter: blur(5px); transition: all 0.3s;
+        }
+        .back-btn:hover { background: #f5c542; color: #000; }
+      `}</style>
     </>
   );
 }
