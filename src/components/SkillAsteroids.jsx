@@ -8,15 +8,15 @@ import { useFrame } from '@react-three/fiber';
 // X is limited to -8 and 8 (screen width)
 // Y goes down from -3 to -25 (filling the scroll gap)
 const SKILLS = [
-  { name: 'Python', color: '#3776AB', pos: [-7, -3, 0] },     // Top Left
-  { name: 'Java', color: '#007396', pos: [7, -6, 2] },        // Top Right
-  { name: 'React', color: '#f5c542', pos: [-5, -9, 3] },      // Mid Left (Close)
-  { name: 'JavaScript', color: '#F7DF1E', pos: [6, -12, -2] },// Mid Right
-  { name: 'HTML', color: '#E34F26', pos: [-7, -15, -1] },     // Low Left
-  { name: 'CSS', color: '#1572B6', pos: [0, -18, 4] },        // Center (Very Close)
-  { name: 'MongoDB', color: '#47A248', pos: [7, -21, 0] },    // Bottom Right
-  { name: 'n8n', color: '#FF6B6B', pos: [-6, -24, 2] },       // Bottom Left
-  { name: 'C', color: '#A8B9CC', pos: [4, -27, -2] },         // Deep Bottom
+  { name: 'Python', color: '#3776AB', pos: [-7, -10, 0] },     // Top Left
+  { name: 'Java', color: '#007396', pos: [7, -13, 2] },        // Top Right
+  { name: 'React', color: '#f5c542', pos: [-5, -16, 3] },      // Mid Left (Close)
+  { name: 'JavaScript', color: '#F7DF1E', pos: [2, -17, -2] },// Mid Right
+  { name: 'HTML', color: '#E34F26', pos: [-7, -22, -1] },     // Low Left
+  { name: 'CSS', color: '#1572B6', pos: [0, -28, 4] },        // Center (Very Close)
+  { name: 'MongoDB', color: '#47A248', pos: [7, -37, 0] },    // Bottom Right
+  { name: 'n8n', color: '#FF6B6B', pos: [-6, -34, 2] },       // Bottom Left
+  { name: 'C', color: '#A8B9CC', pos: [4, -40, -2] },         // Deep Bottom
 ];
 
 function AsteroidNode({ skill, scene }) {

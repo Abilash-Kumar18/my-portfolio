@@ -3,6 +3,7 @@
 import React, { useState, Suspense } from 'react';
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Loader } from '@react-three/drei';
 
 import SpaceScene from './components/SpaceScene.jsx';
 import Chatbot from './components/Chatbot.jsx';
@@ -12,6 +13,7 @@ import About from './pages/About.jsx';
 import Projects from './pages/Projects.jsx';
 import Contact from './pages/Contact.jsx';
 // Note: Profile is no longer imported here!
+import WarpScene from './components/WarpScene.jsx';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -29,6 +31,7 @@ function App() {
 
   return (
     <>
+    
       <SpaceScene currentView={currentView} setView={setCurrentView} />
 
       <div style={{ 
@@ -40,10 +43,11 @@ function App() {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
+
         <AnimatePresence mode="wait">
           
           {/* HOME VIEW: EMPTY HERE (Handled by SpaceScene Scroll) */}
-
+      
           {/* ABOUT VIEW */}
           {currentView === 'about' && (
             <motion.div 
@@ -56,7 +60,7 @@ function App() {
               <About />
             </motion.div>
           )}
-
+         
           {/* PROJECTS VIEW */}
           {currentView === 'projects' && (
             <motion.div 
@@ -82,11 +86,33 @@ function App() {
               <Contact />
             </motion.div>
           )}
-
+        
         </AnimatePresence>
       </div>
+              <Loader 
+        containerStyles={{
+          background: '#000000', // Solid Black Background
+          zIndex: 99999,
+        }}
+        innerStyles={{
+          width: '300px',
+          height: '10px',
+          background: '#333',
+        }}
+        barStyles={{
+          background: '#f5c542', // Gold Loading Bar
+          height: '100%',
+        }}
+        dataStyles={{
+          color: '#f5c542',
+          fontSize: '14px',
+          fontFamily: '"Courier New", monospace',
+          fontWeight: 'bold'
+        }}
+      />
 
       <Chatbot />
+      
       
       <style>{`
         .back-btn {
@@ -98,6 +124,7 @@ function App() {
         }
         .back-btn:hover { background: #f5c542; color: #000; }
       `}</style>
+      
     </>
   );
 }
