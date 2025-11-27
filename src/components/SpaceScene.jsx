@@ -10,7 +10,7 @@ import BlackHole3D from '../components/BlackHole3D'; // Assuming these are in th
 import Spaceship from '../components/Spaceship';
 import BackgroundUFO from '../components/BackgroundUFO';
 import Profile from '../pages/Profile'; // Changed from pages to components if Profile is just a component
-import SkillAsteroids from './SkillAsteroids';
+import SkillAsteroids from '../components/SkillAsteroids';
 
 // --- VIEW ANGLES ---
 const VIEW_ANGLES = {
@@ -133,7 +133,7 @@ function SpaceScene({ currentView, setView }) {
             <Spaceship />
             
             <BackgroundUFO />
-            <SkillAsteroids />
+            
 
             {/* --- NAVIGATION MODELS (FIXED SCALE 0.5) --- */}
             
@@ -166,7 +166,7 @@ function SpaceScene({ currentView, setView }) {
               modelPath="/models/station.glb" 
               scale={0.6} /* FIXED SCALE (Was 0.8) */
             />
-
+           <SkillAsteroids />
             <CameraController currentView={currentView} />
           </Suspense>
         </ScrollControls>
