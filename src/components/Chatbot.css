@@ -26,3 +26,8 @@ button.n8n-chat-button {
     color: black !important;
     border: none !important;
 }
+.n8n-chat-toggle-button:hover {
+    background-color: #e6c530 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

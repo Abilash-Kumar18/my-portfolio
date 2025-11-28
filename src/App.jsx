@@ -13,7 +13,7 @@ import About from './pages/About.jsx';
 import Projects from './pages/Projects.jsx';
 import Contact from './pages/Contact.jsx';
 // Note: Profile is no longer imported here!
-import WarpScene from './components/WarpScene.jsx';
+
 
 function App() {
   const [currentView, setCurrentView] = useState('home');

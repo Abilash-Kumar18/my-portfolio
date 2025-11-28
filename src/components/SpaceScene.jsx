@@ -12,16 +12,26 @@ import Profile from '../pages/Profile';
 
 import PixelJourney from '../components/PixelJourney'; 
 import JourneyOverlay from '../components/JourneyOverlay';
-import SkillAsteroids from './SkillAsteroids';
+import SkillAsteroids from '../components/SkillAsteroids';
+
 
 // --- VIEW ANGLES (Updated for Mixed Layout) ---
 const VIEW_ANGLES = {
-  'home':     { pos: [0, 2, 12], lookAt: [0, 2, 0] },
-  'about':    { pos: [8, -28, 0], lookAt: [8, -28, 0] },   // Near Nav 1
-  'projects': { pos: [6, -36, 5], lookAt: [8, -38, 0] },      // Near Nav 2
-  'contact':  { pos: [0, -48, 6], lookAt: [0, -50, 0] }       // Near Nav 3
-};
+  // 1. HOME (Main Black Hole View)
+  'home':     { pos: [0, 0, 12], lookAt: [0, 0, 0] },
 
+  // 2. ABOUT (Model at [-8.7, -28, -5])
+  // Camera moves slightly up (Y: -26) and forward (Z: 3) to look down at it
+  'about':    { pos: [-8.7, -26, 3], lookAt: [-8.7, -28, -5] }, 
+
+  // 3. PROJECTS (Model at [0, -29, -5])
+  // Camera centers perfectly in front
+  'projects': { pos: [0, -27, 3], lookAt: [0, -29, -5] },   
+  
+  // 4. CONTACT (Model at [8, -29, -5])
+  // Camera moves slightly up and forward
+  'contact':  { pos: [8, -27, 3], lookAt: [8, -29, -5] }    
+};
 // --- NAV MODEL COMPONENT ---
 function NavModel({ position, modelPath, label, onClick, color, scale = 1 }) {
   const ref = useRef();
@@ -148,16 +158,14 @@ function SpaceScene({ currentView, setView }) {
             
             <Spaceship />
             <BackgroundUFO />
-           
             <PixelJourney />
             <SkillAsteroids />
-            
-
+          
             {/* --- MIXED NAVIGATION MODELS --- */}
             
             {/* 1. ABOUT PLANET (After first set of asteroids) */}
             <NavModel 
-              position={[-8.7, -28, -5]} 
+              position={[-8.5, -28, -5]} 
               label="ABOUT" 
               onClick={() => handleNavClick('about')} 
               color="#0088ff" 
