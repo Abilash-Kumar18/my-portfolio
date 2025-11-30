@@ -41,7 +41,7 @@ function PlanetNode({ stage, scene }) {
 
   return (
     <group position={stage.position}>
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+      <Float speed={2} rotationIntensity={0.3} floatIntensity={1}>
         <primitive 
           object={clonedScene} 
           ref={ref}
@@ -50,7 +50,8 @@ function PlanetNode({ stage, scene }) {
           onPointerOut={() => { setHover(false); document.body.style.cursor = 'auto'; }}
         />
         {/* Simple light to illuminate the model */}
-        <pointLight distance={5} intensity={2} color="#ffffff" position={[2, 2, 2]} />
+       
+        <directionalLight position={[0, 10, 0]} intensity={1} />
       </Float>
     </group>
   );

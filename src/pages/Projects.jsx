@@ -15,19 +15,19 @@ const myProjects = [
     title: "Google Form Auto Filler By Extension",
     description: "A sophisticated Chrome extension engineered to streamline form-filling workflows through intelligent automation. Leverages persistent storage mechanisms to maintain user profile data, enabling rapid completion of repetitive form submissions.",
     link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
-    image: googleFormFiller 
+    image: googleFormFiller
   },
   {
     title: "RAG Chatbot For Semester Material Helper Using N8N",
     description: "An advanced conversational AI system powered by Retrieval-Augmented Generation (RAG) architecture, integrated with n8n workflow automation platform. Delivers intelligent document retrieval and contextual question-answering capabilities.",
     link: "https://abilash-kumar18.github.io/n8n_chatbot/",
-    image: n8nChatbot 
+    image: n8nChatbot
   },
   {
     title: "Krishi Sakhi Website For Farmers Deployed On Streamlit Cloud",
     description: "A comprehensive agricultural technology platform designed to empower farming communities with data-driven insights. Delivers real-time weather analytics, crop management recommendations, and agricultural best practices.",
     link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
-    image: krishiSakhi 
+    image: krishiSakhi
   }
 ];
 
@@ -55,9 +55,9 @@ function Projects() {
 
   return (
     <>
-      
+
       <section className={styles.projects}>
-        <motion.h2 
+        <motion.h2
           className={styles.heading}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ function Projects() {
         >
           My Projects
         </motion.h2>
-        
+
         <div className={styles.carouselWrapper}>
           {/* Removed the variants/stagger animation so cards appear instantly */}
           <div className={styles.container}>
@@ -81,8 +81,9 @@ function Projects() {
             ))}
           </div>
         </div>
+
       </section>
-      
+
       <ImageModal
         image={modalImage}
         title={modalTitle}

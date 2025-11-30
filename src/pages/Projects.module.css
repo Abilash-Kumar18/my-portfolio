@@ -3,11 +3,12 @@
 .projects {
   width: 100%;
   padding: 40px 20px;
- padding-top: 80px;
+  padding-top: 80px;
   min-height: 100vh;
   box-sizing: border-box;
   position: relative;
-  overflow: hidden; /* Ensures no horizontal scrollbar */
+  overflow: hidden;
+  /* Ensures no horizontal scrollbar */
 }
 
 .heading {
@@ -34,7 +35,7 @@
   gap: 20px;
   width: max-content;
   /* Animation speed adjusted for smoother flow */
-  animation: slideRightToLeft 50s linear infinite; 
+  animation: slideRightToLeft 50s linear infinite;
   box-sizing: border-box;
   will-change: transform;
 }
@@ -47,6 +48,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     /* Move exactly 25% (one set of projects) to loop seamlessly */
     transform: translateX(-25%);
@@ -58,4 +60,37 @@
   .container {
     animation-duration: 40s;
   }
+}
+
+/* --- GITHUB CALENDAR STYLES --- */
+.calendarSection {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.calendarTitle {
+  font-size: 1.8rem;
+  color: #f5c542;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+.calendarWrapper {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(245, 197, 66, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  overflow-x: auto;
+  /* Handle small screens */
 }

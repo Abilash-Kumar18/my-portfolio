@@ -32,11 +32,11 @@ function Spaceship() {
     shipRef.current.rotateY(-mouse.x * 0.3); 
     
     // BANK/ROLL (Adds realism)
-    shipRef.current.rotateZ(-mouse.x * 0.2); 
+    shipRef.current.rotateZ(-mouse.x * 0.3); 
   });
 
   return (
-    <primitive object={scene} ref={shipRef} scale={0.18} />
+    <primitive object={scene} ref={shipRef} scale={0.1} />
   );
 }
 

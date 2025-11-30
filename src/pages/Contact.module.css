@@ -1,4 +1,4 @@
-/* src/components/Contact.module.css */
+/* src/pages/Contact.module.css */
 
 .contact {
   width: 100%;
@@ -94,7 +94,8 @@
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: #f5c542; /* Gold Border */
+  border-color: #f5c542;
+  /* Gold Border */
   box-shadow: 0 0 10px rgba(245, 197, 66, 0.2);
 }
 
@@ -104,17 +105,13 @@
   line-height: 1.5;
 }
 
-/* src/pages/Contact.module.css */
-
-/* Fix the Input Focus color */
-
-
-/* Fix the Send Button */
+/* Submit Button Styling */
 .submitBtn {
   padding: 12px 20px;
   font-size: 1.1em;
   font-weight: 700;
-  color: #000000; /* Black text */
+  color: #000000;
+  /* Black text */
   /* Fire Gradient */
   background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
   border: none;
@@ -128,6 +125,7 @@
   background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
 }
+
 .submitBtn:active {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
@@ -137,6 +135,66 @@
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+}
+
+/* --- SOCIAL LINKS STYLING (NEW) --- */
+
+.socialContainer {
+  margin-top: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 40px;
+
+  /* FIX VISIBILITY: Ensure icons are on top */
+  position: relative;
+  z-index: 100;
+}
+
+.connectText {
+  color: #c0c0c0;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.iconsWrapper {
+  display: flex;
+  gap: 30px;
+  /* Ensure icons are clickable */
+  pointer-events: auto;
+
+  /* Added Background for Visibility */
+  background: rgba(26, 26, 26, 0.7);
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.socialIcon {
+  font-size: 3rem;
+  /* Large, clickable size */
+  color: #f5c542;
+  /* Gold */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Subtle initial glow */
+  filter: drop-shadow(0 0 5px rgba(245, 197, 66, 0.3));
+  text-decoration: none;
+}
+
+.socialIcon:hover {
+  color: #E07A30;
+  /* Deep Orange on Hover */
+  transform: translateY(-5px) scale(1.1);
+  /* Intense Fire Glow on Hover */
+  filter: drop-shadow(0 0 20px rgba(224, 122, 48, 0.8));
 }
 
 /* Responsive design */

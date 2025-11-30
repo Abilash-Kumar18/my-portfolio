@@ -8,7 +8,7 @@ function JourneyOverlay() {
       {/* --- PIXEL JOURNEY STORY --- */}
       
       {/* STAGE 1: THE BEGINNING */}
-      <div style={{ position: 'absolute', top: '100vh', right: '15%', width: '350px', textAlign: 'right' }}>
+      <div style={{ position: 'absolute', top: '130vh', right: '15%', width: '350px', textAlign: 'right' }}>
         <h3 style={headingStyle}>THE BEGINNING</h3>
         <p style={descStyle}>
           My journey started with a curiosity for how things work. 
@@ -17,16 +17,16 @@ function JourneyOverlay() {
       </div>
 
       {/* STAGE 2: FULL STACK EXPANSION */}
-      <div style={{ position: 'absolute', top: '210vh', left: '15%', width: '350px', textAlign: 'left' }}>
+      <div style={{ position: 'absolute', top: '230vh', left: '15%', width: '350px', textAlign: 'left' }}>
         <h3 style={headingStyle}>FULL STACK EXPANSION</h3>
         <p style={descStyle}>
           I expanded my universe into Web Development, mastering 
-          <span style={highlight}> React, Node.js</span>, and modern UI libraries.
+          <span style={highlight}> React Node.js</span>, and modern UI libraries.
         </p>
       </div>
 
       {/* STAGE 3: THE AI FRONTIER */}
-      <div style={{ position: 'absolute', top: '320vh', right: '15%', width: '350px', textAlign: 'right' }}>
+      <div style={{ position: 'absolute', top: '350vh', right: '15%', width: '350px', textAlign: 'right' }}>
         <h3 style={headingStyle}>THE AI FRONTIER</h3>
         <p style={descStyle}>
           Now, I am exploring the event horizon of <span style={highlight}>Generative AI</span> 

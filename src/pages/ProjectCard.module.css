@@ -139,4 +139,5 @@
 .link:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 15px rgba(245, 197, 66, 0.4);
+  color: #000;
 }
