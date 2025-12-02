@@ -2,22 +2,23 @@
 
 import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars, useGLTF, Html, Sparkles, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
+import { Stars, useGLTF, Html, Sparkles, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
 import { Blackhole } from './Blackhole'; 
-
-// 1. FIX: Import from the Controller file (Spaceship.jsx), not the Model file
 import Spaceship from './Spaceship'; 
+
+// 1. IMPORT ALL THREE MODEL COMPONENTS
+import { Satellite } from './Satellite';
+import { Station } from './Station';
+import { Planet } from './Planet'; // <--- Newly created file
 
 import BackgroundUFO from '../components/BackgroundUFO';
 import Profile from '../pages/Profile';
-
 import PixelJourney from '../components/PixelJourney';
 import JourneyOverlay from '../components/JourneyOverlay';
 import SkillAsteroids from '../components/SkillAsteroids';
 
-// --- VIEW ANGLES ---
 const VIEW_ANGLES = {
   'home': { pos: [0, 0, 12], lookAt: [0, 0, 0] },
   'about': { pos: [-4, -54, -4], lookAt: [-7, -56, -5] },
@@ -25,23 +26,13 @@ const VIEW_ANGLES = {
   'contact': { pos: [8, -54, -2], lookAt: [8, -56 ,-5] }
 };
 
-// --- NAV MODEL COMPONENT ---
-function NavModel({ position, modelPath, label, onClick, color, scale = 1 }) {
+// 2. FIXED NAVMODEL (No usage of useGLTF here!)
+function NavModel({ position, children, label, onClick, color, scale = 1 }) {
   const ref = useRef();
   const [hovered, setHover] = useState(false);
-  const { scene } = useGLTF(modelPath);
-
-  const clonedScene = React.useMemo(() => {
-    const clone = scene.clone();
-    clone.traverse((child) => {
-      if (child.isMesh) child.userData.clickable = true;
-    });
-    return clone;
-  }, [scene]);
-
+  
   useFrame((state) => {
     if (ref.current) {
-      ref.current.rotation.y += hovered ? 0.03 : 0.005;
       ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime + position[0]) * 0.1;
     }
   });
@@ -49,14 +40,18 @@ function NavModel({ position, modelPath, label, onClick, color, scale = 1 }) {
   return (
     <group position={position}>
       <pointLight distance={5} intensity={hovered ? 10 : 2} color={color} />
-      <primitive
+      
+      <group
         ref={ref}
-        object={clonedScene}
         scale={hovered ? scale * 1.2 : scale}
         onClick={(e) => { e.stopPropagation(); onClick(); }}
         onPointerOver={(e) => { e.stopPropagation(); setHover(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={(e) => { e.stopPropagation(); setHover(false); document.body.style.cursor = 'auto'; }}
-      />
+      >
+        {/* We ONLY render children now. No conditional loading. */}
+        {children}
+      </group>
+
       <Html position={[0, -2, 0]} center distanceFactor={12} style={{ pointerEvents: 'none' }}>
         <div style={{
           opacity: hovered ? 1 : 0, transform: hovered ? 'translateY(0)' : 'translateY(10px)',
@@ -73,7 +68,6 @@ function NavModel({ position, modelPath, label, onClick, color, scale = 1 }) {
   );
 }
 
-// --- WARP EFFECT ---
 function WarpEffect({ active }) {
   return (
   <Sparkles
@@ -87,7 +81,6 @@ function WarpEffect({ active }) {
   );
 }
 
-// --- CAMERA CONTROLLER ---
 function CameraController({ currentView }) {
   const scroll = useScroll();
 
@@ -114,7 +107,6 @@ function CameraController({ currentView }) {
   return null;
 }
 
-// --- MAIN SCENE ---
 function SpaceScene({ currentView, setView }) {
   const [isWarping, setIsWarping] = useState(false);
 
@@ -163,33 +155,40 @@ function SpaceScene({ currentView, setView }) {
             <PixelJourney />
             <SkillAsteroids />
 
-            {/* 2. FIX: Updated paths to use compressed models */}
+            {/* --- UPDATED NAVIGATION MODELS --- */}
+            
+            {/* 1. ABOUT PLANET (Using Component) */}
             <NavModel
               position={[-8.5, -28, -5]}
               label="ABOUT"
               onClick={() => handleNavClick('about')}
               color="#0088ff"
-              modelPath="/models/planet-transformed.glb"
               scale={0.9}
-            />
+            >
+              <Planet />
+            </NavModel>
 
+            {/* 2. PROJECTS SATELLITE (Using Component) */}
             <NavModel
               position={[0, -29, -5]}
               label="PROJECTS"
               onClick={() => handleNavClick('projects')}
               color="#ff4400"
-              modelPath="/models/satellite-transformed.glb"
               scale={0.08}
-            />
+            >
+               <Satellite />
+            </NavModel>
 
+            {/* 3. CONTACT STATION (Using Component) */}
             <NavModel
               position={[8, -29, -5]}
               label="CONTACT"
               onClick={() => handleNavClick('contact')}
               color="#00ff88"
-              modelPath="/models/station-transformed.glb"
               scale={0.6}
-            />
+            >
+               <Station />
+            </NavModel>
 
             <CameraController currentView={currentView} />
             <Preload all />
@@ -200,7 +199,7 @@ function SpaceScene({ currentView, setView }) {
   );
 }
 
-// 3. FIX: Preload the compressed files
+// 3. FIX: Updated Preloads
 useGLTF.preload('/models/planet-transformed.glb');
 useGLTF.preload('/models/satellite-transformed.glb');
 useGLTF.preload('/models/station-transformed.glb');
