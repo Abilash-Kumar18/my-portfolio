@@ -94,3 +94,36 @@
   overflow-x: auto;
   /* Handle small screens */
 }
+
+.calendarSection {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.calendarTitle {
+  font-size: 1.8rem;
+  color: #f5c542;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+.calendarWrapper {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(245, 197, 66, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  display: flex;       /* Added to center internal items */
+  justify-content: center; /* Added to center internal items */
+  overflow-x: auto;    /* Crucial for mobile scrolling */
+}

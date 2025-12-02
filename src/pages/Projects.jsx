@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import ProjectCard from './ProjectCard.jsx';
 import ImageModal from '../components/ImageModal';
 import styles from './Projects.module.css';
-
+import GithubContributions from '../components/GithubContributions';
 import googleFormFiller from '../assets/projects/Agf.webp';
 import n8nChatbot from '../assets/projects/n8n.webp';
 import krishiSakhi from '../assets/projects/Krishi.webp';
@@ -82,7 +82,7 @@ function Projects() {
             ))}
           </div>
         </div>
-            
+            <GithubContributions />
       </section>
 
       <ImageModal

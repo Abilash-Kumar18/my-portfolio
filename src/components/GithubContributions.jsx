@@ -1,30 +1,35 @@
 // src/components/GithubContributions.jsx
 
-
-import GitHubCalendar from 'react-github-calendar';
-
+import React from "react";
+import { GitHubCalendar } from "react-github-calendar";
+import styles from '../pages/Projects.module.css';
 
 function GithubContributions() {
   return (
-    
-        <GitHubCalendar 
-          username="Abilash-Kumar18" 
-          blockSize={13}
-          blockMargin={4}
-          fontSize={14}
-          colorScheme="dark"
+    <div className={styles.calendarSection}>
+      <h2 className={styles.calendarTitle}>
+        Days I <strong style={{ color: "#f5c542" }}>Code</strong>
+      </h2>
+      
+      <div className={styles.calendarWrapper}>
+        <GitHubCalendar
+          username="Abilash-Kumar18"
+          blockSize={15}
+          blockMargin={5}
+          fontSize={16}
+          // CUSTOM THEME: Dark Grey -> Bright Gold
           theme={{
-            // Custom Gold Theme
             dark: [
-              '#1a1a1a', // Empty (Dark Grey)
-              '#4d3800', // Level 1 (Dark Gold)
-              '#997000', // Level 2 (Medium Gold)
-              '#e6a800', // Level 3 (Bright Gold)
-              '#f5c542', // Level 4 (Neon Gold)
+              '#161b22', // Empty (Darkest)
+              '#4d3d14', // Dark Gold
+              '#806621', // Medium Gold
+              '#b38f2e', // Light Gold
+              '#f5c542', // Brightest Gold (Accent Color)
             ],
           }}
         />
-    
+      </div>
+    </div>
   );
 }
 

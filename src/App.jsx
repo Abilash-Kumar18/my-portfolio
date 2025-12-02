@@ -3,7 +3,7 @@ import React, { useState, Suspense, lazy } from 'react'; // Added 'lazy'
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader } from '@react-three/drei';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import SpaceScene from './components/SpaceScene.jsx';
 import Chatbot from './components/Chatbot.jsx';
