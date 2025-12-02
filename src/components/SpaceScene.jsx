@@ -2,11 +2,14 @@
 
 import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars, useGLTF, Html, Sparkles, ScrollControls, useScroll, Scroll, Environment } from '@react-three/drei';
+import { OrbitControls, Stars, useGLTF, Html, Sparkles, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
-import BlackHole3D from '../components/BlackHole3D';
-import Spaceship from '../components/Spaceship';
+import { Blackhole } from './Blackhole'; 
+
+// 1. FIX: Import from the Controller file (Spaceship.jsx), not the Model file
+import Spaceship from './Spaceship'; 
+
 import BackgroundUFO from '../components/BackgroundUFO';
 import Profile from '../pages/Profile';
 
@@ -14,22 +17,11 @@ import PixelJourney from '../components/PixelJourney';
 import JourneyOverlay from '../components/JourneyOverlay';
 import SkillAsteroids from '../components/SkillAsteroids';
 
-
-// --- VIEW ANGLES (Updated for Mixed Layout) ---
+// --- VIEW ANGLES ---
 const VIEW_ANGLES = {
-  // 1. HOME (Main Black Hole View)
   'home': { pos: [0, 0, 12], lookAt: [0, 0, 0] },
-
-  // 2. ABOUT (Model at [-8.7, -28, -5])
-  // Camera moves slightly up (Y: -26) and forward (Z: 3) to look down at it
   'about': { pos: [-4, -54, -4], lookAt: [-7, -56, -5] },
-
-  // 3. PROJECTS (Model at [0, -29, -5])
-  // Camera centers perfectly in front
   'projects': { pos: [5, -58, 1], lookAt: [2, -56, -5] },
-
-  // 4. CONTACT (Model at [8, -29, -5])
-  // Camera moves slightly up and forward
   'contact': { pos: [8, -54, -2], lookAt: [8, -56 ,-5] }
 };
 
@@ -39,13 +31,10 @@ function NavModel({ position, modelPath, label, onClick, color, scale = 1 }) {
   const [hovered, setHover] = useState(false);
   const { scene } = useGLTF(modelPath);
 
-  // Clone the scene to make it interactive
   const clonedScene = React.useMemo(() => {
     const clone = scene.clone();
     clone.traverse((child) => {
-      if (child.isMesh) {
-        child.userData.clickable = true;
-      }
+      if (child.isMesh) child.userData.clickable = true;
     });
     return clone;
   }, [scene]);
@@ -84,7 +73,7 @@ function NavModel({ position, modelPath, label, onClick, color, scale = 1 }) {
   );
 }
 
-// --- WARP EFFECT (Speedlines) ---
+// --- WARP EFFECT ---
 function WarpEffect({ active }) {
   return (
   <Sparkles
@@ -129,20 +118,21 @@ function CameraController({ currentView }) {
 function SpaceScene({ currentView, setView }) {
   const [isWarping, setIsWarping] = useState(false);
 
-  // WRAPPER FOR NAVIGATION CLICK
   const handleNavClick = (view) => {
-    setIsWarping(true); // Start Warp
+    setIsWarping(true); 
     setTimeout(() => {
-      setView(view);    // Change View
-      setIsWarping(false); // Stop Warp
-    }, 800); // 0.8s Warp Duration
+      setView(view);    
+      setIsWarping(false);
+    }, 800); 
   };
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: '#000000ff' }}>
-      <Canvas camera={{ position: [0, 0, 12], fov: 45 }} dpr={[1, 2]}>
-
+      <Canvas camera={{ position: [0, 0, 12], fov: 45 }} dpr={[1, 1.5]}>
         
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
+
         <pointLight position={[10, 10, 10]} intensity={3} color="#f5c542" />
         <Stars radius={300} count={1000} fade speed={1} />
         <Sparkles count={200} scale={20} size={2} speed={0.4} opacity={0.5} />
@@ -165,7 +155,7 @@ function SpaceScene({ currentView, setView }) {
 
           <Suspense fallback={null}>
             <group onClick={() => handleNavClick('home')} rotation={[0.2, 0, 0]}>
-              <BlackHole3D scale={6} position={[0, -2, -20]} />
+              <Blackhole scale={6} position={[0, -2, -20]} />
             </group>
 
             <Spaceship />
@@ -173,39 +163,36 @@ function SpaceScene({ currentView, setView }) {
             <PixelJourney />
             <SkillAsteroids />
 
-            {/* --- MIXED NAVIGATION MODELS --- */}
-
-            {/* 1. ABOUT PLANET (After first set of asteroids) */}
+            {/* 2. FIX: Updated paths to use compressed models */}
             <NavModel
               position={[-8.5, -28, -5]}
               label="ABOUT"
               onClick={() => handleNavClick('about')}
               color="#0088ff"
-              modelPath="/models/planet.glb"
+              modelPath="/models/planet-transformed.glb"
               scale={0.9}
             />
 
-            {/* 2. PROJECTS SATELLITE (After second set) */}
             <NavModel
               position={[0, -29, -5]}
               label="PROJECTS"
               onClick={() => handleNavClick('projects')}
               color="#ff4400"
-              modelPath="/models/satellite.glb"
+              modelPath="/models/satellite-transformed.glb"
               scale={0.08}
             />
 
-            {/* 3. CONTACT STATION (End of line) */}
             <NavModel
               position={[8, -29, -5]}
               label="CONTACT"
               onClick={() => handleNavClick('contact')}
               color="#00ff88"
-              modelPath="/models/station.glb"
+              modelPath="/models/station-transformed.glb"
               scale={0.6}
             />
 
             <CameraController currentView={currentView} />
+            <Preload all />
           </Suspense>
         </ScrollControls>
       </Canvas>
@@ -213,8 +200,9 @@ function SpaceScene({ currentView, setView }) {
   );
 }
 
-useGLTF.preload('/models/planet.glb');
-useGLTF.preload('/models/satellite.glb');
-useGLTF.preload('/models/station.glb');
+// 3. FIX: Preload the compressed files
+useGLTF.preload('/models/planet-transformed.glb');
+useGLTF.preload('/models/satellite-transformed.glb');
+useGLTF.preload('/models/station-transformed.glb');
 
 export default SpaceScene;
