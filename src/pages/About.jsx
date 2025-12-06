@@ -9,6 +9,7 @@ import vincentPallotti from '../assets/vincent.webp';
 import jayMatriculation from '../assets/Jay.webp';
 import ResumeActions from '../components/ResumeActions.jsx';
 
+
 function About() {
   const [isVisible, setIsVisible] = useState({});
   const sectionRefs = useRef({});
@@ -65,6 +66,7 @@ function About() {
         </div>
       </motion.section>
 
+      
       {/* EDUCATION */}
       <motion.section
         ref={(el) => (sectionRefs.current['education'] = el)}
