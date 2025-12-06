@@ -87,7 +87,7 @@ function About() {
           <div className={styles.eduDetails}>
             <h3>KSR College of Engineering</h3>
             <p><strong>Department:</strong> B.E Computer Science and Engineering</p>
-            <p><strong>Year:</strong> 2nd Year</p>
+            <p><strong>Year:</strong>2nd Year</p>
             <p><strong>Current CGPA:</strong> 9.27</p>
           </div>
         </div>
