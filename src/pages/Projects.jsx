@@ -51,7 +51,9 @@ function Projects() {
     }, 300);
   };
 
-  // Create 4 sets of projects for a smooth infinite loop
+
+  
+ 
   const allProjects = [...myProjects, ...myProjects, ...myProjects, ...myProjects];
 
   return (
