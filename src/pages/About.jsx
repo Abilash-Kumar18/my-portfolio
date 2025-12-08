@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './About.module.css';
 // Removed AnimatedBackground import
 import collegeImage from '../assets/college.webp';
+import Profile2 from '../assets/profile2.jpg'
 import profileImage from '../assets/profile.webp';
 import vincentPallotti from '../assets/vincent.webp';
 import jayMatriculation from '../assets/Jay.webp';
@@ -16,8 +17,7 @@ function About() {
 
   // Hero Section Image Cycling
   const profileImages = [
-    profileImage,
-    collegeImage, // Added to demonstrate the cycling animation
+    profileImage // Added to demonstrate the cycling animation
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
