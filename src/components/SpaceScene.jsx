@@ -5,8 +5,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, useGLTF, Html, Sparkles, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
-import { Blackhole } from './Blackhole'; 
-import Spaceship from './Spaceship'; 
+import { Blackhole } from './Blackhole';
+import Spaceship from './Spaceship';
 
 // 1. IMPORT ALL THREE MODEL COMPONENTS
 import { Satellite } from './Satellite';
@@ -21,16 +21,16 @@ import SkillAsteroids from '../components/SkillAsteroids';
 
 const VIEW_ANGLES = {
   'home': { pos: [0, 0, 12], lookAt: [0, 0, 0] },
-  'about': { pos: [-4, -54, -4], lookAt: [-7, -56, -5] },
+  'about': { pos: [-8.5, -28, 6], lookAt: [-8.5, -33, -5] },
   'projects': { pos: [5, -58, 1], lookAt: [2, -56, -5] },
-  'contact': { pos: [8, -54, -2], lookAt: [8, -56 ,-5] }
+  'contact': { pos: [8, -54, -2], lookAt: [8, -56, -5] }
 };
 
 // 2. FIXED NAVMODEL (No usage of useGLTF here!)
 function NavModel({ position, children, label, onClick, color, scale = 1 }) {
   const ref = useRef();
   const [hovered, setHover] = useState(false);
-  
+
   useFrame((state) => {
     if (ref.current) {
       ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime + position[0]) * 0.1;
@@ -40,7 +40,7 @@ function NavModel({ position, children, label, onClick, color, scale = 1 }) {
   return (
     <group position={position}>
       <pointLight distance={5} intensity={hovered ? 10 : 2} color={color} />
-      
+
       <group
         ref={ref}
         scale={hovered ? scale * 1.2 : scale}
@@ -70,7 +70,7 @@ function NavModel({ position, children, label, onClick, color, scale = 1 }) {
 
 function WarpEffect({ active }) {
   return (
-  <Sparkles
+    <Sparkles
       count={active ? 100 : 0}
       scale={[20, 20, 50]}
       size={active ? 20 : 0}
@@ -111,17 +111,17 @@ function SpaceScene({ currentView, setView }) {
   const [isWarping, setIsWarping] = useState(false);
 
   const handleNavClick = (view) => {
-    setIsWarping(true); 
+    setIsWarping(true);
     setTimeout(() => {
-      setView(view);    
+      setView(view);
       setIsWarping(false);
-    }, 800); 
+    }, 800);
   };
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: '#000000ff' }}>
       <Canvas camera={{ position: [0, 0, 12], fov: 45 }} dpr={[1, 1.5]}>
-        
+
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
 
@@ -156,7 +156,7 @@ function SpaceScene({ currentView, setView }) {
             <SkillAsteroids />
 
             {/* --- UPDATED NAVIGATION MODELS --- */}
-            
+
             {/* 1. ABOUT PLANET (Using Component) */}
             <NavModel
               position={[-8.5, -28, -5]}
@@ -176,7 +176,7 @@ function SpaceScene({ currentView, setView }) {
               color="#ff4400"
               scale={0.08}
             >
-               <Satellite />
+              <Satellite />
             </NavModel>
 
             {/* 3. CONTACT STATION (Using Component) */}
@@ -187,7 +187,7 @@ function SpaceScene({ currentView, setView }) {
               color="#00ff88"
               scale={0.6}
             >
-               <Station />
+              <Station />
             </NavModel>
 
             <CameraController currentView={currentView} />

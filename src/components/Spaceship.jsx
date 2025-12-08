@@ -9,7 +9,7 @@ import * as THREE from 'three';
 // 1. Accept the 'isWarping' prop
 function Spaceship({ isWarping }) {
   const shipRef = useRef();
-  
+
   // Audio Refs
   const engineAudioRef = useRef();
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -33,7 +33,7 @@ function Spaceship({ isWarping }) {
     // --- BASE MOVEMENT ---
     shipRef.current.position.copy(camera.position);
     shipRef.current.quaternion.copy(camera.quaternion);
-    
+
     // Normal Position
     const targetX = 0;
     const targetY = -0.8;
@@ -51,8 +51,8 @@ function Spaceship({ isWarping }) {
     shipRef.current.translateZ(targetZ + shakeZ);
 
     // --- ROTATION (Cockpit Feel) ---
-    shipRef.current.rotateX(mouse.y * 0.2); 
-    shipRef.current.rotateY(-mouse.x * 0.3); 
+    shipRef.current.rotateX(mouse.y * 0.2);
+    shipRef.current.rotateY(-mouse.x * 0.3);
     shipRef.current.rotateZ(-mouse.x * 0.3);
 
     // --- 4. ENGINE AUDIO PITCH ---
@@ -69,18 +69,7 @@ function Spaceship({ isWarping }) {
   return (
     <group ref={shipRef}>
       <SpaceshipModel scale={0.1} rotation={[0, Math.PI, 0]} />
-      
-      {/* 5. ADD ENGINE SOUND */}
-      {/* You need an engine.mp3 in public/sounds/ */}
-      {hasInteracted && (
-        <PositionalAudio
-          ref={engineAudioRef}
-          url="/sounds/engine-loop.mp3" // <--- Make sure this file exists!
-          distance={10}
-          loop
-          autoplay
-        />
-      )}
+
     </group>
   );
 }

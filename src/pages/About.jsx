@@ -1,10 +1,11 @@
 // src/pages/About.jsx
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './About.module.css';
 // Removed AnimatedBackground import
 import collegeImage from '../assets/college.webp';
+import profileImage from '../assets/profile.webp';
 import vincentPallotti from '../assets/vincent.webp';
 import jayMatriculation from '../assets/Jay.webp';
 import ResumeActions from '../components/ResumeActions.jsx';
@@ -12,6 +13,24 @@ import ResumeActions from '../components/ResumeActions.jsx';
 function About() {
   const [isVisible, setIsVisible] = useState({});
   const sectionRefs = useRef({});
+
+  // Hero Section Image Cycling
+  const profileImages = [
+    profileImage,
+    collegeImage, // Added to demonstrate the cycling animation
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (profileImages.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % profileImages.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [profileImages.length]);
 
   useEffect(() => {
     const observers = [];
@@ -34,8 +53,8 @@ function About() {
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.6 }
     }
@@ -43,6 +62,24 @@ function About() {
 
   return (
     <div className={styles.about}>
+      {/* HERO SECTION */}
+      <section className={styles.heroSection}>
+        <div className={styles.profileContainer}>
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentImageIndex}
+              src={profileImages[currentImageIndex]}
+              alt="Profile"
+              className={styles.profileImage}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </AnimatePresence>
+        </div>
+      </section>
+
       {/* PERSONAL INFO */}
       <motion.section
         ref={(el) => (sectionRefs.current['personal'] = el)}
@@ -102,7 +139,7 @@ function About() {
         className={styles.section}
       >
         <h2>School Education</h2>
-        
+
         {/* School 1 */}
         <div className={styles.education}>
           <div className={styles.collegeImageContainer}>
@@ -154,13 +191,13 @@ function About() {
       >
         <h2>About Me</h2>
         <p style={{ lineHeight: '1.8', color: '#ccc', fontSize: '1.1em' }}>
-          I am a dedicated second-year Computer Science and Engineering student at KSR College of Engineering, 
-          with a focused passion for <strong style={{color: '#f5c542'}}>Generative AI</strong> and <strong style={{color: '#f5c542'}}>workflow automation</strong> (n8n). 
-          My professional trajectory is oriented toward artificial intelligence, where I aim to synthesize 
-          expertise in machine learning, automation engineering, and full-stack development to architect 
+          I am a dedicated second-year Computer Science and Engineering student at KSR College of Engineering,
+          with a focused passion for <strong style={{ color: '#f5c542' }}>Generative AI</strong> and <strong style={{ color: '#f5c542' }}>workflow automation</strong> (n8n).
+          My professional trajectory is oriented toward artificial intelligence, where I aim to synthesize
+          expertise in machine learning, automation engineering, and full-stack development to architect
           transformative solutions.
         </p>
-        <ResumeActions/>
+        <ResumeActions />
       </motion.section>
     </div>
   );

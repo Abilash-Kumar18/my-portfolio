@@ -1,7 +1,8 @@
 /* src/pages/About.module.css */
 
 .about {
-  padding: 100px 20px 60px; /* Extra top padding for fixed header */
+  padding: 100px 20px 60px;
+  /* Extra top padding for fixed header */
   padding-top: 120px;
   max-width: 1000px;
   margin: 0 auto;
@@ -12,26 +13,30 @@
 
 /* THE GLASS CARD LOOK */
 .section {
-  background: rgba(20, 20, 20, 0.7); /* See-through dark background */
-  backdrop-filter: blur(10px); /* Blurs the video behind it */
+  background: rgba(20, 20, 20, 0.7);
+  /* See-through dark background */
+  backdrop-filter: blur(10px);
+  /* Blurs the video behind it */
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease, border-color 0.3s ease;
-  
+
   /* Gold accent line on the left */
-  border-left: 4px solid #f5c542; 
+  border-left: 4px solid #f5c542;
 }
 
 .section:hover {
   transform: translateY(-5px);
   border-color: rgba(245, 197, 66, 0.4);
-  box-shadow: 0 15px 40px rgba(245, 197, 66, 0.1); /* Subtle gold glow */
+  box-shadow: 0 15px 40px rgba(245, 197, 66, 0.1);
+  /* Subtle gold glow */
 }
 
 .section h2 {
-  color: #f5c542; /* Gold Title */
+  color: #f5c542;
+  /* Gold Title */
   font-size: 2em;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -63,19 +68,21 @@
 /* EDUCATION LAYOUT (Side-by-Side) */
 .education {
   display: flex;
-  align-items: center; /* Center vertically */
+  align-items: center;
+  /* Center vertically */
   gap: 30px;
   margin-bottom: 20px;
 }
 
 .collegeImageContainer {
-  flex-shrink: 0; /* Prevents image from shrinking */
+  flex-shrink: 0;
+  /* Prevents image from shrinking */
   width: 200px;
   height: 140px;
   overflow: hidden;
   border-radius: 12px;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .collegeImage {
@@ -102,22 +109,69 @@
 }
 
 .eduDetails strong {
-  color: #f5c542; /* Gold labels */
+  color: #f5c542;
+  /* Gold labels */
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .education {
-    flex-direction: column; /* Stack vertically on phones */
+    flex-direction: column;
+    /* Stack vertically on phones */
     text-align: center;
   }
-  
+
   .section {
     padding: 20px;
   }
-  
+
   .collegeImageContainer {
-    width: 100%; /* Full width image on phone */
+    width: 100%;
+    /* Full width image on phone */
     height: 200px;
+  }
+}
+
+/* HERO SECTION (New) */
+.heroSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.profileContainer {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: relative;
+  /* Gold/Background-matching glow */
+  box-shadow: 0 0 20px rgba(245, 197, 66, 0.6), 0 0 60px rgba(245, 197, 66, 0.3);
+  animation: pulseGlow 3s infinite alternate;
+  z-index: 10;
+  overflow: hidden;
+  border: 4px solid #f5c542;
+  background: rgba(0, 0, 0, 0.5);
+  /* darkened background behind image */
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 25px rgba(245, 197, 66, 0.5), 0 0 50px rgba(245, 197, 66, 0.2);
+    transform: scale(1);
+    border-color: #f5c542;
+  }
+
+  100% {
+    box-shadow: 0 0 50px rgba(245, 197, 66, 0.8), 0 0 100px rgba(245, 197, 66, 0.4);
+    transform: scale(1.02);
+    border-color: #ffe0b2;
   }
 }
