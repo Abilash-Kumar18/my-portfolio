@@ -63,7 +63,7 @@ function JourneyOverlay() {
       </div>
 
       {/* NAVIGATION LABELS (Aligned with 3D Models) */}
-      <div style={{ position: 'absolute', top: '670vh', width: '100%', height: '100vh' }}>
+      <div style={{ position: 'absolute', top: '675vh', width: '100%', height: '100vh' }}>
         
         {/* ABOUT LABEL (Left) */}
         <div style={{ position: 'absolute', left: '15%', top: '10%', textAlign: 'center', width: '200px' }}>
