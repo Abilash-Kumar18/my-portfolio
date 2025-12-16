@@ -1,47 +1,88 @@
-/* src/components/Profile.module.css */
-
+/* Container: Covers the full screen but lets clicks pass through to the 3D scene */
 .profile {
-  height: 100vh; /* Full Screen */
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  /* Let clicks pass through to the 3D background */
-  pointer-events: none; 
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 10; /* Ensures it sits ABOVE the canvas */
+  pointer-events: none; /* KEY: Allows you to scroll/drag the space scene behind the text */
+  overflow: hidden;
 }
 
+/* The actual text box: Re-enables clicks so you can select text */
 .heroContent {
-  /* Re-enable pointer events for text selection */
-  pointer-events: auto; 
-  z-index: 10;
-  margin-bottom: 50px; /* Push text up slightly */
+  text-align: center;
+  pointer-events: auto; /* Re-enable interaction for the content */
+  padding: 2rem 3rem;
+  
+  /* Glassmorphism Effect: Frosted glass look */
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  border-radius: 20px;
+  border: 1px solid rgba(245, 197, 66, 0.1); /* Faint gold border */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  
+  /* Prevent content from hitting the very edge on mobile */
+  max-width: 90%;
 }
 
+/* Your Name */
 .name {
-  font-size: 5vw; /* Massive responsive text */
   margin: 0;
+  font-weight: 800;
   color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
+  line-height: 1.1;
   letter-spacing: -2px;
-  text-shadow: 0 4px 30px rgba(245, 197, 66, 0.3); /* Gold Glow */
+  
+  /* SMART FONT SIZE: 
+     Minimum: 2.5rem (Mobile)
+     Preferred: 8vw (Tablet)
+     Maximum: 5.5rem (Desktop) 
+  */
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  
+  /* Subtle glow */
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
+/* The "IS A..." section */
 .typingWrapper {
-  font-size: 2vw;
-  margin-top: 10px;
-  font-weight: 700;
-  letter-spacing: 5px;
-  text-transform: uppercase;
+  margin-top: 1rem;
+  font-family: 'Courier New', Courier, monospace; /* Coding font feel */
+  font-weight: 600;
+  
+  /* Smart sizing for the subtitle */
+  font-size: clamp(1rem, 4vw, 1.8rem);
+  letter-spacing: 1px;
 }
 
-.staticText { color: #888; }
-.typingText { color: #f5c542; }
+.staticText {
+  color: #888; /* Grey for "IS A" */
+  margin-right: 8px;
+}
 
-/* Mobile Adjustment */
+/* The typing animation text (ReactTyped) */
+.typingText {
+  color: #f5c542; /* Gold color to match your theme */
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.6); /* Gold Glow */
+  font-weight: 700;
+}
+
+/* --- MOBILE SPECIFIC ADJUSTMENTS --- */
 @media (max-width: 768px) {
-  .name { font-size: 3rem; }
-  .typingWrapper { font-size: 1rem; }
+  .heroContent {
+    padding: 1.5rem;
+    /* Move text slightly up so it doesn't cover the black hole center on phones */
+    margin-bottom: 20vh; 
+    background: rgba(0, 0, 0, 0.4); /* Darker background on mobile for readability */
+  }
+
+  .name {
+    letter-spacing: -1px;
+  }
 }

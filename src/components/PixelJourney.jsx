@@ -8,7 +8,7 @@ import { useFrame } from '@react-three/fiber';
 const MODEL_STAGES = [
   {
     id: 1,
-    model: '/models/pixel_planet_1.glb', 
+    model: '/models/pixel_planet_1-transformed.glb', 
     scale: 0.6, 
     position: [-5, -9, 0],   // Left Side
   },
@@ -58,7 +58,7 @@ function PlanetNode({ stage, scene }) {
 }
 
 function PixelJourney() {
-  const planet1 = useGLTF('/models/pixel_planet_1.glb');
+  const planet1 = useGLTF('/models/pixel_planet_1-transformed.glb');
   const planet2 = useGLTF('/models/pixel_planet_2.glb');
   const planet3 = useGLTF('/models/pixel_planet_3.glb');
 
@@ -71,7 +71,7 @@ function PixelJourney() {
   );
 }
 
-useGLTF.preload('/models/pixel_planet_1.glb');
+useGLTF.preload('/models/pixel_planet_1-transformed.glb');
 useGLTF.preload('/models/pixel_planet_2.glb');
 useGLTF.preload('/models/pixel_planet_3.glb');
 

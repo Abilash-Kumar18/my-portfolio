@@ -18,6 +18,7 @@ function Profile() {
       className={styles.profile}
       initial="hidden"
       animate="visible"
+      onClick={(e) => e.stopPropagation()}
     >
       {/* 1. BIG IMPACT TEXT */}
       <motion.div variants={textVariants} className={styles.heroContent}>
