@@ -4,5 +4,5 @@ import Sitemap from 'vite-plugin-sitemap'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(),Sitemap({ hostname: 'https://your-portfolio.vercel.app' })],
+  plugins: [react(),Sitemap({ hostname: 'https://my-portfolio-theta-plum-8uceafob31.vercel.app/' })],
 })
