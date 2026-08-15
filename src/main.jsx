@@ -8,12 +8,9 @@ import './index.css'
 
 
 
-// Prevent multiple root creation during HMR
 const rootElement = document.getElementById('root');
-if (!rootElement._reactRootContainer) {
-  ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-  )
-}
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

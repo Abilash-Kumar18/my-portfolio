@@ -10,10 +10,9 @@ import { useFrame } from '@react-three/fiber'
 // Renaming generic "Model" to "Satellite"
 export function Satellite(props) {
   const group = useRef()
-  // 1. FIX PATH: Ensure it points to /models/
-  const { nodes, materials } = useGLTF('/models/satellite-transformed.glb')
+  const { scene } = useGLTF('/models/satellite-transformed.glb')
 
-  // 2. ADD ANIMATION: Slow drift
+  // Slow drift
   useFrame((state, delta) => {
     if (group.current) {
       group.current.rotation.y += delta * 0.2; 
@@ -23,10 +22,7 @@ export function Satellite(props) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      {/* Use primitive to remain safe against different GLB structures.
-         If you want to use specific meshes (like solar panels), you can use nodes.MeshName 
-      */}
-      <primitive object={useGLTF('/models/satellite-transformed.glb').scene} />
+      <primitive object={scene} />
     </group>
   )
 }

@@ -27,7 +27,7 @@ const myProjects = [
   {
     title: "Krishi Sakhi Website For Farmers Deployed On Streamlit Cloud",
     description: "A comprehensive agricultural technology platform designed to empower farming communities with data-driven insights. Delivers real-time weather analytics, crop management recommendations, and agricultural best practices.",
-    link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
+    link: "https://github.com/Abilash-Kumar18/Krishi-Sakhi.git",
     image: krishiSakhi
   }
 ];

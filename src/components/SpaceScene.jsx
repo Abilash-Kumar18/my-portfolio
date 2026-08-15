@@ -38,62 +38,7 @@ const MOBILE_VIEWS = {
 
 // --- 2. WARP SPEED EFFECT (Lines) ---
 
-function WarpEffect({ active }) {
-  const meshRef = useRef();
-  const count = 1000;
-  const dummy = React.useMemo(() => new THREE.Object3D(), []);
-  
-  const particles = React.useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      // 1. "Tunnel" Radius
-      // slightly smaller radius (5 to 35) for a faster feel
-      const r = 5 + Math.random() * 30; 
-      const angle = Math.random() * Math.PI * 2;
-      
-      const x = Math.cos(angle) * r;
-      
-      // 2. Y-OFFSET FIX
-      // We subtract 2.0 to move the tunnel down to match the spaceship/camera view
-      const y = (Math.sin(angle) * r) - 30.0; 
-      
-      const z = -50 + Math.random() * 100;
-      const speed = 2 + Math.random() * 2;
-      temp.push({ x, y, z, speed, initialZ: z });
-    }
-    return temp;
-  }, []);
 
-  useFrame(() => {
-    if (!active) {
-       if (meshRef.current) meshRef.current.visible = false;
-       return;
-    }
-
-    if (meshRef.current) {
-        meshRef.current.visible = true;
-        particles.forEach((p, i) => {
-          p.z += p.speed; 
-          
-          if (p.z > 20) p.z = -100; 
-
-          dummy.position.set(p.x, p.y, p.z);
-          dummy.scale.set(0.1, 0.1, 15); 
-          dummy.updateMatrix();
-          meshRef.current.setMatrixAt(i, dummy.matrix);
-        });
-        meshRef.current.instanceMatrix.needsUpdate = true;
-    }
-  });
-
-  return (
-    <instancedMesh ref={meshRef} args={[null, null, count]}>
-      <boxGeometry args={[1, 1, 1]} />
-      {/* Cyan/White Color */}
-      <meshBasicMaterial color="#ccffff" transparent opacity={0.6} />
-    </instancedMesh>
-  );
-}
 
 // --- 3. NAV MODEL WRAPPER ---
 function NavModel({ position, children, label, onClick, color, scale = 1 }) {
@@ -196,17 +141,17 @@ function SpaceScene({ currentView, setView }) {
         <Stars radius={300} count={1000} fade speed={1} />
         <directionalLight position={[0, 10, 0]} intensity={1} />
         <Environment preset="city" />
-        <EffectComposer>
-          {/* luminanceThreshold: Only glow things brighter than this (0-1)
-            luminanceSmoothing: Softness of the glow edge
-            intensity: How strong the glow is
-          */}
+        {/*<EffectComposer>
+          
+          
           <Bloom 
             luminanceThreshold={0.01} 
             luminanceSmoothing={0.01} 
             intensity={0.01} 
+            mipmapBlur
           />
         </EffectComposer>
+        */}
         
 
         <ScrollControls pages={8} damping={0.3} enabled={currentView === 'home'}>

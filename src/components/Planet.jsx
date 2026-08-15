@@ -9,8 +9,7 @@ import { useFrame } from '@react-three/fiber'
 
 export function Planet(props) {
   const group = useRef()
-  // Ensure path is correct
-  const { nodes, materials } = useGLTF('/models/planet-transformed.glb')
+  const { scene } = useGLTF('/models/planet-transformed.glb')
 
   useFrame((state, delta) => {
     if (group.current) {
@@ -21,7 +20,7 @@ export function Planet(props) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <primitive object={useGLTF('/models/planet-transformed.glb').scene} />
+      <primitive object={scene} />
     </group>
   )
 }

@@ -14,11 +14,15 @@ function Contact() {
     e.preventDefault();
     setStatus('sending');
 
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_wzvid34';
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_292e9ny';
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '--r7IuLjsl4H_PmlT';
+
     emailjs.sendForm(
-      'service_wzvid34',
-      'template_292e9ny',
+      serviceId,
+      templateId,
       form.current,
-      '--r7IuLjsl4H_PmlT'
+      publicKey
     )
       .then((result) => {
         console.log(result.text);

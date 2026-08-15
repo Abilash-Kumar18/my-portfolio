@@ -118,11 +118,15 @@ function Chatbot() {
       document.head.appendChild(style);
     };
 
-    // Apply styles multiple times to ensure they catch the render
-    setTimeout(applyCustomStyles, 100);
-    setTimeout(applyCustomStyles, 500);
-    setTimeout(applyCustomStyles, 1500);
+    const t1 = setTimeout(applyCustomStyles, 100);
+    const t2 = setTimeout(applyCustomStyles, 500);
 
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      const existingStyle = document.getElementById('n8n-chat-custom-styles');
+      if (existingStyle) existingStyle.remove();
+    };
   }, []);
 
   return <div id="n8n-chat"></div>;

@@ -9,10 +9,9 @@ import { useFrame } from '@react-three/fiber'
 
 export function Station(props) {
   const group = useRef()
-  // 1. FIX PATH
-  const { nodes, materials } = useGLTF('/models/station-transformed.glb')
+  const { scene } = useGLTF('/models/station-transformed.glb')
 
-  // 2. ADD ANIMATION: Slow constant spin
+  // Slow constant spin
   useFrame((state, delta) => {
     if (group.current) {
        group.current.rotation.y -= delta * 0.05; 
@@ -21,7 +20,7 @@ export function Station(props) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <primitive object={useGLTF('/models/station-transformed.glb').scene} />
+      <primitive object={scene} />
     </group>
   )
 }
