@@ -26,7 +26,7 @@ function Spaceship({ isWarping }) {
     return () => window.removeEventListener('click', startAudio);
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((state, _delta) => {
     if (!shipRef.current) return;
 
     // --- Culling Fix ---

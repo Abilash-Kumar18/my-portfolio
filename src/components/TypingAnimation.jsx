@@ -34,8 +34,10 @@ function TypingAnimation() {
           setDisplayText(currentWord.substring(0, displayText.length - 1));
         }, 50);
       } else {
-        setIsDeleting(false);
-        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }, 50);
       }
     } else {
       if (displayText.length < currentWord.length) {
@@ -43,7 +45,9 @@ function TypingAnimation() {
           setDisplayText(currentWord.substring(0, displayText.length + 1));
         }, 100);
       } else {
-        setIsPaused(true);
+        timeout = setTimeout(() => {
+          setIsPaused(true);
+        }, 50);
       }
     }
 

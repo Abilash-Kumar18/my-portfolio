@@ -31,7 +31,7 @@ function ResumeActions() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    } catch (error) {
+    } catch {
       alert('Unable to download resume.');
     }
   };

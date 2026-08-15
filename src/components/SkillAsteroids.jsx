@@ -48,38 +48,39 @@ function AsteroidNode({ skill, scene }) {
           onPointerOut={() => { setHover(false); document.body.style.cursor = 'auto'; }}
         />
 
-        {/* HOVER GLOW (Light up the rock with skill color) */}
-        <pointLight 
-            distance={3} 
-            intensity={hovered ? 8 : 0} // Only on when hovered
-            color={skill.color} 
-            position={[0, 0, 0]}
-        />
+        {/* HOVER GLOW (Light up the rock with skill color only when hovered) */}
+        {hovered && (
+          <pointLight 
+              distance={4} 
+              intensity={8} 
+              color={skill.color} 
+              position={[0, 0, 0]}
+          />
+        )}
 
         {/* 3D TEXT LABEL (Only visible on hover) */}
-        <Billboard
-            position={[0, 1.8, 0]} // Float text above the rock
-            follow={true}
-            lockX={false}
-            lockY={false}
-            lockZ={false}
-        >
-            <Text
-                fontSize={0.6}
-                color={skill.color}
-                anchorX="center"
-                anchorY="middle"
-                // Fade In/Out Logic
-                fillOpacity={hovered ? 1 : 0} 
-                outlineOpacity={hovered ? 1 : 0}
-                
-                // Text Styling
-                outlineWidth={0.04}
-                outlineColor="#000000"
-            >
-                {skill.name}
-            </Text>
-        </Billboard>
+        {hovered && (
+          <Billboard
+              position={[0, 1.8, 0]}
+              follow={true}
+              lockX={false}
+              lockY={false}
+              lockZ={false}
+          >
+              <Text
+                  fontSize={0.6}
+                  color={skill.color}
+                  anchorX="center"
+                  anchorY="middle"
+                  fillOpacity={1} 
+                  outlineOpacity={1}
+                  outlineWidth={0.04}
+                  outlineColor="#000000"
+              >
+                  {skill.name}
+              </Text>
+          </Billboard>
+        )}
 
       </Float>
     </group>

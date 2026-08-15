@@ -11,4 +11,16 @@ export default defineConfig({
         hostname: 'https://my-portfolio-theta-plum-8uceafob31.vercel.app/'
     })
   ],
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+          'motion-vendor': ['framer-motion'],
+          'chat-vendor': ['@n8n/chat'],
+        }
+      }
+    }
+  }
 })

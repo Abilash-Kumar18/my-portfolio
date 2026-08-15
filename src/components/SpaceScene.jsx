@@ -132,13 +132,17 @@ function SpaceScene({ currentView, setView }) {
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: '#000000ff' }}>
-      <Canvas camera={{ position: [0, 0, 12], fov: 45 }} dpr={[1, 1.5]}>
+      <Canvas 
+        camera={{ position: [0, 0, 12], fov: 45 }} 
+        dpr={isMobile ? [1, 1.2] : [1, 1.5]}
+        gl={{ powerPreference: 'high-performance', alpha: false, antialias: true }}
+      >
         
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
 
         <pointLight position={[10, 10, 10]} intensity={3} color="#f5c542" />
-        <Stars radius={300} count={1000} fade speed={1} />
+        <Stars radius={300} count={isMobile ? 500 : 800} fade speed={1} />
         <directionalLight position={[0, 10, 0]} intensity={1} />
         <Environment preset="city" />
         {/*<EffectComposer>
