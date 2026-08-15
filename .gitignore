@@ -18,6 +18,7 @@ dist-ssr
 *secret*
 *.pem
 *.key
+*.local
 
 # Editor directories and files
 .vscode/*
