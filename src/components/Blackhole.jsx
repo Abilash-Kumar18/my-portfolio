@@ -5,12 +5,13 @@ Command: npx gltfjsx@6.5.3 blackhole.glb --transform
 
 import React, { useEffect } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import { extendGLTFLoader } from '../utils/gltfFix'
 
 export function Blackhole(props) {
   const group = React.useRef()
   
-  // 1. FIX: Update path to /models/
-  const { nodes, materials, animations } = useGLTF('/models/blackhole-transformed.glb')
+  // 1. FIX: Update path to /models/ & add GLTF extension loader
+  const { nodes, materials, animations } = useGLTF('/models/blackhole-transformed.glb', true, true, extendGLTFLoader)
   
   const { actions } = useAnimations(animations, group)
 
@@ -82,4 +83,4 @@ export function Blackhole(props) {
 }
 
 // 3. FIX: Update preload path to /models/
-useGLTF.preload('/models/blackhole-transformed.glb')
+useGLTF.preload('/models/blackhole-transformed.glb', true, true, extendGLTFLoader)

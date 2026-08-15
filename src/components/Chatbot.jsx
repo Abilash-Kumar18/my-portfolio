@@ -16,7 +16,7 @@ function Chatbot() {
       mode: 'window',
       chatInputKey: 'chatInput',
       chatSessionKey: 'sessionId',
-      loadPreviousSession: true,
+      loadPreviousSession: false,
       metadata: {
         portfolioOwner: 'Abilash Kumar R',
         websiteInfo: 'Portfolio website showcasing projects, skills, and experience'

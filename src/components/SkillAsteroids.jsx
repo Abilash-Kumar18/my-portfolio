@@ -3,6 +3,7 @@
 import React, { useRef, useState, useMemo } from 'react';
 import { useGLTF, Float, Text, Billboard } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { extendGLTFLoader } from '../utils/gltfFix';
 
 // 1. CAREFULLY SCATTERED POSITIONS (Zig-Zag Path)
 // X is limited to -8 and 8 (screen width)
@@ -89,7 +90,7 @@ function AsteroidNode({ skill, scene }) {
 
 function SkillAsteroids() {
   // Load the single model once
-  const { scene } = useGLTF('/models/asteroid.glb');
+  const { scene } = useGLTF('/models/asteroid.glb', true, true, extendGLTFLoader);
 
   return (
     <group>
@@ -100,6 +101,6 @@ function SkillAsteroids() {
   );
 }
 
-useGLTF.preload('/models/asteroid.glb');
+useGLTF.preload('/models/asteroid.glb', true, true, extendGLTFLoader);
 
 export default SkillAsteroids;
