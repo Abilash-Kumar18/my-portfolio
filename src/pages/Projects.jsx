@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ProjectCard from './ProjectCard.jsx';
-import ImageModal from '../components/ImageModal';
+import ProjectCard from '../components/ui/ProjectCard.jsx';
+import ImageModal from '../components/ui/ImageModal';
 import styles from './Projects.module.css';
-import GithubContributions from '../components/GithubContributions';
+import GithubContributions from '../components/ui/GithubContributions';
 import googleFormFiller from '../assets/projects/Agf.webp';
 import n8nChatbot from '../assets/projects/n8n.webp';
 import krishiSakhi from '../assets/projects/Krishi.webp';

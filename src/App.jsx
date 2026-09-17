@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Loader } from '@react-three/drei';
 
 
-import SpaceScene from './components/SpaceScene.jsx';
-import Chatbot from './components/Chatbot.jsx';
+import SpaceScene from './components/canvas/SpaceScene.jsx';
+import Chatbot from './components/ui/Chatbot.jsx';
 
 // OPTIMIZATION: Lazy load these pages so the 3D scene loads faster
 const About = lazy(() => import('./pages/About.jsx'));

@@ -3,13 +3,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './About.module.css';
-// Removed AnimatedBackground import
-import collegeImage from '../assets/college.webp';
-import Profile2 from '../assets/profile2.jpg'
-import profileImage from '../assets/profile.webp';
-import vincentPallotti from '../assets/vincent.webp';
-import jayMatriculation from '../assets/Jay.webp';
-import ResumeActions from '../components/ResumeActions.jsx';
+import collegeImage from '../assets/images/college.webp';
+import Profile2 from '../assets/images/profile2.jpg';
+import profileImage from '../assets/images/profile.webp';
+import vincentPallotti from '../assets/images/vincent.webp';
+import jayMatriculation from '../assets/images/Jay.webp';
+import ResumeActions from '../components/ui/ResumeActions.jsx';
 
 function About() {
   const [isVisible, setIsVisible] = useState({});
