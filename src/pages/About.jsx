@@ -93,7 +93,7 @@ function About() {
             <strong>Name:</strong> Abilash Kumar R
           </div>
           <div className={styles.infoItem}>
-            <strong>Date of Birth:</strong> 6.11.2006
+            <strong>Date of Birth:</strong> 06.11.2006
           </div>
           <div className={styles.infoItem}>
             <strong>Address:</strong> Salem, Tamilnadu
@@ -190,9 +190,9 @@ function About() {
       >
         <h2>About Me</h2>
         <p style={{ lineHeight: '1.8', color: '#ccc', fontSize: '1.1em' }}>
-          I am a dedicated second-year Computer Science and Engineering student at KSR College of Engineering,
-          with a focused passion for <strong style={{ color: '#f5c542' }}>Generative AI</strong> and <strong style={{ color: '#f5c542' }}>workflow automation</strong> (n8n).
-          My professional trajectory is oriented toward artificial intelligence, where I aim to synthesize
+          I am a dedicated pre final-year Computer Science and Engineering student at KSR College of Engineering,
+          with a focused passion for <strong style={{ color: '#f5c542' }}>Full stack developmentI</strong> and <strong style={{ color: '#f5c542' }}>AI automation</strong>).
+          My professional trajectory is oriented toward artificial intelligence and full stack web developer, where I aim to synthesize
           expertise in machine learning, automation engineering, and full-stack development to architect
           transformative solutions.
         </p>
