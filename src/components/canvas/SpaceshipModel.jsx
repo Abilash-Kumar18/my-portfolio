@@ -14,8 +14,9 @@ export function SpaceshipModel(props) {
   return (
     <group {...props} dispose={null}>
       {/* Note: I kept your rotations, but if the ship points backwards, change rotation Y to 0 or Math.PI */}
-      <mesh geometry={nodes.Cube010_BASE_0.geometry} material={materials.BASE} rotation={[-Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.Cube003_WINGS_0.geometry} material={materials.WINGS} rotation={[-Math.PI / 2, 0, 0]} />
+      {/* frustumCulled={false} guarantees the ship can never be culled away while it moves */}
+      <mesh geometry={nodes.Cube010_BASE_0.geometry} material={materials.BASE} rotation={[-Math.PI / 2, 0, 0]} frustumCulled={false} />
+      <mesh geometry={nodes.Cube003_WINGS_0.geometry} material={materials.WINGS} rotation={[-Math.PI / 2, 0, 0]} frustumCulled={false} />
     </group>
   )
 }

@@ -81,6 +81,14 @@ function NavModel({ position, children, label, onClick, color, scale = 1 }) {
 }
 
 // --- 4. CAMERA CONTROLLER ---
+// Temp vectors are preallocated once (not per-frame) to avoid GC churn,
+// which was causing micro-stutter while the scene scrolled/moved.
+const _targetPos = new THREE.Vector3();
+const _targetLook = new THREE.Vector3();
+const _targetLookPoint = new THREE.Vector3();
+const _cameraLookDir = new THREE.Vector3();
+const _desiredLookDir = new THREE.Vector3();
+
 function CameraController({ currentView, isMobile }) {
   const scroll = useScroll();
   // Choose the right set of angles based on device width
@@ -89,21 +97,21 @@ function CameraController({ currentView, isMobile }) {
   useFrame((state, delta) => {
     if (currentView === 'home') {
       const scrollY = scroll.offset * -55;
-      const targetPos = new THREE.Vector3(0, scrollY, views['home'].pos[2]);
-      const targetLook = new THREE.Vector3(0, scrollY - 2, 0);
-      state.camera.position.lerp(targetPos, delta * 2);
-      state.camera.lookAt(targetLook);
+      _targetPos.set(0, scrollY, views['home'].pos[2]);
+      _targetLook.set(0, scrollY - 2, 0);
+      state.camera.position.lerp(_targetPos, delta * 2);
+      state.camera.lookAt(_targetLook);
     } else {
       const targetConfig = views[currentView];
-      const targetPos = new THREE.Vector3(...targetConfig.pos);
-      const targetLook = new THREE.Vector3(...targetConfig.lookAt);
-      state.camera.position.lerp(targetPos, delta * 1.5);
+      _targetPos.set(targetConfig.pos[0], targetConfig.pos[1], targetConfig.pos[2]);
+      _targetLook.set(targetConfig.lookAt[0], targetConfig.lookAt[1], targetConfig.lookAt[2]);
+      state.camera.position.lerp(_targetPos, delta * 1.5);
 
-      const cameraLookDir = new THREE.Vector3();
-      state.camera.getWorldDirection(cameraLookDir);
-      const desiredLookDir = new THREE.Vector3().subVectors(targetLook, state.camera.position).normalize();
-      const smoothedLook = cameraLookDir.lerp(desiredLookDir, delta * 2);
-      state.camera.lookAt(state.camera.position.clone().add(smoothedLook));
+      state.camera.getWorldDirection(_cameraLookDir);
+      _desiredLookDir.subVectors(_targetLook, state.camera.position).normalize();
+      _cameraLookDir.lerp(_desiredLookDir, delta * 2);
+      _targetLookPoint.copy(state.camera.position).add(_cameraLookDir);
+      state.camera.lookAt(_targetLookPoint);
     }
   });
   return null;
@@ -138,7 +146,7 @@ function SpaceScene({ currentView, setView }) {
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: true }}
       >
         
-        <AdaptiveDpr pixelated />
+        <AdaptiveDpr />
         <AdaptiveEvents />
 
         <pointLight position={[10, 10, 10]} intensity={3} color="#f5c542" />
