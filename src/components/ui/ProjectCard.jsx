@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styles from './ProjectCard.module.css';
 
-function ProjectCard({ title, description, link, image, onImageClick }) {
+function ProjectCard({ title, description, link, demo, tech, image, onImageClick }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const divRef = useRef(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -86,17 +86,37 @@ function ProjectCard({ title, description, link, image, onImageClick }) {
         <div className={styles.textContent}>
           <h3 className={styles.title}>{title}</h3>
           <p className={styles.description}>{description}</p>
-          
-          {link && (
-            <a 
-              href={link} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className={styles.link}
-            >
-              View Project
-            </a>
+
+          {tech && tech.length > 0 && (
+            <ul className={styles.techList}>
+              {tech.map((item) => (
+                <li key={item} className={styles.techItem}>{item}</li>
+              ))}
+            </ul>
           )}
+
+          <div className={styles.linksRow}>
+            {demo && (
+              <a
+                href={demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.link} ${styles.primaryLink}`}
+              >
+                Live Demo
+              </a>
+            )}
+            {link && (
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.link} ${demo ? styles.secondaryLink : styles.primaryLink}`}
+              >
+                {demo ? 'Code' : 'View Project'}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

@@ -9,26 +9,56 @@ import GithubContributions from '../components/ui/GithubContributions';
 import googleFormFiller from '../assets/projects/Agf.webp';
 import n8nChatbot from '../assets/projects/n8n.webp';
 import krishiSakhi from '../assets/projects/Krishi.webp';
+import vdockx from '../assets/projects/vdockx.svg';
+import campusConnect from '../assets/projects/campusconnect.svg';
+import portfolio from '../assets/projects/portfolio.webp';
 
 
 const myProjects = [
   {
-    title: "Google Form Auto Filler By Extension",
-    description: "A sophisticated Chrome extension engineered to streamline form-filling workflows through intelligent automation. Leverages persistent storage mechanisms to maintain user profile data, enabling rapid completion of repetitive form submissions.",
-    link: "https://github.com/Abilash-Kumar18/Google-Form_Filler.git",
-    image: googleFormFiller
+    title: "V-DOCKX — Autonomous Robot Docking",
+    description: "Vision-guided robot docking, collision evasion & telemetry platform. ArUco 6-DoF pose estimation with sub-centimeter PID visual servoing, MobileNet-SSD obstacle AI, GPS tracking and live smartphone video streaming — served by a FastAPI backend behind a Next.js mission-control dashboard, fully Dockerized with a 27-test suite.",
+    link: "https://github.com/Abilash-Kumar18/V-DOCKX",
+    image: vdockx,
+    tech: ["Python", "FastAPI", "Next.js", "OpenCV", "Docker"]
   },
   {
-    title: "RAG Chatbot For Semester Material Helper Using N8N",
-    description: "An advanced conversational AI system powered by Retrieval-Augmented Generation (RAG) architecture, integrated with n8n workflow automation platform. Delivers intelligent document retrieval and contextual question-answering capabilities.",
-    link: "https://abilash-kumar18.github.io/n8n_chatbot/",
-    image: n8nChatbot
+    title: "CampusConnect — College Event Portal",
+    description: "Full-stack event lifecycle platform (team hackathon · RWW-8). Scrollable event discovery, registrations with real-time capacity tracking, auto-issued digital tickets, cryptographically signed hall-QR attendance and organiser analytics — powered by React, TypeScript and Supabase with role-based access control enforced at the database level.",
+    link: "https://github.com/Abilash-Kumar18/College-Event-Management",
+    demo: "https://college-event-management-ashy.vercel.app",
+    image: campusConnect,
+    tech: ["React", "TypeScript", "Supabase", "Tailwind CSS"]
   },
   {
-    title: "Krishi Sakhi Website For Farmers Deployed On Streamlit Cloud",
-    description: "A comprehensive agricultural technology platform designed to empower farming communities with data-driven insights. Delivers real-time weather analytics, crop management recommendations, and agricultural best practices.",
-    link: "https://github.com/Abilash-Kumar18/Krishi-Sakhi.git",
-    image: krishiSakhi
+    title: "Google Form Auto-Filler (Chrome Extension)",
+    description: "A free Chrome extension that autofills Google Forms from a saved profile — no manual field mapping required. Save your details once and breeze through repetitive forms, ideal for students and professionals who fill forms frequently.",
+    link: "https://github.com/Abilash-Kumar18/Google-Form_Filler",
+    image: googleFormFiller,
+    tech: ["JavaScript", "Chrome APIs", "Storage API"]
+  },
+  {
+    title: "RAG Study-Material Chatbot (n8n)",
+    description: "A Retrieval-Augmented Generation chatbot that answers questions from semester study materials. Documents are indexed and retrieved through n8n workflows, delivering contextual answers grounded in the actual course content — deployed as a live web app.",
+    link: "https://github.com/Abilash-Kumar18/n8n_chatbot",
+    demo: "https://abilash-kumar18.github.io/n8n_chatbot/",
+    image: n8nChatbot,
+    tech: ["n8n", "RAG", "LLMs"]
+  },
+  {
+    title: "Krishi Sakhi — AI Assistant for Farmers",
+    description: "An AI-based farming assistant (deployed on Streamlit Cloud) that turns complicated agricultural data into simple, actionable guidance — giving farmers accessible, data-driven support for crops and farm decisions.",
+    link: "https://github.com/Abilash-Kumar18/Krishi-sakhi-Innovix",
+    image: krishiSakhi,
+    tech: ["Python", "Streamlit", "AI"]
+  },
+  {
+    title: "3D Interactive Portfolio",
+    description: "This website. An immersive React Three Fiber space journey — scroll-driven camera flight through the cosmos, warp-transition navigation, a fully procedural black hole, and hardware-conscious 3D assets so it stays fast even on low-end devices.",
+    link: "https://github.com/Abilash-Kumar18/my-portfolio",
+    demo: "https://my-portfolio-theta-plum-8uceafob31.vercel.app",
+    image: portfolio,
+    tech: ["React", "Three.js", "Vite"]
   }
 ];
 
@@ -76,6 +106,8 @@ function Projects() {
                 title={project.title}
                 description={project.description}
                 link={project.link}
+                demo={project.demo}
+                tech={project.tech}
                 image={project.image}
                 onImageClick={handleImageClick}
               />

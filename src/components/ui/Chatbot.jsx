@@ -6,7 +6,10 @@ import { createChat } from '@n8n/chat';
 
 function Chatbot() {
   useEffect(() => {
-    createChat({
+    // createChat returns a Vue app instance — we must unmount it on cleanup,
+    // otherwise React StrictMode's double-invoke stacks a second Vue app on
+    // the same #n8n-chat container ("already an app instance mounted").
+    const app = createChat({
       webhookUrl: 'https://ak365.app.n8n.cloud/webhook/823e83c0-17d3-44eb-bbff-55eb1e3d1be6/chat',
       webhookConfig: {
         method: 'POST',
@@ -126,6 +129,10 @@ function Chatbot() {
       clearTimeout(t2);
       const existingStyle = document.getElementById('n8n-chat-custom-styles');
       if (existingStyle) existingStyle.remove();
+      // Unmount the Vue app so it can mount cleanly again (StrictMode safe)
+      if (app && typeof app.unmount === 'function') {
+        app.unmount();
+      }
     };
   }, []);
 

@@ -1,6 +1,6 @@
 // src/components/SpaceScene.jsx
 
-import React, { Suspense, useRef, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Stars, useGLTF, Html, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
@@ -13,11 +13,14 @@ import { Satellite } from './Satellite';
 import { Station } from './Station';
 import { Planet } from './Planet';
 
-import BackgroundUFO from './BackgroundUFO';
 import Profile from '../ui/Profile';
-import PixelJourney from './PixelJourney';
 import JourneyOverlay from '../ui/JourneyOverlay';
-import SkillAsteroids from './SkillAsteroids';
+
+// Heavy assets are lazy-loaded so they stream in AFTER the scene paints,
+// instead of blocking first paint. Each gets its own Suspense boundary.
+const BackgroundUFO = lazy(() => import('./BackgroundUFO'));
+const PixelJourney = lazy(() => import('./PixelJourney'));
+const SkillAsteroids = lazy(() => import('./SkillAsteroids'));
 
 // --- 1. MOBILE RESPONSIVE LOGIC ---
 // Standard Desktop Views
@@ -152,7 +155,12 @@ function SpaceScene({ currentView, setView }) {
         <pointLight position={[10, 10, 10]} intensity={3} color="#f5c542" />
         <Stars radius={300} count={isMobile ? 500 : 800} fade speed={1} />
         <directionalLight position={[0, 10, 0]} intensity={1} />
-        <Environment preset="city" />
+        {/* The preset HDR streams from a CDN. Its own Suspense keeps it from
+            blocking first paint — the scene renders with basic lights first,
+            and the reflections pop in once the HDR arrives. */}
+        <Suspense fallback={null}>
+          <Environment preset="city" />
+        </Suspense>
         {/*<EffectComposer>
           
           
@@ -176,6 +184,7 @@ function SpaceScene({ currentView, setView }) {
             {currentView === 'home' && <JourneyOverlay />}
           </Scroll>
 
+          {/* FAST, core scene — mounts immediately */}
           <Suspense fallback={null}>
             {/* Click Blackhole to go Home */}
             <group onClick={() => handleNavClick('home')} rotation={[0.2, 0, 0]}>
@@ -184,10 +193,6 @@ function SpaceScene({ currentView, setView }) {
 
             {/* Pass Warp State for Shake & Sound */}
             <Spaceship isWarping={isWarping} />
-            
-            <BackgroundUFO />
-            <PixelJourney />
-            <SkillAsteroids />
 
             {/* NAVIGATION MODELS */}
             <NavModel
@@ -223,6 +228,20 @@ function SpaceScene({ currentView, setView }) {
             {/* Pass 'isMobile' so camera knows where to look */}
             <CameraController currentView={currentView} isMobile={isMobile} />
             <Preload all />
+          </Suspense>
+
+          {/* Heavy models — each streams in independently, so a slow model
+              can never hold up the rest of the scene again. */}
+          <Suspense fallback={null}>
+            <BackgroundUFO />
+          </Suspense>
+
+          <Suspense fallback={null}>
+            <PixelJourney />
+          </Suspense>
+
+          <Suspense fallback={null}>
+            <SkillAsteroids />
           </Suspense>
         </ScrollControls>
       </Canvas>

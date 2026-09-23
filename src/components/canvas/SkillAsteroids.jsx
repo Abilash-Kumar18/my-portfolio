@@ -89,8 +89,8 @@ function AsteroidNode({ skill, scene }) {
 }
 
 function SkillAsteroids() {
-  // Load the single model once
-  const { scene } = useGLTF('/models/asteroid.glb', true, true, extendGLTFLoader);
+  // Load the single (DRACO-compressed) model once
+  const { scene } = useGLTF('/models/asteroid-optimized.glb', true, true, extendGLTFLoader);
 
   return (
     <group>
@@ -101,6 +101,6 @@ function SkillAsteroids() {
   );
 }
 
-useGLTF.preload('/models/asteroid.glb', true, true, extendGLTFLoader);
+useGLTF.preload('/models/asteroid-optimized.glb', true, true, extendGLTFLoader);
 
 export default SkillAsteroids;

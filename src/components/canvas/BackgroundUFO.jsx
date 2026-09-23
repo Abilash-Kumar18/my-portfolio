@@ -5,7 +5,7 @@ import { useGLTF, useScroll } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 function BackgroundUFO() {
-  const { scene } = useGLTF('/models/ufo.glb'); // Reusing your UFO model
+  const { scene } = useGLTF('/models/ufo-optimized.glb'); // DRACO-compressed UFO
   const ref = useRef();
   const scroll = useScroll();
 

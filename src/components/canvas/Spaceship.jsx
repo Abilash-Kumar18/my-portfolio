@@ -4,18 +4,21 @@
 // inside the view frustum. This eliminates the disappearing/flickering ship
 // during movement (previously hacked with a one-time `frustumCulled` patch in
 // useFrame). Motion is fully damped so changes are smooth and never snap.
+//
+// Engine audio is loaded manually (THREE.AudioLoader) instead of drei's
+// <PositionalAudio>, because drei's version throws an UNCAUGHT error when the
+// audio file is missing or corrupt — which previously crashed the whole Canvas
+// and black-screened the site. Here a failed load silently disables the sound.
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { PositionalAudio, useScroll } from '@react-three/drei';
+import { useScroll } from '@react-three/drei';
 import { SpaceshipModel } from './SpaceshipModel.jsx';
 import * as THREE from 'three';
 
 function Spaceship({ isWarping }) {
   const shipRef = useRef();
   const engineAudioRef = useRef();
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const [audioError, setAudioError] = useState(false);
   const lastScroll = useRef(0);
 
   // Smoothed motion state – damping removes snap/jitter during movement
@@ -26,11 +29,51 @@ function Spaceship({ isWarping }) {
   const camera = useThree((state) => state.camera);
   const scroll = useScroll();
 
+  // --- Engine audio: load in the background, never crash on failure ---
+  useEffect(() => {
+    let cancelled = false;
+
+    // The listener must live on the camera because the ship is camera-parented
+    const listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    const audio = new THREE.PositionalAudio(listener);
+    const loader = new THREE.AudioLoader();
+
+    loader.load(
+      '/sounds/engine-loop.mp3',
+      (buffer) => {
+        if (cancelled) return;
+        audio.setBuffer(buffer);
+        audio.setLoop(true);
+        audio.setVolume(0.5);
+        audio.setRefDistance(6);
+        engineAudioRef.current = audio;
+      },
+      undefined,
+      () => {
+        // File missing or un-decodable → disable engine audio quietly.
+        // The site must keep running even with no sound file present.
+        if (!cancelled) {
+          audio.disconnect();
+        }
+      }
+    );
+
+    return () => {
+      cancelled = true;
+      if (audio.isPlaying) audio.stop();
+      audio.disconnect();
+      camera.remove(listener);
+    };
+  }, [camera]);
+
+  // Browsers block audio before the first user interaction, so start on click
   useEffect(() => {
     const startAudio = () => {
-      setHasInteracted(true);
-      if (engineAudioRef.current && !engineAudioRef.current.isPlaying) {
-        engineAudioRef.current.play();
+      const audio = engineAudioRef.current;
+      if (audio && !audio.isPlaying) {
+        audio.play();
       }
     };
     window.addEventListener('click', startAudio);
@@ -75,12 +118,13 @@ function Spaceship({ isWarping }) {
       -m.mouseX * 0.3
     );
 
-    // --- Engine audio pitch ---
-    if (engineAudioRef.current) {
+    // --- Engine audio pitch (only if a buffer successfully loaded) ---
+    const audio = engineAudioRef.current;
+    if (audio) {
       const isMovingFast = Math.abs(scrollChange) > 0.0001;
       const targetRate = isWarping || isMovingFast ? 1.2 : 1.0;
-      engineAudioRef.current.setPlaybackRate(
-        THREE.MathUtils.lerp(engineAudioRef.current.playbackRate, targetRate, 0.1)
+      audio.setPlaybackRate(
+        THREE.MathUtils.lerp(audio.playbackRate, targetRate, 0.1)
       );
     }
   });
@@ -98,16 +142,6 @@ function Spaceship({ isWarping }) {
           intensity={isWarping ? 6 : 2.5}
           distance={4}
         />
-        {hasInteracted && !audioError && (
-          <PositionalAudio
-            ref={engineAudioRef}
-            url="/sounds/engine-loop.mp3"
-            distance={10}
-            loop
-            autoplay
-            onError={() => setAudioError(true)}
-          />
-        )}
       </group>
     </primitive>
   );

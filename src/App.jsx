@@ -7,6 +7,7 @@ import { Loader } from '@react-three/drei';
 
 import SpaceScene from './components/canvas/SpaceScene.jsx';
 import Chatbot from './components/ui/Chatbot.jsx';
+import SceneErrorBoundary from './components/SceneErrorBoundary.jsx';
 
 // OPTIMIZATION: Lazy load these pages so the 3D scene loads faster
 const About = lazy(() => import('./pages/About.jsx'));
@@ -27,7 +28,9 @@ function App() {
 
   return (
     <>
-      <SpaceScene currentView={currentView} setView={setCurrentView} />
+      <SceneErrorBoundary>
+        <SpaceScene currentView={currentView} setView={setCurrentView} />
+      </SceneErrorBoundary>
 
       <div style={{ 
         position: 'absolute', top: 0, left: 0, width: '100%', minHeight: '100vh',
