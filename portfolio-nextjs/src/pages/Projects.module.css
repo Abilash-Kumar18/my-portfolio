@@ -1,0 +1,129 @@
+/* src/components/Projects.module.css */
+
+.projects {
+  width: 100%;
+  padding: 40px 20px;
+  padding-top: 80px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  /* Ensures no horizontal scrollbar */
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.2em;
+  color: #f5c542;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.carouselWrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+  /* Add a mask to fade edges (optional but looks cool) */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  width: max-content;
+  /* Animation speed adjusted for smoother flow */
+  animation: slideRightToLeft 50s linear infinite;
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+.container:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    /* Move exactly 25% (one set of projects) to loop seamlessly */
+    transform: translateX(-25%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    animation-duration: 40s;
+  }
+}
+
+/* --- GITHUB CALENDAR STYLES --- */
+.calendarSection {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.calendarTitle {
+  font-size: 1.8rem;
+  color: #f5c542;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+.calendarWrapper {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(245, 197, 66, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  overflow-x: auto;
+  /* Handle small screens */
+}
+
+.calendarSection {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.calendarTitle {
+  font-size: 1.8rem;
+  color: #f5c542;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+.calendarWrapper {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(245, 197, 66, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  display: flex;       /* Added to center internal items */
+  justify-content: center; /* Added to center internal items */
+  overflow-x: auto;    /* Crucial for mobile scrolling */
+}

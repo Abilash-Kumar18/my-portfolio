@@ -1,0 +1,239 @@
+/* src/pages/Contact.module.css */
+
+.contact {
+  width: 100%;
+  padding: 60px 20px;
+  padding-top: 120px;
+  text-align: center;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.heading {
+  font-size: 2.8em;
+  color: #f5c542;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 0 2px 10px rgba(97, 218, 251, 0.3);
+}
+
+.subtext {
+  font-size: 1.2em;
+  color: #c0c0c0;
+  margin-bottom: 50px;
+  max-width: 700px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.form {
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background: rgba(26, 26, 26, 0.7);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #f5c542;
+  font-size: 0.95em;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 2px solid #3e3e3e;
+  background-color: rgba(42, 42, 42, 0.8);
+  color: #ffffff;
+  font-size: 1em;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #666;
+  opacity: 0.7;
+}
+
+.formGroup input:hover,
+.formGroup textarea:hover {
+  border-color: #4a4a4a;
+  background-color: rgba(42, 42, 42, 0.9);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #f5c542;
+  /* Gold Border */
+  box-shadow: 0 0 10px rgba(245, 197, 66, 0.2);
+}
+
+.formGroup textarea {
+  min-height: 120px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+/* Submit Button Styling */
+.submitBtn {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #000000;
+  /* Black text */
+  /* Fire Gradient */
+  background: linear-gradient(135deg, #FFD700 0%, #E07A30 100%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(224, 122, 48, 0.3);
+}
+
+.submitBtn:hover {
+  background: linear-gradient(135deg, #E07A30 0%, #FFD700 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.submitBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- SOCIAL LINKS STYLING (NEW) --- */
+
+.socialContainer {
+  margin-top: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 40px;
+
+  /* FIX VISIBILITY: Ensure icons are on top */
+  position: relative;
+  z-index: 100;
+}
+
+.connectText {
+  color: #c0c0c0;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.iconsWrapper {
+  display: flex;
+  gap: 30px;
+  /* Ensure icons are clickable */
+  pointer-events: auto;
+
+  /* Added Background for Visibility */
+  background: rgba(26, 26, 26, 0.7);
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.socialIcon {
+  font-size: 3rem;
+  /* Large, clickable size */
+  color: #f5c542;
+  /* Gold */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Subtle initial glow */
+  filter: drop-shadow(0 0 5px rgba(245, 197, 66, 0.3));
+  text-decoration: none;
+}
+
+.socialIcon:hover {
+  color: #E07A30;
+  /* Deep Orange on Hover */
+  transform: translateY(-5px) scale(1.1);
+  /* Intense Fire Glow on Hover */
+  filter: drop-shadow(0 0 20px rgba(224, 122, 48, 0.8));
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contact {
+    padding: 40px 15px;
+  }
+
+  .heading {
+    font-size: 2.2em;
+  }
+
+  .subtext {
+    font-size: 1em;
+    margin-bottom: 30px;
+  }
+
+  .form {
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  .formGroup input,
+  .formGroup textarea {
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.8em;
+  }
+
+  .form {
+    padding: 25px 15px;
+  }
+
+  .submitBtn {
+    padding: 14px 24px;
+    font-size: 1em;
+  }
+}

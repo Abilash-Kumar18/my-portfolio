@@ -1,0 +1,8 @@
+/* src/components/SceneErrorBoundary.module.css */
+
+.fallbackBackground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 38%, #131e33 0%, #070b16 55%, #000000 100%);
+}

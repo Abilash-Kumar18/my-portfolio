@@ -1,0 +1,92 @@
+/* src/app/globals.css */
+/* Merged from src/index.css + src/App.css */
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* FORCE DARK MODE */
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #000000; /* Always Black */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 320px;
+  background-color: #000000;
+  overflow-x: hidden; /* Prevents horizontal scrollbar */
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* RESPONSIVE TYPOGRAPHY */
+h1 {
+  /* Use clamp to make fonts scale smoothly between mobile (2rem) and desktop (3.2rem) */
+  font-size: clamp(2rem, 5vw, 3.2em);
+  line-height: 1.1;
+  text-align: center;
+}
+
+/* Fix for buttons */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: white;
+}
+button:hover {
+  border-color: #f5c542; /* Gold Hover */
+}
+
+/* Main app area grows to fill remaining space */
+.main-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Allow clicks to pass through the main layout wrapper */
+.main-content,
+.app-container,
+main {
+  pointer-events: none;
+  position: relative;
+  z-index: 10;
+}
+
+/* Re-enable clicks for interactive elements */
+a,
+button,
+input,
+textarea,
+.card,
+.orbitContainer,
+.n8n-chat-widget,
+.nav,
+.section {
+  pointer-events: auto;
+}
