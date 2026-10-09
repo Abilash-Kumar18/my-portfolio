@@ -2,14 +2,14 @@
 
 <div align="center">
 
-![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Next](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-7.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-0.181-000000?style=for-the-badge&logo=three.js&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![n8n](https://img.shields.io/badge/n8n-Workflow_AI-FF6B6B?style=for-the-badge&logo=n8n&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-An immersive, responsive, 3D space-themed personal portfolio website built for **Abilash Kumar R** (Full Stack Developer & Workflow Architect). Powered by **React 19**, **Three.js / React Three Fiber**, **Framer Motion**, and **n8n AI Workflows**.
+An immersive, responsive, 3D space-themed personal portfolio website built for **Abilash Kumar R** (Full Stack Developer & Workflow Architect). Powered by **React 19**, **Three.js / Next Three Fiber**, **Framer Motion**, and **n8n AI Workflows**.
 
 [🌐 Live Demo](https://my-portfolio-theta-plum-8uceafob31.vercel.app/) • [📫 Contact Me](#-contact--connect)
 
