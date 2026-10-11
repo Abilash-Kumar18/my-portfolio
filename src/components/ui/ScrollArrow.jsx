@@ -1,4 +1,6 @@
-// src/components/ScrollArrow.jsx
+'use client';
+// src/components/ui/ScrollArrow.jsx
+
 import React from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { motion } from 'framer-motion';

@@ -1,8 +1,9 @@
-// src/components/GithubContributions.jsx
+'use client';
+// src/components/ui/GithubContributions.jsx
 
 import React from "react";
 import { GitHubCalendar } from "react-github-calendar";
-import styles from '../../pages/Projects.module.css';
+import styles from '../../views/Projects.module.css';
 
 function GithubContributions() {
   return (

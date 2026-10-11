@@ -1,4 +1,5 @@
-// src/components/ResumeActions.jsx
+'use client';
+// src/components/ui/ResumeActions.jsx
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';

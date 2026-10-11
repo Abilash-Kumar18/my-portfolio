@@ -1,6 +1,7 @@
-// src/components/ImageModal.jsx
+'use client';
+// src/components/ui/ImageModal.jsx
 
-import React, { useEffect } from 'react'; // Import useEffect
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ImageModal.module.css';
@@ -21,7 +22,13 @@ function ImageModal({ image, title, isOpen, onClose }) {
     };
   }, [isOpen]);
 
+  // Resolve image src — handles both Next.js imported image objects and plain strings
+  const imageSrc = image && typeof image === 'object' ? image.src : image;
+
   // Use React Portal to break out of the carousel
+  // In Next.js, document is only available client-side, so we guard it
+  if (typeof document === 'undefined') return null;
+
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isOpen && (
@@ -44,9 +51,9 @@ function ImageModal({ image, title, isOpen, onClose }) {
             {/* Close Button */}
             <button className={styles.closeButton} onClick={onClose}>&times;</button>
             
-            {image && (
+            {imageSrc && (
               <img 
-                src={image} 
+                src={imageSrc} 
                 alt={title} 
                 className={styles.fullImage} 
               />

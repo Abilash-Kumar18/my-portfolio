@@ -1,5 +1,5 @@
 'use client';
-// src/pages/About.jsx
+// src/views/About.jsx
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

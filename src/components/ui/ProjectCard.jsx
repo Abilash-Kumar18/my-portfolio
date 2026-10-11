@@ -1,4 +1,5 @@
-// src/components/ProjectCard.jsx
+'use client';
+// src/components/ui/ProjectCard.jsx
 
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
@@ -70,7 +71,7 @@ function ProjectCard({ title, description, link, demo, tech, image, onImageClick
           <div className={styles.imageContainer} onClick={handleImageClick}>
             {!imageLoaded && <div className={styles.imagePlaceholder}>Loading...</div>}
             <img 
-              src={image} 
+              src={typeof image === 'object' ? image.src : image}
               alt={title}
               className={styles.projectImage}
               onLoad={() => setImageLoaded(true)}

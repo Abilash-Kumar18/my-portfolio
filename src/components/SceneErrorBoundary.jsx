@@ -1,3 +1,4 @@
+'use client';
 // src/components/SceneErrorBoundary.jsx
 //
 // Safety net around the 3D scene. If anything inside the Canvas throws

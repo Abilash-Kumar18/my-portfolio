@@ -1,30 +1,47 @@
-# Logs
-logs
-*.log
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+.pnpm-debug.log*
 
-node_modules
-dist
-dist-ssr
-# Environment variables and secrets
+# env files
 .env
 .env.*
 !.env.example
+
+# credentials
 *credentials*.txt
 *secret*
-*.pem
 *.key
 *.local
 
-# Editor directories and files
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# editor
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj

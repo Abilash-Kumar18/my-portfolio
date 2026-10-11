@@ -1,4 +1,5 @@
-// src/components/BackgroundUFO.jsx
+'use client';
+// src/components/canvas/BackgroundUFO.jsx
 
 import React, { useRef } from 'react';
 import { useGLTF, useScroll } from '@react-three/drei';

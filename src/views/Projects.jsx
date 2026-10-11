@@ -1,5 +1,5 @@
 'use client';
-// src/pages/Projects.jsx
+// src/views/Projects.jsx
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';

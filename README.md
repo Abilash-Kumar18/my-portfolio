@@ -2,14 +2,14 @@
 
 <div align="center">
 
+![Next.js](https://img.shields.io/badge/Next.js-16.4-000000?style=for-the-badge&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-7.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-0.181-000000?style=for-the-badge&logo=three.js&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![n8n](https://img.shields.io/badge/n8n-Workflow_AI-FF6B6B?style=for-the-badge&logo=n8n&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-An immersive, responsive, 3D space-themed personal portfolio website built for **Abilash Kumar R** (Full Stack Developer & Workflow Architect). Powered by **React 19**, **Three.js / React Three Fiber**, **Framer Motion**, and **n8n AI Workflows**.
+An immersive, responsive, 3D space-themed personal portfolio website built for **Abilash Kumar R** (Full Stack Developer & Workflow Architect). Powered by **Next.js 16 (App Router)**, **React 19**, **Three.js / React Three Fiber**, **Framer Motion**, and **n8n AI Workflows**.
 
 [🌐 Live Demo](https://my-portfolio-theta-plum-8uceafob31.vercel.app/) • [📫 Contact Me](#-contact--connect)
 
@@ -26,6 +26,7 @@ An immersive, responsive, 3D space-themed personal portfolio website built for *
 - **🐙 Dynamic GitHub Contributions**: Real-time GitHub contribution graph visualization.
 - **📜 Personal Journey & Interactive Overlays**: Scroll-driven journey milestones and downloadable resume actions.
 - **📱 Responsive & Adaptive Design**: Automatic mobile/desktop layout adaptation and adaptive DPR canvas optimization.
+- **⚙️ Next.js App Router**: Server-rendered shell with metadata/SEO, while the 3D experience runs as a client component.
 
 ---
 
@@ -34,19 +35,24 @@ An immersive, responsive, 3D space-themed personal portfolio website built for *
 ```
 my-portfolio/
 ├── public/
+│   ├── images/                # Personal & Educational Images (used by About page)
+│   ├── projects/              # Project Portfolio Thumbnails
 │   ├── models/                # 3D GLTF/GLB Compressed Models (blackhole, station, satellite, ufo, etc.)
-│   ├── resume/                # PDF Resume Documents
+│   ├── resume/                # PDF Resume Document
 │   ├── sitemap.xml            # SEO Sitemap
-│   └── vite.svg               # Site Favicon
+│   └── *.svg                  # Static SVGs
 ├── src/
-│   ├── assets/                # Static Image & Icon Assets
-│   │   ├── icons/             # Vector Graphics & Icons
-│   │   ├── images/            # Personal & Educational WebP/JPG Images
-│   │   └── projects/          # Project Portfolio Thumbnails
+│   ├── app/                   # Next.js App Router
+│   │   ├── layout.js          # Root layout (metadata, fonts, JSON-LD, viewport)
+│   │   ├── page.js            # Home route — hosts the 3D scene + view overlays ('use client')
+│   │   ├── globals.css        # Global typography & base styles
+│   │   └── favicon.ico
+│   ├── assets/                # Source image assets
 │   ├── components/            # Reusable Application Components
 │   │   ├── canvas/            # Three.js / React Three Fiber 3D Canvas Components
 │   │   │   ├── BackgroundUFO.jsx
 │   │   │   ├── Blackhole.jsx
+│   │   │   ├── PixelJourney.jsx
 │   │   │   ├── Pixel_planet_1.jsx
 │   │   │   ├── Planet.jsx
 │   │   │   ├── Satellite.jsx
@@ -56,31 +62,27 @@ my-portfolio/
 │   │   │   ├── SpaceshipModel.jsx
 │   │   │   └── Station.jsx
 │   │   └── ui/                # 2D UI Widgets, Cards, Modals & Overlays
-│   │       ├── Chatbot.css & Chatbot.jsx
+│   │       ├── Chatbot.jsx
 │   │       ├── GithubContributions.jsx
 │   │       ├── ImageModal.jsx & ImageModal.module.css
 │   │       ├── JourneyOverlay.jsx
-│   │       ├── PixelJourney.jsx
 │   │       ├── Profile.jsx & Profile.module.css
 │   │       ├── ProjectCard.jsx & ProjectCard.module.css
 │   │       ├── ResumeActions.jsx
 │   │       ├── ScrollArrow.jsx
 │   │       └── TypingAnimation.jsx & TypingAnimation.module.css
-│   ├── pages/                 # Top-Level Page Views
+│   ├── pages/                 # Top-Level View Components (rendered inside the 3D overlay)
 │   │   ├── About.jsx & About.module.css
 │   │   ├── Contact.jsx & Contact.module.css
-│   │   ├── Home.jsx
 │   │   └── Projects.jsx & Projects.module.css
-│   ├── utils/                 # Utility Helpers & GLTF Fix Loaders
-│   │   └── gltfFix.js
-│   ├── App.css & App.jsx      # Main Application Container & Route Overlay Manager
-│   ├── index.css              # Global Typography & Base Styles
-│   └── main.jsx               # Application Entry Point
+│   └── utils/                 # Utility Helpers & GLTF Fix Loaders
+│       └── gltfFix.js
 ├── .env.example               # Environment Variables Template
-├── eslint.config.js           # ESLint Configuration
+├── eslint.config.mjs          # ESLint (eslint-config-next)
+├── jsconfig.json              # `@/*` path alias
+├── next.config.mjs            # Next.js configuration
 ├── package.json               # Dependencies & Scripts
-├── README.md                  # Project Documentation
-└── vite.config.js             # Vite Build & Manual Chunking Config
+└── README.md                  # Project Documentation
 ```
 
 ---
@@ -89,12 +91,12 @@ my-portfolio/
 
 | Category | Technologies / Libraries |
 | :--- | :--- |
-| **Core Framework** | React 19, Vite 7 |
-| **3D & Canvas** | Three.js, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing` |
-| **UI & Animations** | Framer Motion, React Icons, React Typed, React Bootstrap |
+| **Core Framework** | Next.js 16 (App Router), React 19 |
+| **3D & Canvas** | Three.js, `@react-three/fiber`, `@react-three/drei` |
+| **UI & Animations** | Framer Motion, React Icons, React Typed |
 | **AI & Workflows** | n8n RAG Chatbot Integration (`@n8n/chat`) |
 | **Form Handling** | EmailJS (`@emailjs/browser`) |
-| **SEO & Build** | `vite-plugin-sitemap`, Rollup Manual Chunks Optimization |
+| **SEO** | Next.js Metadata API, JSON-LD structured data, `public/sitemap.xml` |
 
 ---
 
@@ -102,7 +104,7 @@ my-portfolio/
 
 ### Prerequisites
 
-Ensure you have **Node.js** (v18 or higher) installed on your system.
+Ensure you have **Node.js** (v18.18 or higher) installed on your system.
 
 ### 1. Clone the Repository
 
@@ -119,12 +121,12 @@ npm install
 
 ### 3. Setup Environment Variables
 
-Create a `.env` file in the root directory based on `.env.example`:
+Create a `.env.local` file in the root directory based on `.env.example`:
 
 ```env
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
 ### 4. Run Development Server
@@ -133,18 +135,13 @@ VITE_EMAILJS_PUBLIC_KEY=your_public_key
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser to view the portfolio.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the portfolio.
 
 ### 5. Build for Production
 
 ```bash
 npm run build
-```
-
-To preview the production build locally:
-
-```bash
-npm run preview
+npm run start
 ```
 
 ---

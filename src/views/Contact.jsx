@@ -1,5 +1,5 @@
 'use client';
-// src/pages/Contact.jsx
+// src/views/Contact.jsx
 
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
@@ -69,7 +69,7 @@ function Contact() {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           I welcome opportunities for collaboration, professional inquiries, and meaningful connections.
-          Let's discuss how we can work together to create innovative solutions.
+          Let&apos;s discuss how we can work together to create innovative solutions.
         </motion.p>
 
         <motion.form

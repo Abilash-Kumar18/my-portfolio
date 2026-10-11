@@ -1,3 +1,4 @@
+'use client';
 /*
 Procedural Blackhole — replaced the old Sketchfab GLB (15+ animated meshes,
 several simultaneous skeletons, ~750KB download) with a lightweight, fully

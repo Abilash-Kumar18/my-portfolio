@@ -1,8 +1,8 @@
-// src/components/SpaceScene.jsx
+'use client';
+// src/components/canvas/SpaceScene.jsx
 
 import React, { Suspense, lazy, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Stars, useGLTF, Html, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -39,11 +39,7 @@ const MOBILE_VIEWS = {
   'contact': { pos: [0, -54, 12], lookAt: [0, -56, 0] }
 };
 
-// --- 2. WARP SPEED EFFECT (Lines) ---
-
-
-
-// --- 3. NAV MODEL WRAPPER ---
+// --- 2. NAV MODEL WRAPPER ---
 function NavModel({ position, children, label, onClick, color, scale = 1 }) {
   const ref = useRef();
   const [hovered, setHover] = useState(false);
@@ -83,7 +79,7 @@ function NavModel({ position, children, label, onClick, color, scale = 1 }) {
   );
 }
 
-// --- 4. CAMERA CONTROLLER ---
+// --- 3. CAMERA CONTROLLER ---
 // Temp vectors are preallocated once (not per-frame) to avoid GC churn,
 // which was causing micro-stutter while the scene scrolled/moved.
 const _targetPos = new THREE.Vector3();
@@ -120,7 +116,7 @@ function CameraController({ currentView, isMobile }) {
   return null;
 }
 
-// --- 5. MAIN SCENE ---
+// --- 4. MAIN SCENE ---
 function SpaceScene({ currentView, setView }) {
   const [isWarping, setIsWarping] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -143,12 +139,11 @@ function SpaceScene({ currentView, setView }) {
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: '#000000ff' }}>
-      <Canvas 
-        camera={{ position: [0, 0, 12], fov: 45 }} 
+      <Canvas
+        camera={{ position: [0, 0, 12], fov: 45 }}
         dpr={isMobile ? [1, 1.2] : [1, 1.5]}
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: true }}
       >
-        
         <AdaptiveDpr />
         <AdaptiveEvents />
 
@@ -161,18 +156,6 @@ function SpaceScene({ currentView, setView }) {
         <Suspense fallback={null}>
           <Environment preset="city" />
         </Suspense>
-        {/*<EffectComposer>
-          
-          
-          <Bloom 
-            luminanceThreshold={0.01} 
-            luminanceSmoothing={0.01} 
-            intensity={0.01} 
-            mipmapBlur
-          />
-        </EffectComposer>
-        */}
-        
 
         <ScrollControls pages={8} damping={0.3} enabled={currentView === 'home'}>
           <Scroll html style={{ width: '100%', height: '100%' }}>

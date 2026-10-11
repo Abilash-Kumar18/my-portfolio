@@ -1,4 +1,5 @@
-// src/components/TypingAnimation.jsx
+'use client';
+// src/components/ui/TypingAnimation.jsx
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -77,4 +78,3 @@ function TypingAnimation() {
 }
 
 export default TypingAnimation;
-

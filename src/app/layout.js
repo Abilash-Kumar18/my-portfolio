@@ -2,13 +2,13 @@
 import './globals.css';
 
 export const metadata = {
+  metadataBase: new URL('https://my-portfolio-theta-plum-8uceafob31.vercel.app'),
   title: 'Abilash Kumar R | 3D Developer Portfolio',
   description:
     'Portfolio of Abilash Kumar R - Computer Science Student, Full Stack Developer, Generative AI & Workflow Automation Architect.',
   keywords:
     'Abilash Kumar, Portfolio, Full Stack Developer, React, Three.js, Generative AI, n8n, Python, Java',
   authors: [{ name: 'Abilash Kumar R' }],
-  themeColor: '#000000',
   openGraph: {
     type: 'website',
     title: 'Abilash Kumar R | Portfolio',
@@ -25,6 +25,12 @@ export const metadata = {
   verification: {
     google: '08V1akLFaXVb-Y-4ze-bCcvweCdWk2c3fcF9WSmzVm0',
   },
+};
+
+export const viewport = {
+  themeColor: '#000000',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {

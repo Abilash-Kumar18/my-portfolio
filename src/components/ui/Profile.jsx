@@ -1,4 +1,5 @@
-// src/components/Profile.jsx
+'use client';
+// src/components/ui/Profile.jsx
 
 import React from 'react';
 import { motion } from 'framer-motion';

@@ -1,4 +1,5 @@
-// src/components/Spaceship.jsx
+'use client';
+// src/components/canvas/Spaceship.jsx
 //
 // The ship is rendered as a child of the *camera object*, so it is always
 // inside the view frustum. This eliminates the disappearing/flickering ship

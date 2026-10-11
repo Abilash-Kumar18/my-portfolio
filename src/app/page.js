@@ -11,9 +11,9 @@ import Chatbot from '../components/ui/Chatbot';
 import SceneErrorBoundary from '../components/SceneErrorBoundary';
 
 // Lazy load page sections so the 3D scene loads faster
-const About = lazy(() => import('../pages/About'));
-const Projects = lazy(() => import('../pages/Projects'));
-const Contact = lazy(() => import('../pages/Contact'));
+const About = lazy(() => import('../views/About'));
+const Projects = lazy(() => import('../views/Projects'));
+const Contact = lazy(() => import('../views/Contact'));
 
 export default function HomePage() {
   const [currentView, setCurrentView] = useState('home');

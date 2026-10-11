@@ -1,4 +1,5 @@
-// src/components/SkillAsteroids.jsx
+'use client';
+// src/components/canvas/SkillAsteroids.jsx
 
 import React, { useRef, useState, useMemo } from 'react';
 import { useGLTF, Float, Text, Billboard } from '@react-three/drei';

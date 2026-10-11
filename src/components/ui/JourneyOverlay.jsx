@@ -1,4 +1,5 @@
-// src/components/JourneyOverlay.jsx
+'use client';
+// src/components/ui/JourneyOverlay.jsx
 
 import React from 'react';
 

@@ -1,4 +1,5 @@
-// src/components/PixelJourney.jsx
+'use client';
+// src/components/canvas/PixelJourney.jsx
 
 import React, { useRef, useState, useMemo } from 'react';
 import { useGLTF, Float } from '@react-three/drei';
