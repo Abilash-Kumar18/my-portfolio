@@ -24,8 +24,10 @@
     "three": "^0.181.2"
   },
   "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "draco3d": "^1.5.7",
     "eslint": "^9",
     "eslint-config-next": "16.4.0"
   }

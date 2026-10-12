@@ -3,7 +3,7 @@
 
 import React, { Suspense, lazy, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, useGLTF, Html, ScrollControls, useScroll, Scroll, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
+import { Stars, useGLTF, Html, ScrollControls, useScroll, Scroll, Environment, Lightformer, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
 // --- IMPORTS ---
@@ -150,11 +150,18 @@ function SpaceScene({ currentView, setView }) {
         <pointLight position={[10, 10, 10]} intensity={3} color="#f5c542" />
         <Stars radius={300} count={isMobile ? 500 : 800} fade speed={1} />
         <directionalLight position={[0, 10, 0]} intensity={1} />
-        {/* The preset HDR streams from a CDN. Its own Suspense keeps it from
-            blocking first paint — the scene renders with basic lights first,
-            and the reflections pop in once the HDR arrives. */}
+        {/* Procedural environment — replaced the CDN "city" HDR (a ~1.5 MB
+            download plus a full PMREM pass on every material). These
+            Lightformer panels render once at low resolution and give the
+            golden studio reflections the materials need — zero network
+            fetch, tiny reflection cost. */}
         <Suspense fallback={null}>
-          <Environment preset="city" />
+          <Environment resolution={128} background={false} frames={1}>
+            <Lightformer form="rect" intensity={2} color="#ffffff" position={[0, 6, -10]} scale={[12, 8, 1]} />
+            <Lightformer form="rect" intensity={1.5} color="#f5c542" position={[-8, 2, -2]} rotation-y={Math.PI / 2} scale={[12, 1.5, 1]} />
+            <Lightformer form="rect" intensity={1} color="#00ff88" position={[8, 2, 0]} rotation-y={-Math.PI / 2} scale={[12, 1, 1]} />
+            <Lightformer form="rect" intensity={0.5} color="#0088ff" position={[0, -6, 2]} scale={[12, 8, 1]} />
+          </Environment>
         </Suspense>
 
         <ScrollControls pages={8} damping={0.3} enabled={currentView === 'home'}>
