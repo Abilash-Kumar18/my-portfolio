@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Loader } from '@react-three/drei';
 
 import SpaceScene from '../components/canvas/SpaceScene';
-import Chatbot from '../components/ui/Chatbot';
 import SceneErrorBoundary from '../components/SceneErrorBoundary';
 
 // Lazy load page sections so the 3D scene loads faster
@@ -91,8 +90,6 @@ export default function HomePage() {
         barStyles={{ background: '#f5c542', height: '100%' }}
         dataStyles={{ color: '#f5c542', fontSize: '14px', fontFamily: '"Courier New", monospace', fontWeight: 'bold' }}
       />
-
-      <Chatbot />
 
       <style>{`
         .back-btn {

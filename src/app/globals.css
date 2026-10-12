@@ -26,6 +26,8 @@ html, body {
   min-width: 320px;
   background-color: #000000;
   overflow-x: hidden; /* Prevents horizontal scrollbar */
+  overflow-anchor: none; /* Custom ScrollControls scroller must keep full control of its position */
+  overscroll-behavior: none; /* No scroll chaining / pull-to-refresh fighting the 3D scroller */
 }
 
 #root {
@@ -85,7 +87,6 @@ input,
 textarea,
 .card,
 .orbitContainer,
-.n8n-chat-widget,
 .nav,
 .section {
   pointer-events: auto;

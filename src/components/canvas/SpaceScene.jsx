@@ -164,7 +164,15 @@ function SpaceScene({ currentView, setView }) {
           </Environment>
         </Suspense>
 
-        <ScrollControls pages={8} damping={0.3} enabled={currentView === 'home'}>
+        <ScrollControls
+          pages={8}
+          damping={0.3}
+          enabled={currentView === 'home'}
+          /* Keep Chrome's scroll anchoring + overscroll chaining away from
+              the custom scroller — this is what lets the journey get "stuck"
+              at the bottom and refuse to scroll back up. */
+          style={{ overflowAnchor: 'none', overscrollBehavior: 'none' }}
+        >
           <Scroll html style={{ width: '100%', height: '100%' }}>
             {currentView === 'home' && (
               <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
