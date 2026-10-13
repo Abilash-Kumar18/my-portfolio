@@ -9,29 +9,29 @@ function JourneyOverlay() {
       {/* --- PIXEL JOURNEY STORY --- */}
       
       {/* STAGE 1: THE BEGINNING */}
-      <div style={{ position: 'absolute', top: '130vh', right: '15%', width: '350px', textAlign: 'right' }}>
+      <div style={{ position: 'absolute', top: '130vh', right: '15%', width: '370px', textAlign: 'right' }}>
         <h3 style={headingStyle}>THE BEGINNING</h3>
         <p style={descStyle}>
-          My journey started with a curiosity for how things work. 
-          I dove into <span style={highlight}>Python and Logic</span>, building my first scripts and solving problems.
+          Curiosity got me here. I taught myself <span style={highlight}>Python and C</span> — writing my first scripts,
+          debugging stubborn logic, and discovering the joy of making a machine finally understand me.
         </p>
       </div>
 
       {/* STAGE 2: FULL STACK EXPANSION */}
-      <div style={{ position: 'absolute', top: '230vh', left: '15%', width: '350px', textAlign: 'left' }}>
+      <div style={{ position: 'absolute', top: '230vh', left: '15%', width: '370px', textAlign: 'left' }}>
         <h3 style={headingStyle}>FULL STACK EXPANSION</h3>
         <p style={descStyle}>
-          I expanded my universe into Web Development, mastering 
-          <span style={highlight}> React Node.js</span>, and modern UI libraries.
+          Then I found the web and never looked back. I mastered <span style={highlight}>React, JavaScript and Node.js</span> —
+          building apps end to end, from <span style={highlight}>pixel to database</span>, turning raw ideas into living products.
         </p>
       </div>
 
       {/* STAGE 3: THE AI FRONTIER */}
-      <div style={{ position: 'absolute', top: '350vh', right: '15%', width: '350px', textAlign: 'right' }}>
+      <div style={{ position: 'absolute', top: '350vh', right: '15%', width: '370px', textAlign: 'right' }}>
         <h3 style={headingStyle}>THE AI FRONTIER</h3>
         <p style={descStyle}>
-          Now, I am exploring the event horizon of <span style={highlight}>Generative AI</span> 
-          and <span style={highlight}>Workflow Automation</span>.
+          Now I am crossing the event horizon: building <span style={highlight}>Generative AI</span> apps with RAG grounded in
+          real data, and <span style={highlight}>n8n automation</span> that handles the busywork while I focus on what is next.
         </p>
       </div>
 

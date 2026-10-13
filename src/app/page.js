@@ -4,10 +4,10 @@
 
 import React, { useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader } from '@react-three/drei';
 
 import SpaceScene from '../components/canvas/SpaceScene';
 import SceneErrorBoundary from '../components/SceneErrorBoundary';
+import LoadingScreen from '../components/ui/LoadingScreen';
 
 // Lazy load page sections so the 3D scene loads faster
 const About = lazy(() => import('../views/About'));
@@ -84,12 +84,7 @@ export default function HomePage() {
         </AnimatePresence>
       </div>
 
-      <Loader
-        containerStyles={{ background: '#000000', zIndex: 99999 }}
-        innerStyles={{ width: '300px', height: '10px', background: '#333' }}
-        barStyles={{ background: '#f5c542', height: '100%' }}
-        dataStyles={{ color: '#f5c542', fontSize: '14px', fontFamily: '"Courier New", monospace', fontWeight: 'bold' }}
-      />
+      <LoadingScreen />
 
       <style>{`
         .back-btn {

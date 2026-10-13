@@ -8,6 +8,8 @@ procedural version:
   • Thin hot "photon ring" just outside the event horizon
   • Solid black event-horizon sphere
   • Soft glowing halo sprite
+  • Disk tilted toward the camera (Interstellar-style) so the orbiting
+    matter reads as a real rotating black hole, not a flat face-on wheel
 
 Costs: 1 texture + 4 draw calls vs ~20. No GLB fetch, no animation mixer.
 */
@@ -75,21 +77,24 @@ function makeGlowTexture() {
 export function Blackhole(props) {
   const diskRef = useRef();
   const photonRef = useRef();
+  const tiltRef = useRef();
 
   const diskTexture = useMemo(() => makeDiskTexture(), []);
   const glowTexture = useMemo(() => makeGlowTexture(), []);
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
+    // Matter orbiting the hole: both rings spin about the tilted disk's own
+    // axis, so the streaks visibly swing around the dark sphere.
     if (diskRef.current) {
-      diskRef.current.rotation.z += delta * 0.22;
+      diskRef.current.rotation.z += delta * 0.25;
     }
     if (photonRef.current) {
-      photonRef.current.rotation.z += delta * 0.09;
+      photonRef.current.rotation.z += delta * 0.1;
     }
-    // Gentle precession so it never looks static
-    if (props.precession !== false && diskRef.current) {
-      diskRef.current.rotation.x = -0.12 + Math.sin(t * 0.15) * 0.05;
+    // Gentle tilt drift so the orientation never looks frozen
+    if (tiltRef.current && props.precession !== false) {
+      tiltRef.current.rotation.x = -1.15 + Math.sin(t * 0.12) * 0.06;
     }
   });
 
@@ -113,9 +118,12 @@ export function Blackhole(props) {
         <meshBasicMaterial color="#000000" />
       </mesh>
 
-      {/* ACCRETION DISK (tilted) */}
-      <group>
-        <mesh ref={diskRef} rotation={[-Math.PI / 2, 0, 0]}>
+      {/* ACCRETION DISK — tilted toward the camera (like a real black hole),
+          spinning matter orbits the dark sphere instead of a flat face-on
+          "coin". The ring is fixed at its tilt in the JSX; useFrame only
+          nudges it slightly so it can never collapse face-on again. */}
+      <group ref={tiltRef} rotation={[-1.15, 0, 0]}>
+        <mesh ref={diskRef}>
           <ringGeometry args={[0.7, 2.3, 96, 1]} />
           <meshBasicMaterial
             map={diskTexture}
@@ -129,7 +137,7 @@ export function Blackhole(props) {
         </mesh>
 
         {/* PHOTON RING — thin hot rim */}
-        <mesh ref={photonRef} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh ref={photonRef}>
           <ringGeometry args={[0.63, 0.7, 96, 1]} />
           <meshBasicMaterial
             color="#fff6e0"
