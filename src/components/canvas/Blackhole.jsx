@@ -8,8 +8,8 @@ procedural version:
   • Thin hot "photon ring" just outside the event horizon
   • Solid black event-horizon sphere
   • Soft glowing halo sprite
-  • Disk tilted toward the camera (Interstellar-style) so the orbiting
-    matter reads as a real rotating black hole, not a flat face-on wheel
+  • Disk tilted ~86° (nearly edge-on) so orbiting matter reads as a real
+    rotating black hole rather than a flat face-on wheel
 
 Costs: 1 texture + 4 draw calls vs ~20. No GLB fetch, no animation mixer.
 */
@@ -74,6 +74,10 @@ function makeGlowTexture() {
   return new THREE.CanvasTexture(canvas);
 }
 
+// Disk tilt: rotation.x goes from 0 (face-on to camera) to -PI/2 (edge-on).
+// ~86° keeps the ring nearly edge-on so almost no "top" of the disk shows.
+const TILT_BASE = -1.47;
+
 export function Blackhole(props) {
   const diskRef = useRef();
   const photonRef = useRef();
@@ -92,22 +96,25 @@ export function Blackhole(props) {
     if (photonRef.current) {
       photonRef.current.rotation.z += delta * 0.1;
     }
-    // Gentle tilt drift so the orientation never looks frozen
+    // Gentle tilt drift so the orientation never looks frozen.
+    // Base tilt sits near -1.5 (~86°, edge-on) and only wobbles a few
+    // degrees — it can never drift back toward face-on.
     if (tiltRef.current && props.precession !== false) {
-      tiltRef.current.rotation.x = -1.15 + Math.sin(t * 0.12) * 0.06;
+      tiltRef.current.rotation.x = TILT_BASE + Math.sin(t * 0.12) * 0.03;
     }
   });
 
   return (
     <group {...props} dispose={null}>
-      {/* HALO */}
+      {/* HALO — subtle; a sprite always faces the camera, so keep it faint
+          so it doesn't read as a bright "face-on top" of the disk */}
       <sprite scale={[7, 7, 1]}>
         <spriteMaterial
           map={glowTexture}
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={0.55}
+          opacity={0.4}
           toneMapped={false}
         />
       </sprite>
@@ -118,11 +125,10 @@ export function Blackhole(props) {
         <meshBasicMaterial color="#000000" />
       </mesh>
 
-      {/* ACCRETION DISK — tilted toward the camera (like a real black hole),
-          spinning matter orbits the dark sphere instead of a flat face-on
-          "coin". The ring is fixed at its tilt in the JSX; useFrame only
-          nudges it slightly so it can never collapse face-on again. */}
-      <group ref={tiltRef} rotation={[-1.15, 0, 0]}>
+      {/* ACCRETION DISK — tilted hard (~86°, nearly edge-on) like a real
+          black hole. The ring is fixed at its tilt in the JSX; useFrame
+          only wobbles it a few degrees so it never drifts toward face-on. */}
+      <group ref={tiltRef} rotation={[TILT_BASE, 0, 0]}>
         <mesh ref={diskRef}>
           <ringGeometry args={[0.7, 2.3, 96, 1]} />
           <meshBasicMaterial
