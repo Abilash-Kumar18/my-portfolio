@@ -9,7 +9,7 @@
 ![n8n](https://img.shields.io/badge/n8n-Workflow_AI-FF6B6B?style=for-the-badge&logo=n8n&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-An immersive, responsive, 3D space-themed personal portfolio website built for **Abilash Kumar R** (Full Stack Developer & Workflow Architect). Powered by **Next.js 16 (App Router)**, **React 19**, **Three.js / React Three Fiber**, **Framer Motion**, and **n8n AI Workflows**.
+An immersive, responsive, 3D space-themed personal portfolio website built for **Abilash Kumar R** (Full Stack Developer & Workflow Architect). Powered by **Next.js 16 (App Router)**, **React 19**, **Three.js / React Three Fiber**, **Framer Motion**.
 
 [🌐 Live Demo](https://my-portfolio-theta-plum-8uceafob31.vercel.app/) • [📫 Contact Me](#-contact--connect)
 
@@ -21,7 +21,6 @@ An immersive, responsive, 3D space-themed personal portfolio website built for *
 
 - **🪐 Immersive 3D Space Scene**: Interactive orbital canvas containing dynamic GLTF models (Blackhole, Space Station, Satellites, UFOs, and Asteroid belts).
 - **⚡ Camera Orbit & Warp Speed Navigation**: Smooth camera transitions with warp effects when navigating between *Orbit*, *About*, *Projects*, and *Contact* views.
-- **🤖 Integrated AI Chatbot**: Contextual AI assistance integrated via `@n8n/chat` and RAG workflows.
 - **☄️ Interactive Skill Asteroids**: Interactive 3D skill nodes floating in space with dynamic hover lighting and labels.
 - **🐙 Dynamic GitHub Contributions**: Real-time GitHub contribution graph visualization.
 - **📜 Personal Journey & Interactive Overlays**: Scroll-driven journey milestones and downloadable resume actions.
@@ -152,9 +151,3 @@ npm run start
 - **GitHub**: [@Abilash-Kumar18](https://github.com/Abilash-Kumar18)
 - **LinkedIn**: [Abilash Kumar](https://www.linkedin.com/in/abilashkumar-)
 - **Live Portfolio**: [my-portfolio.vercel.app](https://my-portfolio-theta-plum-8uceafob31.vercel.app/)
-
----
-
-<div align="center">
-  <sub>Built with ❤️ by Abilash Kumar R</sub>
-</div>
